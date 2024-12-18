@@ -4,13 +4,222 @@
   box-sizing: border-box;
 }
 
+html {
+  font-size: 62.5%;
+}
+body {
+  line-height: 1;
+  font-size: 1.6rem;
+  color: #fff;
+}
+nav {
+  background: linear-gradient(rgb(76, 156, 131), aquamarine);
+  height: 7rem;
+}
+.nav-box {
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  align-items: center;
+}
+.nav-item {
+  cursor: pointer;
+}
+.nav-left-box {
+  display: flex;
+  gap: 2rem;
+  margin-left: 2rem;
+  width: auto;
+}
+.search-form {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  min-width: 25%;
+  position: relative;
+}
+
+.search-input {
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+.search-input:focus {
+  outline: 2px solid #fff;
+}
+.search-icon {
+  display: flex;
+  height: 100%;
+  width: 8rem;
+  position: absolute;
+  align-items: center;
+  justify-content: center;
+  top: 50%;
+  right: 0;
+  transform: translate(0, -50%);
+  background-color: #fb7299;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.nav-right-box {
+  display: flex;
+  gap: 2rem;
+  margin-right: 2rem;
+  align-items: center;
+  width: auto;
+}
+.avatar-box {
+  position: relative;
+  transition: transform 0.3s;
+  transform-origin: top center;
+}
+.avatar {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  border: 3px solid #fff;
+  cursor: pointer;
+}
+.avatar-card {
+  width: 12rem;
+  height: 16rem;
+  position: absolute;
+  background-color: violet;
+  left: 50%;
+  top: 100%;
+  transform: translate(-50%, 0);
+  border-radius: 5px;
+  display: none;
+}
+.btn-top {
+  width: 8rem;
+  height: 3rem;
+  border-radius: 5px;
+  border: none;
+  background-color: #fb7299;
+  font-size: 1.6rem;
+  cursor: pointer;
+  color: #fff;
+}
+.main-container {
+  margin: 0 auto;
+  display: flex;
+  max-width: 160rem;
+  flex-direction: column;
+}
+.main-box {
+  display: flex;
+  width: 100%;
+}
+
+.channel {
+  width: 100%;
+  display: flex;
+  gap: 5rem;
+  align-items: center;
+  padding: 1rem 0;
+}
+
+.channel-left {
+  display: flex;
+  max-width: 100%;
+  gap: 2rem;
+}
+
+.left-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.link-round-text {
+  font-size: 1.4rem;
+}
+.link-round:link,
+.link-round:visited {
+  display: inline-block;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+}
+
+.link-news {
+  background-color: orange;
+}
+.link-hot {
+  background-color: red;
+}
+
+.left-link-text {
+  color: #555;
+}
+
+.channel-right {
+  width: 100%;
+  display: flex;
+}
+
+.channel-categories {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 1rem;
+  max-width: 100%;
+  flex-grow: 2;
+  padding-right: 3rem;
+  border-right: 1px solid #e3e5e7;
+}
+
+.channel-category {
+  background-color: #f6f7f8;
+  border-radius: 5px;
+  width: 100%;
+  color: #555;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  letter-spacing: 2px;
+  cursor: pointer;
+}
+.down-icon {
+  width: 2.4rem;
+  height: 2.4rem;
+}
+
+.channel-right-links {
+  display: grid;
+  max-width: 100%;
+  flex-grow: 1;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  justify-items: start;
+  align-items: center;
+  gap: 1rem;
+}
+
+.right-link:link,
+.right-link:visited {
+  width: 100%;
+  text-decoration: none;
+  color: #555;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .container {
   height: 300px;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   grid-template-rows: repeat(2, 1fr);
-  width: 80%;
-  margin: 50px auto;
+  width: 100%;
   justify-items: center;
   align-items: start;
   column-gap: 20px;
@@ -18,6 +227,7 @@
 }
 
 .slide-container {
+  background-color: #f6f7f8;
   grid-column: 1 / span 2;
   grid-row: 1 / span 2;
   position: relative;
@@ -41,6 +251,11 @@
 .video-box {
   width: 100%;
   height: 100%;
+}
+.video-title {
+  width: 100%;
+  height: 100%;
+  color: #555;
 }
 .el {
   width: 100%;

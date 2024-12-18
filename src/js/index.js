@@ -3,7 +3,7 @@ const slideContainerEl = document.querySelector('.slide-container');
 const slideWrapperEl = document.querySelector('.slide-wrapper');
 const rightBtn = document.querySelector('.btn-right');
 const leftBtn = document.querySelector('.btn-left');
-
+// 轮播图
 class Slide {
   _cur = 1;
   _imgArr = ['src/img/pic1.png', 'src/img/pic2.png', 'src/img/pic3.png'];
@@ -85,3 +85,16 @@ class Slide {
   }
 }
 const slide = new Slide();
+// 鼠标悬停头像放大
+const avatarEl = document.querySelector('.avatar');
+const avatarBoxEl = document.querySelector('.avatar-box');
+const avatarCardEl = document.querySelector('.avatar-card');
+avatarEl.addEventListener('mouseover', function () {
+  avatarBoxEl.style.transform = 'scale(2)';
+  avatarCardEl.style.display = 'block';
+});
+
+avatarEl.addEventListener('mouseout', function () {
+  avatarBoxEl.style.transform = 'scale(1)';
+  avatarCardEl.style.display = 'none';
+});
