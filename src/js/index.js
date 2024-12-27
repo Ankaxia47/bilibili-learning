@@ -3,7 +3,40 @@ const slideContainerEl = document.querySelector('.slide-container');
 const slideWrapperEl = document.querySelector('.slide-wrapper');
 const rightBtn = document.querySelector('.btn-right');
 const leftBtn = document.querySelector('.btn-left');
+////////////////////////////////
+// 顶部图片
+////////////////////////////////
+const headerEl = document.querySelector('.header');
+let startingPoint;
+// 需要使用mouseenter、mouseleave，这个不会触发事件冒泡，只有进入header和移出header才会触发，子元素的事件不影响header
+// 使用mouseover、mouseout触发事件冒泡，在nav导航栏移动的时候，如果碰到nav的子元素，例如链接、搜索框之类的，会触发事件mouseover、mouseout，导致事件冒泡，header的moving频繁移除和添加，背景图片移动就会有问题
+headerEl.addEventListener('mouseenter', function (e) {
+  // 鼠标移入的时候记录鼠标的初始位置
+  startingPoint = e.clientX;
+  headerEl.classList.add('moving');
+});
+headerEl.addEventListener('mouseleave', function (e) {
+  // 鼠标移出时，将百分比重置为0.5
+  headerEl.style.setProperty('--percentage', 0.5);
+  headerEl.classList.remove('moving');
+});
+headerEl.addEventListener('mousemove', function (e) {
+  // 鼠标在屏幕中水平位置的百分比，默认为0.5，中间位置
+  let percentage = (e.clientX - startingPoint) / window.outerWidth + 0.5;
+  // --开头的属性是CSS变量，可以重复使用
+  headerEl.style.setProperty('--percentage', percentage);
+});
+////////////////////////////////
+// 表单背景颜色
+////////////////////////////////
+const searchInputEl = document.querySelector('.search-input');
+const searchFormEl = document.querySelector('.search-form');
+searchInputEl.addEventListener('focus', function () {
+  searchFormEl.style.setProperty('backgroud-color', 'rgba(255, 255, 255, 0.8)');
+});
+////////////////////////////////
 // 轮播图
+////////////////////////////////
 class Slide {
   _cur = 1;
   _imgArr = ['src/img/pic1.png', 'src/img/pic2.png', 'src/img/pic3.png'];
@@ -85,16 +118,19 @@ class Slide {
   }
 }
 const slide = new Slide();
+////////////////////////////////
 // 鼠标悬停头像放大
+////////////////////////////////
 const avatarEl = document.querySelector('.avatar');
 const avatarBoxEl = document.querySelector('.avatar-box');
 const avatarCardEl = document.querySelector('.avatar-card');
+let isAnimating = false;
 avatarEl.addEventListener('mouseover', function () {
   avatarBoxEl.style.transform = 'scale(2)';
   avatarCardEl.style.display = 'block';
 });
 
 avatarEl.addEventListener('mouseout', function () {
-  avatarBoxEl.style.transform = 'scale(1)';
+  avatarBoxEl.style.transform = ' scale(1)';
   avatarCardEl.style.display = 'none';
 });
