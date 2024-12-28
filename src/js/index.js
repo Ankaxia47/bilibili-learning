@@ -27,6 +27,143 @@ headerEl.addEventListener('mousemove', function (e) {
   headerEl.style.setProperty('--percentage', percentage);
 });
 ////////////////////////////////
+// 顶部导航栏
+////////////////////////////////
+const navData = {
+  leftNav: [
+    {
+      itemName: '首页',
+      icon: 'zhuzhan-icon',
+    },
+    {
+      itemName: '番剧',
+      icon: '',
+      pop: {
+        title: '热门番剧',
+        items: [
+          {
+            title: '关于我转生变成史莱姆这档事 第三季',
+            img: 'src/img/anime/anime1.png',
+            episode: '更新至第57话',
+            score: '6.2分',
+          },
+          {
+            title: '胆大党',
+            img: 'src/img/anime/anime2.png',
+            episode: '全12话',
+            score: '9.8分',
+          },
+          {
+            title: '夏目友人帐 第七季',
+            img: 'src/img/anime/anime3.jpg',
+            episode: '全12话',
+            score: '9.9分',
+          },
+          {
+            title: '香格里拉边境 第二季',
+            img: 'src/img/anime/anime4.png',
+            episode: '更新至第7话',
+            score: '9.5分',
+          },
+          {
+            title: '青之箱',
+            img: 'src/img/anime/anime5.png',
+            episode: '更新至第9话',
+            score: '9.6分',
+          },
+          {
+            title: '新网球王子 U-17世界杯半决赛',
+            img: 'src/img/anime/anime6.png',
+            episode: '全13话',
+            score: '6.9分',
+          },
+        ],
+      },
+    },
+    {
+      itemName: '直播',
+      icon: '',
+    },
+    {
+      itemName: '游戏中心',
+      icon: '',
+    },
+    {
+      itemName: '会员购',
+      icon: '',
+    },
+    {
+      itemName: '漫画',
+      icon: '',
+    },
+    {
+      itemName: '赛事',
+      icon: '',
+    },
+    {
+      itemName: '下载客户端',
+      icon: 'download-icon',
+    },
+  ],
+  rightNav: [{}],
+};
+const navEl = document.querySelector('.nav');
+const generatePop = function (popData) {
+  const itemsHTML = popData.items
+    .map(
+      item =>
+        `
+          <a href="#" class="pop-item">
+            <div class="pop-img-box" style="background-image: url(${item.img})">
+              <div class="pop-item-description">
+                <p class="eposide">${item.episode}</p>
+                <p class="score">${item.score}</p>
+              </div>
+            </div>
+            <div class="pop-item-title">
+              ${item.title}
+            </div>
+          </a>
+        `
+    )
+    .join('');
+  const popHTML = `
+              <div class="pop">
+                <p class="pop-title">热门番剧</p>
+                <div class="pop-item-box grid grid--3-cols">
+                  ${itemsHTML}
+                </div>
+              </div>
+            `;
+  console.log(popHTML);
+  return popHTML;
+};
+const leftNavItem = navData.leftNav
+  .map(item => {
+    let popEl = '';
+    if (item.pop) {
+      popEl = generatePop(item.pop);
+    }
+    return `
+      <li class="nav-item">
+        <a class="link" href="#">
+        ${
+          item.icon
+            ? `<svg class="icon"><use href="src/img/icons.svg#${item.icon}"></use></svg>`
+            : ''
+        }
+          <span class="nav-item-text ${item.icon ? '' : 'move-up-down'}">${
+      item.itemName
+    }</span>
+        </a>
+        ${popEl}
+      </li>
+    `;
+  })
+  .join('');
+const leftNavEl = `<ul class="nav-left-box">${leftNavItem}</ul>`;
+navEl.insertAdjacentHTML('afterbegin', leftNavEl);
+////////////////////////////////
 // 表单背景颜色
 ////////////////////////////////
 const searchInputEl = document.querySelector('.search-input');
@@ -39,7 +176,12 @@ searchInputEl.addEventListener('focus', function () {
 ////////////////////////////////
 class Slide {
   _cur = 1;
-  _imgArr = ['src/img/pic1.png', 'src/img/pic2.png', 'src/img/pic3.png'];
+  // _imgArr = ['src/img/pic1.png', 'src/img/pic2.png', 'src/img/pic3.png'];
+  _imgArr = [
+    'src/img/carousel-1.jpg',
+    'src/img/carousel-2.jpg',
+    'src/img/carousel-3.jpg',
+  ];
   _isProcessing = false;
   _duration = '0.4s';
   _timeoutSec = 0.4;
@@ -49,6 +191,7 @@ class Slide {
     rightBtn.addEventListener('click', this.showNextSlide.bind(this));
   }
   _createSlide() {
+    if (this._imgArr.length === 0) return;
     slideWrapperEl.innerHTML = '';
     // 在第一张图片前放置克隆的最后一张图
     this._imgArr.unshift(this._imgArr.at(-1));
@@ -125,12 +268,12 @@ const avatarEl = document.querySelector('.avatar');
 const avatarBoxEl = document.querySelector('.avatar-box');
 const avatarCardEl = document.querySelector('.avatar-card');
 let isAnimating = false;
-avatarEl.addEventListener('mouseover', function () {
-  avatarBoxEl.style.transform = 'scale(2)';
+avatarEl.addEventListener('mouseenter', function () {
+  avatarBoxEl.style.transform = 'translate(-0.5rem, 1rem) scale(2)';
   avatarCardEl.style.display = 'block';
 });
 
-avatarEl.addEventListener('mouseout', function () {
-  avatarBoxEl.style.transform = ' scale(1)';
+avatarBoxEl.addEventListener('mouseleave', function () {
+  avatarBoxEl.style.transform = 'translate(0, 0) scale(1)';
   avatarCardEl.style.display = 'none';
 });

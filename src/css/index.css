@@ -57,6 +57,13 @@ body {
 .link:visited {
   text-decoration: none;
 }
+.grid {
+  display: grid;
+  gap: 1.2rem;
+}
+.grid--3-cols {
+  grid-template-columns: repeat(3, 1fr);
+}
 /***************/
 /* 顶部图片 */
 /***************/
@@ -66,6 +73,10 @@ body {
   height: 16rem;
 }
 .top-img {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  /* 如果子元素绝对定位，父元素需要有position定位 否则这个属性没有用 */
   overflow: hidden;
 }
 .header .view,
@@ -79,8 +90,8 @@ body {
   justify-content: center;
   align-items: center;
 }
-.header img,
-.header video {
+.top-img img,
+.top-img video {
   position: absolute;
   /* img、video是行内元素设置宽高需要先变成块元素 */
   display: block;
@@ -144,6 +155,7 @@ body {
   justify-content: space-between;
   padding: 1.2rem 2.4rem;
   align-items: center;
+  background-color: rgba(0, 0, 0, 0.3);
 }
 .nav .link:link,
 .nav .link:visited {
@@ -152,8 +164,11 @@ body {
   align-items: center;
 }
 .nav-item {
+  padding: 2.4rem 2.4rem 2.4rem 0;
+  position: relative;
   cursor: pointer;
 }
+
 .nav-item-text {
   font-size: 1.4rem;
 }
@@ -164,7 +179,114 @@ body {
   list-style: none;
   display: flex;
   align-items: center;
-  gap: 1.6rem;
+  /* gap: 1.6rem; */
+}
+.nav-left-box .move-up-down:hover {
+  animation: moveUpDown 0.3s ease-in;
+}
+@keyframes moveUpDown {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-0.5rem);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+/***************/
+/* 导航栏弹框 */
+/***************/
+.pop {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 44rem;
+  padding: 2.4rem 1.2rem;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  transition: all 0.2s ease-in;
+  /* 无法在display:none上面添加动画
+  /* 1) 视觉上隐藏元素 */
+  opacity: 0;
+  /* 2) 不允许鼠标和键盘访问 */
+  pointer-events: none;
+  /* 3) 从屏幕阅读器中隐藏 */
+  visibility: hidden;
+  /* 父元素设置了鼠标变成手指，这里鼠标状态恢复默认 */
+  cursor: auto;
+}
+.nav-item:hover .pop,
+.pop:hover {
+  opacity: 1;
+  pointer-events: auto;
+  visibility: visible;
+}
+.pop-title {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 2.4rem;
+}
+.pop-item {
+  color: #000;
+  text-decoration: none;
+}
+.pop-img-box {
+  position: relative;
+  /* 宽高16:9 */
+  padding-top: 56.25%;
+  /* background-image: url('../img/anime/anime1.png'); */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 5px;
+  overflow: hidden;
+}
+.pop-img-box::after {
+  content: '';
+  bottom: 0;
+  left: 0;
+  right: 0;
+  position: absolute;
+  height: 30%;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.9),
+    rgb(255, 255, 255, 0.5)
+  );
+  z-index: 1;
+}
+.pop-item-description {
+  position: absolute;
+  width: 100%;
+  bottom: 5%;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 0.5rem;
+  z-index: 2;
+}
+.pop-item-description .eposide {
+  font-size: 1rem;
+}
+.pop-item-description .score {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+.pop-item-title {
+  width: 12rem;
+  margin-top: 0.5rem;
+  letter-spacing: 0.5px;
+  font-size: 1.2rem;
+  /* 控制文字不换行 */
+  white-space: nowrap;
+  /* 文字超出隐藏 */
+  overflow: hidden;
+  /* 隐藏的文字显示 ... */
+  text-overflow: ellipsis;
 }
 /***************/
 /* 导航栏中间 */
@@ -176,7 +298,7 @@ body {
   height: 3.6rem;
   width: 50rem;
   padding: 0.4rem;
-  border-radius: 5px;
+  border-radius: 11px;
 }
 .search-form:hover {
   background-color: #fff;
@@ -216,15 +338,21 @@ body {
 .nav-right-box {
   list-style: none;
   display: flex;
-  gap: 2rem;
+  gap: 1.6rem;
   margin-right: 2rem;
   align-items: center;
   width: auto;
 }
-.nav-right-link {
+.nav-right-link:link,
+.nav-right-link:visited {
   display: flex;
   flex-direction: column;
+  gap: 0.4rem;
 }
+.nav-right-link:hover .move-up-down {
+  animation: moveUpDown 0.3s ease-in;
+}
+
 .avatar-box {
   display: block;
   width: 4rem;
@@ -232,6 +360,7 @@ body {
   position: relative;
   transition: transform 0.3s;
   transform-origin: top center;
+  border-radius: 50%;
 }
 .nav .avatar {
   width: 4rem;
@@ -239,7 +368,6 @@ body {
   border-radius: 50%;
   border: 3px solid #fff;
   cursor: pointer;
-  z-index: 2;
 }
 .avatar-card {
   width: 12rem;
@@ -251,7 +379,7 @@ body {
   transform: translate(-50%, 0);
   border-radius: 5px;
   display: none;
-  z-index: 1;
+  z-index: -1;
 }
 .btn-top {
   display: flex;
@@ -266,10 +394,15 @@ body {
   cursor: pointer;
   color: #fff;
 }
-/* main */
+.btn-top:hover {
+  background-color: #fc8bab;
+}
+/***************/
+/* 导航栏右侧 */
+/***************/
 .main-container {
   margin: 0 auto;
-  max-width: 160rem;
+  max-width: 150rem;
 }
 .channel {
   display: flex;
@@ -385,6 +518,7 @@ body {
   position: relative;
   width: 100%;
   height: 100%;
+  border-radius: 5px;
   overflow: hidden;
 }
 .slide-wrapper {
@@ -394,11 +528,11 @@ body {
   transition: transform 0.5s ease;
 }
 .slide {
+  display: block;
   width: 100%;
   height: 100%;
   flex: 0 0 100%;
   object-fit: cover;
-  border-radius: 5px;
 }
 .video-box {
   width: 100%;
@@ -434,15 +568,18 @@ body {
   background-color: blue;
 }
 .btn {
-  opacity: 0.5;
+  opacity: 0.7;
   width: 30px;
   height: 30px;
+  border-radius: 5px;
   position: absolute;
-  bottom: 10%;
-  right: 10%;
+  bottom: 5%;
+  right: 5%;
+  cursor: pointer;
+  border: none;
 }
 .btn:hover {
-  cursor: pointer;
+  opacity: 0.9;
 }
 .btn-left {
   margin-right: 40px;
