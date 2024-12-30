@@ -3,10 +3,184 @@ const slideContainerEl = document.querySelector('.slide-container');
 const slideWrapperEl = document.querySelector('.slide-wrapper');
 const rightBtn = document.querySelector('.btn-right');
 const leftBtn = document.querySelector('.btn-left');
+////////////////////////////////
+// 顶部图片
+////////////////////////////////
+const headerEl = document.querySelector('.header');
+let startingPoint;
+// 需要使用mouseenter、mouseleave，这个不会触发事件冒泡，只有进入header和移出header才会触发，子元素的事件不影响header
+// 使用mouseover、mouseout触发事件冒泡，在nav导航栏移动的时候，如果碰到nav的子元素，例如链接、搜索框之类的，会触发事件mouseover、mouseout，导致事件冒泡，header的moving频繁移除和添加，背景图片移动就会有问题
+headerEl.addEventListener('mouseenter', function (e) {
+  // 鼠标移入的时候记录鼠标的初始位置
+  startingPoint = e.clientX;
+  headerEl.classList.add('moving');
+});
+headerEl.addEventListener('mouseleave', function (e) {
+  // 鼠标移出时，将百分比重置为0.5
+  headerEl.style.setProperty('--percentage', 0.5);
+  headerEl.classList.remove('moving');
+});
+headerEl.addEventListener('mousemove', function (e) {
+  // 鼠标在屏幕中水平位置的百分比，默认为0.5，中间位置
+  let percentage = (e.clientX - startingPoint) / window.outerWidth + 0.5;
+  // --开头的属性是CSS变量，可以重复使用
+  headerEl.style.setProperty('--percentage', percentage);
+});
+////////////////////////////////
+// 顶部导航栏
+////////////////////////////////
+const navData = {
+  leftNav: [
+    {
+      itemName: '首页',
+      icon: 'zhuzhan-icon',
+    },
+    {
+      itemName: '番剧',
+      icon: '',
+      pop: {
+        title: '热门番剧',
+        items: [
+          {
+            title: '关于我转生变成史莱姆这档事 第三季',
+            img: 'src/img/anime/anime1.png',
+            episode: '更新至第57话',
+            score: '6.2分',
+          },
+          {
+            title: '胆大党',
+            img: 'src/img/anime/anime2.png',
+            episode: '全12话',
+            score: '9.8分',
+          },
+          {
+            title: '夏目友人帐 第七季',
+            img: 'src/img/anime/anime3.jpg',
+            episode: '全12话',
+            score: '9.9分',
+          },
+          {
+            title: '香格里拉边境 第二季',
+            img: 'src/img/anime/anime4.png',
+            episode: '更新至第7话',
+            score: '9.5分',
+          },
+          {
+            title: '青之箱',
+            img: 'src/img/anime/anime5.png',
+            episode: '更新至第9话',
+            score: '9.6分',
+          },
+          {
+            title: '新网球王子 U-17世界杯半决赛',
+            img: 'src/img/anime/anime6.png',
+            episode: '全13话',
+            score: '6.9分',
+          },
+        ],
+      },
+    },
+    {
+      itemName: '直播',
+      icon: '',
+    },
+    {
+      itemName: '游戏中心',
+      icon: '',
+    },
+    {
+      itemName: '会员购',
+      icon: '',
+    },
+    {
+      itemName: '漫画',
+      icon: '',
+    },
+    {
+      itemName: '赛事',
+      icon: '',
+    },
+    {
+      itemName: '下载客户端',
+      icon: 'download-icon',
+    },
+  ],
+  rightNav: [{}],
+};
+const navEl = document.querySelector('.nav');
+const generatePop = function (popData) {
+  const itemsHTML = popData.items
+    .map(
+      item =>
+        `
+          <a href="#" class="pop-item">
+            <div class="pop-img-box" style="background-image: url(${item.img})">
+              <div class="pop-item-description">
+                <p class="eposide">${item.episode}</p>
+                <p class="score">${item.score}</p>
+              </div>
+            </div>
+            <div class="pop-item-title">
+              ${item.title}
+            </div>
+          </a>
+        `
+    )
+    .join('');
+  const popHTML = `
+              <div class="pop">
+                <p class="pop-title">热门番剧</p>
+                <div class="pop-item-box grid grid--3-cols">
+                  ${itemsHTML}
+                </div>
+              </div>
+            `;
+  console.log(popHTML);
+  return popHTML;
+};
+const leftNavItem = navData.leftNav
+  .map(item => {
+    let popEl = '';
+    if (item.pop) {
+      popEl = generatePop(item.pop);
+    }
+    return `
+      <li class="nav-item">
+        <a class="link left-nav-link 
+        ${item.icon ? '' : 'move-up-down'}" href="#">
+        ${
+          item.icon
+            ? `<svg class="icon"><use href="src/img/icons.svg#${item.icon}"></use></svg>`
+            : ''
+        }
+          <span class="nav-item-text ">${item.itemName}</span>
+        </a>
+        ${popEl}
+      </li>
+    `;
+  })
+  .join('');
+const leftNavEl = `<ul class="nav-left-box">${leftNavItem}</ul>`;
+navEl.insertAdjacentHTML('afterbegin', leftNavEl);
+////////////////////////////////
+// 表单背景颜色
+////////////////////////////////
+const searchInputEl = document.querySelector('.search-input');
+const searchFormEl = document.querySelector('.search-form');
+searchInputEl.addEventListener('focus', function () {
+  searchFormEl.style.setProperty('backgroud-color', 'rgba(255, 255, 255, 0.8)');
+});
+////////////////////////////////
 // 轮播图
+////////////////////////////////
 class Slide {
   _cur = 1;
-  _imgArr = ['src/img/pic1.png', 'src/img/pic2.png', 'src/img/pic3.png'];
+  // _imgArr = ['src/img/pic1.png', 'src/img/pic2.png', 'src/img/pic3.png'];
+  _imgArr = [
+    'src/img/carousel-1.jpg',
+    'src/img/carousel-2.jpg',
+    'src/img/carousel-3.jpg',
+  ];
   _isProcessing = false;
   _duration = '0.4s';
   _timeoutSec = 0.4;
@@ -16,6 +190,7 @@ class Slide {
     rightBtn.addEventListener('click', this.showNextSlide.bind(this));
   }
   _createSlide() {
+    if (this._imgArr.length === 0) return;
     slideWrapperEl.innerHTML = '';
     // 在第一张图片前放置克隆的最后一张图
     this._imgArr.unshift(this._imgArr.at(-1));
@@ -85,16 +260,19 @@ class Slide {
   }
 }
 const slide = new Slide();
+////////////////////////////////
 // 鼠标悬停头像放大
+////////////////////////////////
 const avatarEl = document.querySelector('.avatar');
 const avatarBoxEl = document.querySelector('.avatar-box');
 const avatarCardEl = document.querySelector('.avatar-card');
-avatarEl.addEventListener('mouseover', function () {
-  avatarBoxEl.style.transform = 'scale(2)';
+let isAnimating = false;
+avatarEl.addEventListener('mouseenter', function () {
+  avatarBoxEl.style.transform = 'translate(-0.5rem, 1rem) scale(2)';
   avatarCardEl.style.display = 'block';
 });
 
-avatarEl.addEventListener('mouseout', function () {
-  avatarBoxEl.style.transform = 'scale(1)';
+avatarBoxEl.addEventListener('mouseleave', function () {
+  avatarBoxEl.style.transform = 'translate(0, 0) scale(1)';
   avatarCardEl.style.display = 'none';
 });
