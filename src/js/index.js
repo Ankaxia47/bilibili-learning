@@ -7,7 +7,6 @@ const leftBtn = document.querySelector('.btn-left');
 // 顶部图片
 ////////////////////////////////
 const headerEl = document.querySelector('.header');
-const topImgEl = document.querySelector('.top-img');
 let startingPoint;
 // 需要使用mouseenter、mouseleave，这个不会触发事件冒泡，只有进入header和移出header才会触发，子元素的事件不影响header
 // 使用mouseover、mouseout触发事件冒泡，在nav导航栏移动的时候，如果碰到nav的子元素，例如链接、搜索框之类的，会触发事件mouseover、mouseout，导致事件冒泡，header的moving频繁移除和添加，背景图片移动就会有问题
