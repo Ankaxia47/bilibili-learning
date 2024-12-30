@@ -7,6 +7,7 @@ const leftBtn = document.querySelector('.btn-left');
 // 顶部图片
 ////////////////////////////////
 const headerEl = document.querySelector('.header');
+const topImgEl = document.querySelector('.top-img');
 let startingPoint;
 // 需要使用mouseenter、mouseleave，这个不会触发事件冒泡，只有进入header和移出header才会触发，子元素的事件不影响header
 // 使用mouseover、mouseout触发事件冒泡，在nav导航栏移动的时候，如果碰到nav的子元素，例如链接、搜索框之类的，会触发事件mouseover、mouseout，导致事件冒泡，header的moving频繁移除和添加，背景图片移动就会有问题
@@ -21,6 +22,10 @@ headerEl.addEventListener('mouseleave', function (e) {
   headerEl.classList.remove('moving');
 });
 headerEl.addEventListener('mousemove', function (e) {
+  const popEl = e.target.closest('.pop');
+  if (popEl) {
+    return;
+  }
   // 鼠标在屏幕中水平位置的百分比，默认为0.5，中间位置
   let percentage = (e.clientX - startingPoint) / window.outerWidth + 0.5;
   // --开头的属性是CSS变量，可以重复使用
@@ -259,6 +264,21 @@ const leftNavItem = navData.leftNav
   .join('');
 const leftNavEl = `<ul class="nav-left-box">${leftNavItem}</ul>`;
 navEl.insertAdjacentHTML('afterbegin', leftNavEl);
+// 这段代码需要在插入html之后，不然还没有pop元素，没法事件监听
+// 由于在移动的时候给header设置了moving类，有moving类就没有动画效果
+// 此时如果直接重置百分比0.5，就没有动画的效果了，所以需要鼠标进入pop的时候移除moving，但是导航栏的pop会比较多，就会加上很多的事件监听，感觉不太好。但是如果使用mouseover、mouseout事件委托，那么在pop内部移动的时候，当移入和移出子元素的时候，会频繁的触发mouseover、mouseout事件，导致会频繁的添加和删除moving类，这个方案感觉更不好
+const popElArr = document.querySelectorAll('.nav .pop');
+Array.from(popElArr).forEach(popEl => {
+  console.log(popEl);
+  popEl.addEventListener('mouseenter', function () {
+    headerEl.style.setProperty('--percentage', 0.5);
+    headerEl.classList.remove('moving');
+  });
+  popEl.addEventListener('mouseleave', function (e) {
+    startingPoint = e.clientX;
+    headerEl.classList.add('moving');
+  });
+});
 ////////////////////////////////
 // 鼠标悬停游戏文字，显示游戏图片
 // 使用事件委托，需要事件冒泡
