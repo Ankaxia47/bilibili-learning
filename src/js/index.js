@@ -146,15 +146,14 @@ const leftNavItem = navData.leftNav
     }
     return `
       <li class="nav-item">
-        <a class="link" href="#">
+        <a class="link left-nav-link 
+        ${item.icon ? '' : 'move-up-down'}" href="#">
         ${
           item.icon
             ? `<svg class="icon"><use href="src/img/icons.svg#${item.icon}"></use></svg>`
             : ''
         }
-          <span class="nav-item-text ${item.icon ? '' : 'move-up-down'}">${
-      item.itemName
-    }</span>
+          <span class="nav-item-text ">${item.itemName}</span>
         </a>
         ${popEl}
       </li>

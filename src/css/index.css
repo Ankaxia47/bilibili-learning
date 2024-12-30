@@ -164,7 +164,6 @@ body {
   align-items: center;
 }
 .nav-item {
-  padding: 2.4rem 2.4rem 2.4rem 0;
   position: relative;
   cursor: pointer;
 }
@@ -179,10 +178,14 @@ body {
   list-style: none;
   display: flex;
   align-items: center;
-  /* gap: 1.6rem; */
 }
 .nav-left-box .move-up-down:hover {
   animation: moveUpDown 0.3s ease-in;
+}
+.left-nav-link:link,
+.left-nav-link:visited {
+  display: block;
+  padding: 2.4rem 2.4rem 2.4rem 0;
 }
 @keyframes moveUpDown {
   0% {
