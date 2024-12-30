@@ -87,6 +87,56 @@ const navData = {
     {
       itemName: '游戏中心',
       icon: '',
+      gamePop: {
+        gameLeft: [
+          {
+            gameImg: 'src/img/game/fgo.jpg',
+            gameName: '命运-冠位指定（Fate/GO）',
+          },
+          {
+            gameImg: 'src/img/game/blhx.png',
+            gameName: '碧蓝航线',
+          },
+          {
+            gameImg: 'src/img/game/ktbl.png',
+            gameName: '坎特伯雷公主与骑士唤醒冠军之剑的奇幻冒险',
+          },
+          {
+            gameImg: 'src/img/game/sgmdtx.png',
+            gameName: '三国：谋定天下',
+          },
+        ],
+        gameRight: [
+          {
+            gameImg: 'src/img/game/bcmc.png',
+            gameName: '爆吵萌厨',
+          },
+          {
+            gameImg: 'src/img/game/wy.png',
+            gameName: '望月',
+          },
+          {
+            gameImg: 'src/img/game/wjcs.png',
+            gameName: '问剑长生',
+          },
+          {
+            gameImg: 'src/img/game/yysls.png',
+            gameName: '燕云十六声',
+          },
+          {
+            gameImg: 'src/img/game/xhgm.png',
+            gameName: '星恒共鸣',
+          },
+          {
+            gameImg: 'src/img/game/syzz.png',
+            gameName: '神隐之子',
+          },
+          {
+            gameImg: 'src/img/game/ff14.png',
+            gameName: '最终幻想14：水晶世界',
+          },
+        ],
+      },
     },
     {
       itemName: '会员购',
@@ -108,7 +158,7 @@ const navData = {
   rightNav: [{}],
 };
 const navEl = document.querySelector('.nav');
-const generatePop = function (popData) {
+const generateAnimePop = function (popData) {
   const itemsHTML = popData.items
     .map(
       item =>
@@ -135,14 +185,60 @@ const generatePop = function (popData) {
                 </div>
               </div>
             `;
-  console.log(popHTML);
   return popHTML;
+};
+const generateGamePop = function (popData) {
+  const gameLeftHTML = popData.gameLeft
+    .map(
+      item => `
+      <a href="#" class="game-link">
+        <img
+          class="game-img"
+          src="${item.gameImg}"
+          alt="${item.gameName}"
+        />
+        <span class="game-name">${item.gameName}</span>
+      </a>
+    `
+    )
+    .join('');
+  const gameRightHTML = popData.gameRight
+    .map(
+      item => `
+          <li class="game-right-list-item">
+            <a href="#" data-img-path="${item.gameImg}">${item.gameName}</a>
+          </li>
+         `
+    )
+    .join('');
+  return `
+    <div class="pop">
+      <div class="game-container">
+        <div class="game-left grid grid--3-cols">
+          ${gameLeftHTML}
+        </div>
+        <div class="game-right">
+          <p class="game-right-title">新游预告</p>
+          <ul class="game-right-list">
+            ${gameRightHTML}
+          </ul>
+          <div class="game-right-img-box">
+            <img class="game-right-img" src="" alt="" />
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
 };
 const leftNavItem = navData.leftNav
   .map(item => {
     let popEl = '';
+    let gamePopHTML = '';
     if (item.pop) {
-      popEl = generatePop(item.pop);
+      popEl = generateAnimePop(item.pop);
+    }
+    if (item.gamePop) {
+      gamePopHTML = generateGamePop(item.gamePop);
     }
     return `
       <li class="nav-item">
@@ -156,12 +252,36 @@ const leftNavItem = navData.leftNav
           <span class="nav-item-text ">${item.itemName}</span>
         </a>
         ${popEl}
+        ${gamePopHTML}
       </li>
     `;
   })
   .join('');
 const leftNavEl = `<ul class="nav-left-box">${leftNavItem}</ul>`;
 navEl.insertAdjacentHTML('afterbegin', leftNavEl);
+////////////////////////////////
+// 鼠标悬停游戏文字，显示游戏图片
+// 使用事件委托，需要事件冒泡
+////////////////////////////////
+const gameRightListEl = document.querySelector('.game-right-list');
+const gameRightImgEl = document.querySelector('.game-right-img');
+const gameRightImgBoxEl = document.querySelector('.game-right-img-box');
+gameRightListEl.addEventListener('mouseover', function (e) {
+  const aEl = e.target.closest('a');
+  if (!aEl) return;
+  const gameName = aEl.textContent;
+  const imgPath = aEl.dataset.imgPath;
+  gameRightImgEl.src = imgPath;
+  gameRightImgEl.alt = `${gameName}的游戏图片`;
+  gameRightImgBoxEl.style.display = 'block';
+});
+gameRightListEl.addEventListener('mouseout', function (e) {
+  const aEl = e.target.closest('a');
+  if (!aEl) return;
+  gameRightImgEl.src = '';
+  gameRightImgEl.alt = '';
+  gameRightImgBoxEl.style.display = 'none';
+});
 ////////////////////////////////
 // 表单背景颜色
 ////////////////////////////////
