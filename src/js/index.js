@@ -1,317 +1,138 @@
 'use strict';
-const slideContainerEl = document.querySelector('.slide-container');
-const slideWrapperEl = document.querySelector('.slide-wrapper');
-const rightBtn = document.querySelector('.btn-right');
-const leftBtn = document.querySelector('.btn-left');
+import * as model from './model.js';
+import leftNavView from './view/leftNavView.js';
+import animePopView from './view/animePopView.js';
+import gamePopView from './view/gamePopView.js';
+
 ////////////////////////////////
 // 顶部图片
 ////////////////////////////////
 const headerEl = document.querySelector('.header');
-let startingPoint;
-// 需要使用mouseenter、mouseleave，这个不会触发事件冒泡，只有进入header和移出header才会触发，子元素的事件不影响header
-// 使用mouseover、mouseout触发事件冒泡，在nav导航栏移动的时候，如果碰到nav的子元素，例如链接、搜索框之类的，会触发事件mouseover、mouseout，导致事件冒泡，header的moving频繁移除和添加，背景图片移动就会有问题
-headerEl.addEventListener('mouseenter', function (e) {
-  // 鼠标移入的时候记录鼠标的初始位置
-  startingPoint = e.clientX;
-  headerEl.classList.add('moving');
-});
-headerEl.addEventListener('mouseleave', function (e) {
-  // 鼠标移出时，将百分比重置为0.5
-  headerEl.style.setProperty('--percentage', 0.5);
-  headerEl.classList.remove('moving');
-});
-headerEl.addEventListener('mousemove', function (e) {
-  const popEl = e.target.closest('.pop');
-  if (popEl) {
-    return;
-  }
-  // 鼠标在屏幕中水平位置的百分比，默认为0.5，中间位置
-  let percentage = (e.clientX - startingPoint) / window.outerWidth + 0.5;
-  // --开头的属性是CSS变量，可以重复使用
-  headerEl.style.setProperty('--percentage', percentage);
-});
-////////////////////////////////
-// 顶部导航栏
-////////////////////////////////
-const navData = {
-  leftNav: [
-    {
-      itemName: '首页',
-      icon: 'zhuzhan-icon',
-    },
-    {
-      itemName: '番剧',
-      icon: '',
-      pop: {
-        title: '热门番剧',
-        items: [
-          {
-            title: '关于我转生变成史莱姆这档事 第三季',
-            img: 'src/img/anime/anime1.png',
-            episode: '更新至第57话',
-            score: '6.2分',
-          },
-          {
-            title: '胆大党',
-            img: 'src/img/anime/anime2.png',
-            episode: '全12话',
-            score: '9.8分',
-          },
-          {
-            title: '夏目友人帐 第七季',
-            img: 'src/img/anime/anime3.jpg',
-            episode: '全12话',
-            score: '9.9分',
-          },
-          {
-            title: '香格里拉边境 第二季',
-            img: 'src/img/anime/anime4.png',
-            episode: '更新至第7话',
-            score: '9.5分',
-          },
-          {
-            title: '青之箱',
-            img: 'src/img/anime/anime5.png',
-            episode: '更新至第9话',
-            score: '9.6分',
-          },
-          {
-            title: '新网球王子 U-17世界杯半决赛',
-            img: 'src/img/anime/anime6.png',
-            episode: '全13话',
-            score: '6.9分',
-          },
-        ],
-      },
-    },
-    {
-      itemName: '直播',
-      icon: '',
-    },
-    {
-      itemName: '游戏中心',
-      icon: '',
-      gamePop: {
-        gameLeft: [
-          {
-            gameImg: 'src/img/game/fgo.jpg',
-            gameName: '命运-冠位指定（Fate/GO）',
-          },
-          {
-            gameImg: 'src/img/game/blhx.png',
-            gameName: '碧蓝航线',
-          },
-          {
-            gameImg: 'src/img/game/ktbl.png',
-            gameName: '坎特伯雷公主与骑士唤醒冠军之剑的奇幻冒险',
-          },
-          {
-            gameImg: 'src/img/game/sgmdtx.png',
-            gameName: '三国：谋定天下',
-          },
-        ],
-        gameRight: [
-          {
-            gameImg: 'src/img/game/bcmc.png',
-            gameName: '爆吵萌厨',
-          },
-          {
-            gameImg: 'src/img/game/wy.png',
-            gameName: '望月',
-          },
-          {
-            gameImg: 'src/img/game/wjcs.png',
-            gameName: '问剑长生',
-          },
-          {
-            gameImg: 'src/img/game/yysls.png',
-            gameName: '燕云十六声',
-          },
-          {
-            gameImg: 'src/img/game/xhgm.png',
-            gameName: '星恒共鸣',
-          },
-          {
-            gameImg: 'src/img/game/syzz.png',
-            gameName: '神隐之子',
-          },
-          {
-            gameImg: 'src/img/game/ff14.png',
-            gameName: '最终幻想14：水晶世界',
-          },
-        ],
-      },
-    },
-    {
-      itemName: '会员购',
-      icon: '',
-    },
-    {
-      itemName: '漫画',
-      icon: '',
-    },
-    {
-      itemName: '赛事',
-      icon: '',
-    },
-    {
-      itemName: '下载客户端',
-      icon: 'download-icon',
-    },
-  ],
-  rightNav: [{}],
-};
-const navEl = document.querySelector('.nav');
-const generateAnimePop = function (popData) {
-  const itemsHTML = popData.items
-    .map(
-      item =>
-        `
-          <a href="#" class="pop-item">
-            <div class="pop-img-box" style="background-image: url(${item.img})">
-              <div class="pop-item-description">
-                <p class="eposide">${item.episode}</p>
-                <p class="score">${item.score}</p>
-              </div>
-            </div>
-            <div class="pop-item-title">
-              ${item.title}
-            </div>
-          </a>
-        `
-    )
-    .join('');
-  const popHTML = `
-              <div class="pop">
-                <p class="pop-title">热门番剧</p>
-                <div class="pop-item-box grid grid--3-cols">
-                  ${itemsHTML}
-                </div>
-              </div>
-            `;
-  return popHTML;
-};
-const generateGamePop = function (popData) {
-  const gameLeftHTML = popData.gameLeft
-    .map(
-      item => `
-      <a href="#" class="game-link">
-        <img
-          class="game-img"
-          src="${item.gameImg}"
-          alt="${item.gameName}"
-        />
-        <span class="game-name">${item.gameName}</span>
-      </a>
-    `
-    )
-    .join('');
-  const gameRightHTML = popData.gameRight
-    .map(
-      item => `
-          <li class="game-right-list-item">
-            <a href="#" data-img-path="${item.gameImg}">${item.gameName}</a>
-          </li>
-         `
-    )
-    .join('');
-  return `
-    <div class="pop">
-      <div class="game-container">
-        <div class="game-left grid grid--3-cols">
-          ${gameLeftHTML}
-        </div>
-        <div class="game-right">
-          <p class="game-right-title">新游预告</p>
-          <ul class="game-right-list">
-            ${gameRightHTML}
-          </ul>
-          <div class="game-right-img-box">
-            <img class="game-right-img" src="" alt="" />
-          </div>
-        </div>
-      </div>
-    </div>
-  `;
-};
-const leftNavItem = navData.leftNav
-  .map(item => {
-    let popEl = '';
-    let gamePopHTML = '';
-    if (item.pop) {
-      popEl = generateAnimePop(item.pop);
-    }
-    if (item.gamePop) {
-      gamePopHTML = generateGamePop(item.gamePop);
-    }
-    return `
-      <li class="nav-item">
-        <a class="link left-nav-link 
-        ${item.icon ? '' : 'move-up-down'}" href="#">
-        ${
-          item.icon
-            ? `<svg class="icon"><use href="src/img/icons.svg#${item.icon}"></use></svg>`
-            : ''
-        }
-          <span class="nav-item-text ">${item.itemName}</span>
-        </a>
-        ${popEl}
-        ${gamePopHTML}
-      </li>
-    `;
-  })
-  .join('');
-const leftNavEl = `<ul class="nav-left-box">${leftNavItem}</ul>`;
-navEl.insertAdjacentHTML('afterbegin', leftNavEl);
-// 这段代码需要在插入html之后，不然还没有pop元素，没法事件监听
-// 由于在移动的时候给header设置了moving类，有moving类就没有动画效果
-// 此时如果直接重置百分比0.5，就没有动画的效果了，所以需要鼠标进入pop的时候移除moving，但是导航栏的pop会比较多，就会加上很多的事件监听，感觉不太好。但是如果使用mouseover、mouseout事件委托，那么在pop内部移动的时候，当移入和移出子元素的时候，会频繁的触发mouseover、mouseout事件，导致会频繁的添加和删除moving类，这个方案感觉更不好
-const popElArr = document.querySelectorAll('.nav .pop');
-Array.from(popElArr).forEach(popEl => {
-  console.log(popEl);
-  popEl.addEventListener('mouseenter', function () {
-    headerEl.style.setProperty('--percentage', 0.5);
-    headerEl.classList.remove('moving');
-  });
-  popEl.addEventListener('mouseleave', function (e) {
+const controlTopImg = function () {
+  let startingPoint;
+  // 需要使用mouseenter、mouseleave，这个不会触发事件冒泡，只有进入header和移出header才会触发，子元素的事件不影响header
+  // 使用mouseover、mouseout触发事件冒泡，在nav导航栏移动的时候，如果碰到nav的子元素，例如链接、搜索框之类的，会触发事件mouseover、mouseout，导致事件冒泡，header的moving频繁移除和添加，背景图片移动就会有问题
+  headerEl.addEventListener('mouseenter', function (e) {
+    // 鼠标移入的时候记录鼠标的初始位置
     startingPoint = e.clientX;
     headerEl.classList.add('moving');
   });
-});
+  headerEl.addEventListener('mouseleave', function () {
+    // 鼠标移出时，将百分比重置为0.5
+    headerEl.style.setProperty('--percentage', 0.5);
+    headerEl.classList.remove('moving');
+  });
+  headerEl.addEventListener('mousemove', function (e) {
+    const popEl = e.target.closest('.pop');
+    if (popEl) {
+      return;
+    }
+    // 鼠标在屏幕中水平位置的百分比，默认为0.5，中间位置
+    let percentage = (e.clientX - startingPoint) / window.outerWidth + 0.5;
+    // --开头的属性是CSS变量，可以重复使用
+    headerEl.style.setProperty('--percentage', percentage);
+  });
+
+  // 这段代码需要在插入html之后，不然还没有pop元素，没法事件监听
+  // 由于在移动的时候给header设置了moving类，有moving类就没有动画效果
+  // 此时如果直接重置百分比0.5，就没有动画的效果了，所以需要鼠标进入pop的时候移除moving，但是导航栏的pop会比较多，就会加上很多的事件监听，感觉不太好。但是如果使用mouseover、mouseout事件委托，那么在pop内部移动的时候，当移入和移出子元素的时候，会频繁的触发mouseover、mouseout事件，导致会频繁的添加和删除moving类，这个方案感觉更不好
+  const popElArr = document.querySelectorAll('.nav .pop');
+  Array.from(popElArr).forEach(popEl => {
+    popEl.addEventListener('mouseenter', function () {
+      headerEl.style.setProperty('--percentage', 0.5);
+      headerEl.classList.remove('moving');
+    });
+    popEl.addEventListener('mouseleave', function (e) {
+      startingPoint = e.clientX;
+      headerEl.classList.add('moving');
+    });
+  });
+};
+
+////////////////////////////////
+// 顶部导航栏
+////////////////////////////////
+
+const initNav = async function () {
+  const navEl = document.querySelector('.nav');
+  navEl.style.display = 'none';
+  await model.loadNav();
+  // 渲染导航栏左侧
+  leftNavView.render(model.nav.leftNav);
+  // 渲染弹窗
+  model.nav.leftNav.forEach(item => {
+    if (item.pop) {
+      switch (item.pop.type) {
+        case 'anime':
+          animePopView.initParentEl();
+          animePopView.render(item.pop);
+          break;
+        case 'game':
+          gamePopView.initParentEl();
+          gamePopView.render(item.pop);
+      }
+    }
+  });
+  // 菜单渲染完成之后再显示
+  navEl.style.display = 'flex';
+};
 ////////////////////////////////
 // 鼠标悬停游戏文字，显示游戏图片
 // 使用事件委托，需要事件冒泡
 ////////////////////////////////
-const gameRightListEl = document.querySelector('.game-right-list');
-const gameRightImgEl = document.querySelector('.game-right-img');
-const gameRightImgBoxEl = document.querySelector('.game-right-img-box');
-gameRightListEl.addEventListener('mouseover', function (e) {
-  const aEl = e.target.closest('a');
-  if (!aEl) return;
-  const gameName = aEl.textContent;
-  const imgPath = aEl.dataset.imgPath;
-  gameRightImgEl.src = imgPath;
-  gameRightImgEl.alt = `${gameName}的游戏图片`;
-  gameRightImgBoxEl.style.display = 'block';
-});
-gameRightListEl.addEventListener('mouseout', function (e) {
-  const aEl = e.target.closest('a');
-  if (!aEl) return;
-  gameRightImgEl.src = '';
-  gameRightImgEl.alt = '';
-  gameRightImgBoxEl.style.display = 'none';
-});
+const controlGamePopImg = function () {
+  const gameRightListEl = document.querySelector('.game-right-list');
+  const gameRightImgEl = document.querySelector('.game-right-img');
+  const gameRightImgBoxEl = document.querySelector('.game-right-img-box');
+  gameRightListEl.addEventListener('mouseover', function (e) {
+    const aEl = e.target.closest('a');
+    if (!aEl) return;
+    const gameName = aEl.textContent;
+    const imgPath = aEl.dataset.imgPath;
+    gameRightImgEl.src = imgPath;
+    gameRightImgEl.alt = `${gameName}的游戏图片`;
+    gameRightImgBoxEl.style.display = 'block';
+  });
+  gameRightListEl.addEventListener('mouseout', function (e) {
+    const aEl = e.target.closest('a');
+    if (!aEl) return;
+    gameRightImgEl.src = '';
+    gameRightImgEl.alt = '';
+    gameRightImgBoxEl.style.display = 'none';
+  });
+};
+
 ////////////////////////////////
 // 表单背景颜色
 ////////////////////////////////
-const searchInputEl = document.querySelector('.search-input');
-const searchFormEl = document.querySelector('.search-form');
-searchInputEl.addEventListener('focus', function () {
-  searchFormEl.style.setProperty('backgroud-color', 'rgba(255, 255, 255, 0.8)');
-});
+const controlSearchFormBackgroundColor = function () {
+  const searchInputEl = document.querySelector('.search-input');
+  const searchFormEl = document.querySelector('.search-form');
+  searchInputEl.addEventListener('focus', function () {
+    searchFormEl.style.setProperty(
+      'backgroud-color',
+      'rgba(255, 255, 255, 0.8)'
+    );
+  });
+};
+////////////////////////////////
+// header初始化
+////////////////////////////////
+const initHeader = async function () {
+  controlSearchFormBackgroundColor();
+  // 需要先初始化导航栏，controlTopImg、controlGamePopImg中需要获取弹窗元素
+  await initNav();
+  controlTopImg();
+  controlGamePopImg();
+};
+initHeader();
+
 ////////////////////////////////
 // 轮播图
 ////////////////////////////////
+const slideWrapperEl = document.querySelector('.slide-wrapper');
+const rightBtn = document.querySelector('.btn-right');
+const leftBtn = document.querySelector('.btn-left');
 class Slide {
   _cur = 1;
   // _imgArr = ['src/img/pic1.png', 'src/img/pic2.png', 'src/img/pic3.png'];
@@ -405,7 +226,6 @@ const slide = new Slide();
 const avatarEl = document.querySelector('.avatar');
 const avatarBoxEl = document.querySelector('.avatar-box');
 const avatarCardEl = document.querySelector('.avatar-card');
-let isAnimating = false;
 avatarEl.addEventListener('mouseenter', function () {
   avatarBoxEl.style.transform = 'translate(-0.5rem, 1rem) scale(2)';
   avatarCardEl.style.display = 'block';
