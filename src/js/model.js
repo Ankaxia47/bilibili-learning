@@ -86,36 +86,39 @@ export const loadNav = async function () {
                   gameName: '三国：谋定天下',
                 },
               ],
-              gameRight: [
-                {
-                  gameImg: 'src/img/game/bcmc.png',
-                  gameName: '爆吵萌厨',
-                },
-                {
-                  gameImg: 'src/img/game/wy.png',
-                  gameName: '望月',
-                },
-                {
-                  gameImg: 'src/img/game/wjcs.png',
-                  gameName: '问剑长生',
-                },
-                {
-                  gameImg: 'src/img/game/yysls.png',
-                  gameName: '燕云十六声',
-                },
-                {
-                  gameImg: 'src/img/game/xhgm.png',
-                  gameName: '星恒共鸣',
-                },
-                {
-                  gameImg: 'src/img/game/syzz.png',
-                  gameName: '神隐之子',
-                },
-                {
-                  gameImg: 'src/img/game/ff14.png',
-                  gameName: '最终幻想14：水晶世界',
-                },
-              ],
+              gameRight: {
+                title: '新游预告',
+                items: [
+                  {
+                    gameImg: 'src/img/game/bcmc.png',
+                    gameName: '爆吵萌厨',
+                  },
+                  {
+                    gameImg: 'src/img/game/wy.png',
+                    gameName: '望月',
+                  },
+                  {
+                    gameImg: 'src/img/game/wjcs.png',
+                    gameName: '问剑长生',
+                  },
+                  {
+                    gameImg: 'src/img/game/yysls.png',
+                    gameName: '燕云十六声',
+                  },
+                  {
+                    gameImg: 'src/img/game/xhgm.png',
+                    gameName: '星恒共鸣',
+                  },
+                  {
+                    gameImg: 'src/img/game/syzz.png',
+                    gameName: '神隐之子',
+                  },
+                  {
+                    gameImg: 'src/img/game/ff14.png',
+                    gameName: '最终幻想14：水晶世界',
+                  },
+                ],
+              },
             },
           },
           {
@@ -125,6 +128,56 @@ export const loadNav = async function () {
           {
             itemName: '漫画',
             icon: '',
+            pop: {
+              type: 'manga',
+              mangaLeft: [
+                {
+                  mangaImg: 'src/img/manga/gmzr.png',
+                  mangaName: '鬼灭之刃',
+                },
+                {
+                  mangaImg: 'src/img/manga/jojo.jpg',
+                  mangaName: '石之海（乔乔的奇妙冒险第6部）',
+                },
+                {
+                  mangaImg: 'src/img/manga/djsy.png',
+                  mangaName: '刀剑神域 Alicization篇',
+                },
+                {
+                  mangaImg: 'src/img/manga/yqcr.jpg',
+                  mangaName: '一拳超人',
+                },
+              ],
+              mangaRight: {
+                title: '人气漫画',
+                items: [
+                  {
+                    mangaImg: 'src/img/manga/jdgjj.jpg',
+                    mangaName: '间谍过家家',
+                  },
+                  {
+                    mangaImg: 'src/img/manga/blzh.jpg',
+                    mangaName: '碧蓝之海',
+                  },
+                  {
+                    mangaImg: 'src/img/manga/ddd.png',
+                    mangaName: '胆大党（当哒当）',
+                  },
+                  {
+                    mangaImg: 'src/img/manga/zgyz.png',
+                    mangaName: '这个勇者是金钱至上主义者',
+                  },
+                  {
+                    mangaImg: 'src/img/manga/ssnz.png',
+                    mangaName: '杀死男主然后成为女魔头',
+                  },
+                  {
+                    mangaImg: 'src/img/manga/hhw.jpg',
+                    mangaName: '航海王',
+                  },
+                ],
+              },
+            },
           },
           {
             itemName: '赛事',

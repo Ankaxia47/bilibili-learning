@@ -9,8 +9,6 @@ class LeftNavView extends View {
     if (!this._data) return;
     const leftNavItem = this._data
       .map(item => {
-        let popEl = '';
-        let gamePopHTML = '';
         return `
       <li class="nav-item ${item.pop ? `${item.pop.type}-pop-box` : ''}">
         <a class="link left-nav-link 
