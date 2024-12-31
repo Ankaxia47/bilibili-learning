@@ -381,7 +381,7 @@ body ul {
 .manga-right-list-item a:link,
 .manga-right-list-item a:visited {
   display: block;
-  width: 12rem;
+  width: 90%;
   padding: 0.4rem 0.8rem;
   border-radius: 5px;
   font-size: 1.2rem;
@@ -412,6 +412,9 @@ body ul {
 /***************/
 /* 漫画弹框 */
 /***************/
+.manga-container {
+  width: 48rem;
+}
 /* 因为右边的高度比左边的高，为了两边高度一样，左边设置了100%的height */
 .manga-left {
   height: 100%;
@@ -436,6 +439,7 @@ body ul {
   padding-left: 0.8rem;
   margin-bottom: 1rem;
 }
+
 .manga-right-list {
   display: flex;
   flex-direction: column;
