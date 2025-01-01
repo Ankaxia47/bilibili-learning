@@ -109,31 +109,56 @@ const controlGamePopImg = function () {
 };
 ////////////////////////////////
 // 鼠标悬停漫画文字，显示漫画图片
-// 使用事件委托，需要事件冒泡
+// 目标：移入a元素，右侧实现对应的图片，移出a元素右侧图片消失
+// 由于a标签有很多个，所以希望能够使用事件委托，如果使用mouseover、mouseout，当移入a元素的子元素的时候，会触发mouseout事件，导致右侧图片消失, 然后由于移入子元素，触发事件冒泡，又会触发mouseover事件，导致右侧图片又出现，这样会导致右侧图片频繁的出现和消失
+// 那么在代码逻辑中判断是不是a元素，如果不是就直接return，这样就可以避免子元素的事件冒泡，但是问题是，a移入span是会触发mouseover的，即使判断了是不是a元素，图片还是会消失
+// 如果使用mouseenter、mouseleave, 从a元素移入span不会触发mouseleave事件，而是移出a元素才触发那么这个就满足了，但是mouseenter、mouseleave不会触发事件冒泡，所以无法使用事件委托
+// 如果在事件捕获阶段处理事件，那么即使a元素触发了事件，也是外面的父元素先处理，可以实现类似事件委托的效果
+// 如果对于mouseover、mouseout在事件捕获阶段处理，也没有用，前面提到的a移入span会触发mouseout，即使是捕获阶段还是冒泡阶段都没有区别
+// 在事件捕获阶段就进行事件处理，实现类似事件委托的效果
 ////////////////////////////////
 const controlMangaPopImg = function () {
   const mangaRightListEl = document.querySelector('.manga-right-list');
   const mangaRightImgEl = document.querySelector('.manga-right-img');
   const mangaRightImgBoxEl = document.querySelector('.manga-right-img-box');
-  mangaRightListEl.addEventListener('mouseover', function (e) {
-    const aEl = e.target.closest('a');
-    if (!aEl) return;
-    const mangaName = aEl.textContent
-      .replaceAll(' ', '')
-      .replaceAll('\n', '')
-      .slice(1);
-    const imgPath = aEl.dataset.imgPath;
-    mangaRightImgEl.src = imgPath;
-    mangaRightImgEl.alt = `${mangaName}的漫画图片`;
-    mangaRightImgBoxEl.style.display = 'block';
-  });
-  mangaRightListEl.addEventListener('mouseout', function (e) {
-    const aEl = e.target.closest('a');
-    if (!aEl) return;
-    mangaRightImgEl.src = '';
-    mangaRightImgEl.alt = '';
-    mangaRightImgBoxEl.style.display = 'none';
-  });
+  const avifSourceEl = mangaRightImgBoxEl.querySelector(
+    'source[type="image/avif"]'
+  );
+  const webpSourceEl = mangaRightImgBoxEl.querySelector(
+    'source[type="image/webp"]'
+  );
+  mangaRightListEl.addEventListener(
+    'mouseenter',
+    function (e) {
+      const aEl = e.target.closest('a');
+      if (!aEl || aEl !== e.target) return;
+      const mangaName = aEl.textContent
+        .replaceAll(' ', '')
+        .replaceAll('\n', '')
+        .slice(1);
+      const imgAvifPath = aEl.dataset.imgAvifPath;
+      const imgWebpPath = aEl.dataset.imgWebpPath;
+      avifSourceEl.srcset = imgAvifPath;
+      webpSourceEl.srcset = imgWebpPath;
+      mangaRightImgEl.src = imgWebpPath;
+      mangaRightImgEl.alt = `${mangaName}的漫画图片`;
+      mangaRightImgBoxEl.style.display = 'block';
+    },
+    true
+  );
+  mangaRightListEl.addEventListener(
+    'mouseleave',
+    function (e) {
+      const aEl = e.target.closest('a');
+      if (!aEl || aEl !== e.target) return;
+      avifSourceEl.srcset = '';
+      webpSourceEl.srcset = '';
+      mangaRightImgEl.src = '';
+      mangaRightImgEl.alt = '';
+      mangaRightImgBoxEl.style.display = 'none';
+    },
+    true
+  );
 };
 
 ////////////////////////////////

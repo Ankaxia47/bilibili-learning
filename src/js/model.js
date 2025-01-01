@@ -132,19 +132,35 @@ export const loadNav = async function () {
               type: 'manga',
               mangaLeft: [
                 {
-                  mangaImg: 'src/img/manga/gmzr.png',
+                  mangaImg: {
+                    origin: 'src/img/manga/origin/gmzr.png',
+                    webp: 'src/img/manga/webp/gmzr.webp',
+                    avif: 'src/img/manga/avif/gmzr.avif',
+                  },
                   mangaName: '鬼灭之刃',
                 },
                 {
-                  mangaImg: 'src/img/manga/jojo.jpg',
+                  mangaImg: {
+                    origin: 'src/img/manga/origin/jojo.jpg',
+                    webp: 'src/img/manga/webp/jojo.webp',
+                    avif: 'src/img/manga/avif/jojo.avif',
+                  },
                   mangaName: '石之海（乔乔的奇妙冒险第6部）',
                 },
                 {
-                  mangaImg: 'src/img/manga/djsy.png',
+                  mangaImg: {
+                    origin: 'src/img/manga/origin/djsy.png',
+                    webp: 'src/img/manga/webp/djsy.webp',
+                    avif: 'src/img/manga/avif/djsy.avif',
+                  },
                   mangaName: '刀剑神域 Alicization篇',
                 },
                 {
-                  mangaImg: 'src/img/manga/yqcr.jpg',
+                  mangaImg: {
+                    origin: 'src/img/manga/origin/yqcr.jpg',
+                    webp: 'src/img/manga/webp/yqcr.webp',
+                    avif: 'src/img/manga/avif/yqcr.avif',
+                  },
                   mangaName: '一拳超人',
                 },
               ],
@@ -152,27 +168,51 @@ export const loadNav = async function () {
                 title: '人气漫画',
                 items: [
                   {
-                    mangaImg: 'src/img/manga/jdgjj.jpg',
+                    mangaImg: {
+                      origin: 'src/img/manga/origin/jdgjj.jpg',
+                      webp: 'src/img/manga/webp/jdgjj.webp',
+                      avif: 'src/img/manga/avif/jdgjj.avif',
+                    },
                     mangaName: '间谍过家家',
                   },
                   {
-                    mangaImg: 'src/img/manga/blzh.jpg',
+                    mangaImg: {
+                      origin: 'src/img/manga/origin/blzh.jpg',
+                      webp: 'src/img/manga/webp/blzh.webp',
+                      avif: 'src/img/manga/avif/blzh.avif',
+                    },
                     mangaName: '碧蓝之海',
                   },
                   {
-                    mangaImg: 'src/img/manga/ddd.png',
+                    mangaImg: {
+                      origin: 'src/img/manga/origin/ddd.png',
+                      webp: 'src/img/manga/webp/ddd.webp',
+                      avif: 'src/img/manga/avif/ddd.avif',
+                    },
                     mangaName: '胆大党（当哒当）',
                   },
                   {
-                    mangaImg: 'src/img/manga/zgyz.png',
+                    mangaImg: {
+                      origin: 'src/img/manga/origin/zgyz.png',
+                      webp: 'src/img/manga/webp/zgyz.webp',
+                      avif: 'src/img/manga/avif/zgyz.avif',
+                    },
                     mangaName: '这个勇者是金钱至上主义者',
                   },
                   {
-                    mangaImg: 'src/img/manga/ssnz.png',
+                    mangaImg: {
+                      origin: 'src/img/manga/origin/ssnz.png',
+                      webp: 'src/img/manga/webp/ssnz.webp',
+                      avif: 'src/img/manga/avif/ssnz.avif',
+                    },
                     mangaName: '杀死男主然后成为女魔头',
                   },
                   {
-                    mangaImg: 'src/img/manga/hhw.jpg',
+                    mangaImg: {
+                      origin: 'src/img/manga/origin/hhw.jpg',
+                      webp: 'src/img/manga/webp/hhw.webp',
+                      avif: 'src/img/manga/avif/hhw.avif',
+                    },
                     mangaName: '航海王',
                   },
                 ],

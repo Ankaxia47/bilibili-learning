@@ -15,22 +15,28 @@ class MangaPopView extends View {
       .map(
         item => `
       <a href="#" class="manga-link">
+      <picture>
+        <source srcset="${item.mangaImg.avif}" type="image/avif" />
+        <source srcset="${item.mangaImg.webp}" type="image/webp" />
         <img
           class="manga-img"
-          src="${item.mangaImg}"
-          alt="${item.mangaName}"
+          src="${item.mangaImg.webp}"
+          alt="${item.mangaName}的漫画图片"
         />
+      </picture>
+        
         <span class="manga-name">${item.mangaName}</span>
       </a>
     `
       )
       .join('');
-    console.log(this._data.mangaRight);
     const mangaRightHTML = this._data.mangaRight.items
       .map(
         (item, index) => `
           <li class="manga-right-list-item">
-            <a href="#" data-img-path="${item.mangaImg}">
+            <a href="#" data-img-avif-path="${
+              item.mangaImg.avif
+            }" data-img-webp-path="${item.mangaImg.webp}">
               <span class="rank">${index + 1}</span>
               <span class="manga-name">${item.mangaName}</span>
             </a>
@@ -50,7 +56,11 @@ class MangaPopView extends View {
             ${mangaRightHTML}
           </ul>
           <div class="manga-right-img-box">
-            <img class="manga-right-img" src="" alt="" />
+            <picture>
+              <source srcset="" type="image/avif" />
+              <source srcset="" type="image/webp" />
+              <img class="manga-right-img" src="" alt="" />
+            </picture>
           </div>
         </div>
       </div>
