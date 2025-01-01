@@ -22,37 +22,61 @@ export const loadNav = async function () {
               items: [
                 {
                   title: '关于我转生变成史莱姆这档事 第三季',
-                  img: 'src/img/anime/anime1.png',
+                  img: {
+                    origin: 'src/img/anime/origin/anime1.png',
+                    webp: 'src/img/anime/webp/anime1.webp',
+                    avif: 'src/img/anime/avif/anime1.avif',
+                  },
                   episode: '更新至第57话',
                   score: '6.2分',
                 },
                 {
                   title: '胆大党',
-                  img: 'src/img/anime/anime2.png',
+                  img: {
+                    origin: 'src/img/anime/origin/anime2.png',
+                    webp: 'src/img/anime/webp/anime2.webp',
+                    avif: 'src/img/anime/avif/anime2.avif',
+                  },
                   episode: '全12话',
                   score: '9.8分',
                 },
                 {
                   title: '夏目友人帐 第七季',
-                  img: 'src/img/anime/anime3.jpg',
+                  img: {
+                    origin: 'src/img/anime/origin/anime3.png',
+                    webp: 'src/img/anime/webp/anime3.webp',
+                    avif: 'src/img/anime/avif/anime3.avif',
+                  },
                   episode: '全12话',
                   score: '9.9分',
                 },
                 {
                   title: '香格里拉边境 第二季',
-                  img: 'src/img/anime/anime4.png',
+                  img: {
+                    origin: 'src/img/anime/origin/anime4.png',
+                    webp: 'src/img/anime/webp/anime4.webp',
+                    avif: 'src/img/anime/avif/anime4.avif',
+                  },
                   episode: '更新至第7话',
                   score: '9.5分',
                 },
                 {
                   title: '青之箱',
-                  img: 'src/img/anime/anime5.png',
+                  img: {
+                    origin: 'src/img/anime/origin/anime5.png',
+                    webp: 'src/img/anime/webp/anime5.webp',
+                    avif: 'src/img/anime/avif/anime5.avif',
+                  },
                   episode: '更新至第9话',
                   score: '9.6分',
                 },
                 {
                   title: '新网球王子 U-17世界杯半决赛',
-                  img: 'src/img/anime/anime6.png',
+                  img: {
+                    origin: 'src/img/anime/origin/anime6.png',
+                    webp: 'src/img/anime/webp/anime6.webp',
+                    avif: 'src/img/anime/avif/anime6.avif',
+                  },
                   episode: '全13话',
                   score: '6.9分',
                 },
