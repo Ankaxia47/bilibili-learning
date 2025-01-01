@@ -15,11 +15,16 @@ class GamePopView extends View {
       .map(
         item => `
       <a href="#" class="game-link">
-        <img
-          class="game-img"
-          src="${item.gameImg}"
-          alt="${item.gameName}"
-        />
+        <picture>
+          <source srcset="${item.gameImg.avif}" type="image/avif" />
+          <source srcset="${item.gameImg.webp}" type="image/webp" />
+          <img
+            class="game-img"
+            src="${item.gameImg.webp}"
+            alt="${item.gameName}的游戏图片"
+          />  
+        </picture>
+        
         <span class="game-name">${item.gameName}</span>
       </a>
     `
@@ -29,7 +34,7 @@ class GamePopView extends View {
       .map(
         item => `
           <li class="game-right-list-item">
-            <a href="#" data-img-path="${item.gameImg}">${item.gameName}</a>
+            <a href="#" data-img-avif-path="${item.gameImg.avif}" data-img-webp-path="${item.gameImg.webp}">${item.gameName}</a>
           </li>
          `
       )
@@ -46,7 +51,11 @@ class GamePopView extends View {
             ${gameRightHTML}
           </ul>
           <div class="game-right-img-box">
-            <img class="game-right-img" src="" alt="" />
+            <picture>
+              <source srcset="" type="image/avif" />
+              <source srcset="" type="image/webp" />
+              <img class="game-right-img" src="" alt="" />
+            </picture>
           </div>
         </div>
       </div>

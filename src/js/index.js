@@ -90,18 +90,30 @@ const controlGamePopImg = function () {
   const gameRightListEl = document.querySelector('.game-right-list');
   const gameRightImgEl = document.querySelector('.game-right-img');
   const gameRightImgBoxEl = document.querySelector('.game-right-img-box');
+  console.log(gameRightImgBoxEl);
+  const avifSourceEl = gameRightImgBoxEl.querySelector(
+    'source[type="image/avif"]'
+  );
+  const webpSourceEl = gameRightImgBoxEl.querySelector(
+    'source[type="image/webp"]'
+  );
   gameRightListEl.addEventListener('mouseover', function (e) {
     const aEl = e.target.closest('a');
     if (!aEl) return;
     const gameName = aEl.textContent;
-    const imgPath = aEl.dataset.imgPath;
-    gameRightImgEl.src = imgPath;
+    const imgAvifPath = aEl.dataset.imgAvifPath;
+    const imgWebpPath = aEl.dataset.imgWebpPath;
+    avifSourceEl.srcset = imgAvifPath;
+    webpSourceEl.srcset = imgWebpPath;
+    gameRightImgEl.src = imgWebpPath;
     gameRightImgEl.alt = `${gameName}的游戏图片`;
     gameRightImgBoxEl.style.display = 'block';
   });
   gameRightListEl.addEventListener('mouseout', function (e) {
     const aEl = e.target.closest('a');
     if (!aEl) return;
+    avifSourceEl.srcset = '';
+    webpSourceEl.srcset = '';
     gameRightImgEl.src = '';
     gameRightImgEl.alt = '';
     gameRightImgBoxEl.style.display = 'none';

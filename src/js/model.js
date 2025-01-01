@@ -94,19 +94,35 @@ export const loadNav = async function () {
               type: 'game',
               gameLeft: [
                 {
-                  gameImg: 'src/img/game/fgo.jpg',
+                  gameImg: {
+                    origin: 'src/img/game/origin/fgo.jpg',
+                    webp: 'src/img/game/webp/fgo.webp',
+                    avif: 'src/img/game/avif/fgo.avif',
+                  },
                   gameName: '命运-冠位指定（Fate/GO）',
                 },
                 {
-                  gameImg: 'src/img/game/blhx.png',
+                  gameImg: {
+                    origin: 'src/img/game/origin/blhx.png',
+                    webp: 'src/img/game/webp/blhx.webp',
+                    avif: 'src/img/game/avif/blhx.avif',
+                  },
                   gameName: '碧蓝航线',
                 },
                 {
-                  gameImg: 'src/img/game/ktbl.png',
+                  gameImg: {
+                    origin: 'src/img/game/origin/ktbl.png',
+                    webp: 'src/img/game/webp/ktbl.webp',
+                    avif: 'src/img/game/avif/ktbl.avif',
+                  },
                   gameName: '坎特伯雷公主与骑士唤醒冠军之剑的奇幻冒险',
                 },
                 {
-                  gameImg: 'src/img/game/sgmdtx.png',
+                  gameImg: {
+                    origin: 'src/img/game/origin/sgmdtx.png',
+                    webp: 'src/img/game/webp/sgmdtx.webp',
+                    avif: 'src/img/game/avif/sgmdtx.avif',
+                  },
                   gameName: '三国：谋定天下',
                 },
               ],
@@ -114,31 +130,59 @@ export const loadNav = async function () {
                 title: '新游预告',
                 items: [
                   {
-                    gameImg: 'src/img/game/bcmc.png',
+                    gameImg: {
+                      origin: 'src/img/game/origin/bcmc.png',
+                      webp: 'src/img/game/webp/bcmc.webp',
+                      avif: 'src/img/game/avif/bcmc.avif',
+                    },
                     gameName: '爆吵萌厨',
                   },
                   {
-                    gameImg: 'src/img/game/wy.png',
+                    gameImg: {
+                      origin: 'src/img/game/origin/wy.png',
+                      webp: 'src/img/game/webp/wy.webp',
+                      avif: 'src/img/game/avif/wy.avif',
+                    },
                     gameName: '望月',
                   },
                   {
-                    gameImg: 'src/img/game/wjcs.png',
+                    gameImg: {
+                      origin: 'src/img/game/origin/wjcs.png',
+                      webp: 'src/img/game/webp/wjcs.webp',
+                      avif: 'src/img/game/avif/wjcs.avif',
+                    },
                     gameName: '问剑长生',
                   },
                   {
-                    gameImg: 'src/img/game/yysls.png',
+                    gameImg: {
+                      origin: 'src/img/game/origin/yysls.png',
+                      webp: 'src/img/game/webp/yysls.webp',
+                      avif: 'src/img/game/avif/yysls.avif',
+                    },
                     gameName: '燕云十六声',
                   },
                   {
-                    gameImg: 'src/img/game/xhgm.png',
+                    gameImg: {
+                      origin: 'src/img/game/origin/xhgm.png',
+                      webp: 'src/img/game/webp/xhgm.webp',
+                      avif: 'src/img/game/avif/xhgm.avif',
+                    },
                     gameName: '星恒共鸣',
                   },
                   {
-                    gameImg: 'src/img/game/syzz.png',
+                    gameImg: {
+                      origin: 'src/img/game/origin/syzz.png',
+                      webp: 'src/img/game/webp/syzz.webp',
+                      avif: 'src/img/game/avif/syzz.avif',
+                    },
                     gameName: '神隐之子',
                   },
                   {
-                    gameImg: 'src/img/game/ff14.png',
+                    gameImg: {
+                      origin: 'src/img/game/origin/ff14.png',
+                      webp: 'src/img/game/webp/ff14.webp',
+                      avif: 'src/img/game/avif/ff14.avif',
+                    },
                     gameName: '最终幻想14：水晶世界',
                   },
                 ],
