@@ -16,7 +16,7 @@ class AnimePopView extends View {
         item =>
           `
           <a href="#" class="pop-item">
-            <div class="pop-img-box" style="background-image: url(${item.img})">
+            <div class="pop-img-box" style="background-image: url(${item.img.webp})">
               <div class="pop-item-description">
                 <p class="eposide">${item.episode}</p>
                 <p class="score">${item.score}</p>
