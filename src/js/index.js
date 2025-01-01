@@ -3,6 +3,7 @@ import * as model from './model.js';
 import leftNavView from './view/leftNavView.js';
 import animePopView from './view/animePopView.js';
 import gamePopView from './view/gamePopView.js';
+import mangaPopView from './view/mangaPopView.js';
 
 ////////////////////////////////
 // 顶部图片
@@ -70,6 +71,11 @@ const initNav = async function () {
         case 'game':
           gamePopView.initParentEl();
           gamePopView.render(item.pop);
+          break;
+        case 'manga':
+          mangaPopView.initParentEl();
+          mangaPopView.render(item.pop);
+          break;
       }
     }
   });
@@ -101,6 +107,34 @@ const controlGamePopImg = function () {
     gameRightImgBoxEl.style.display = 'none';
   });
 };
+////////////////////////////////
+// 鼠标悬停漫画文字，显示漫画图片
+// 使用事件委托，需要事件冒泡
+////////////////////////////////
+const controlMangaPopImg = function () {
+  const mangaRightListEl = document.querySelector('.manga-right-list');
+  const mangaRightImgEl = document.querySelector('.manga-right-img');
+  const mangaRightImgBoxEl = document.querySelector('.manga-right-img-box');
+  mangaRightListEl.addEventListener('mouseover', function (e) {
+    const aEl = e.target.closest('a');
+    if (!aEl) return;
+    const mangaName = aEl.textContent
+      .replaceAll(' ', '')
+      .replaceAll('\n', '')
+      .slice(1);
+    const imgPath = aEl.dataset.imgPath;
+    mangaRightImgEl.src = imgPath;
+    mangaRightImgEl.alt = `${mangaName}的漫画图片`;
+    mangaRightImgBoxEl.style.display = 'block';
+  });
+  mangaRightListEl.addEventListener('mouseout', function (e) {
+    const aEl = e.target.closest('a');
+    if (!aEl) return;
+    mangaRightImgEl.src = '';
+    mangaRightImgEl.alt = '';
+    mangaRightImgBoxEl.style.display = 'none';
+  });
+};
 
 ////////////////////////////////
 // 表单背景颜色
@@ -124,6 +158,7 @@ const initHeader = async function () {
   await initNav();
   controlTopImg();
   controlGamePopImg();
+  controlMangaPopImg();
 };
 initHeader();
 

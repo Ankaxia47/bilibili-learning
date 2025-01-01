@@ -63,6 +63,9 @@ body ul {
   display: grid;
   gap: 1.2rem;
 }
+.grid--2-cols {
+  grid-template-columns: repeat(2, 1fr);
+}
 .grid--3-cols {
   grid-template-columns: repeat(3, 1fr);
 }
@@ -207,7 +210,6 @@ body ul {
   position: absolute;
   top: 100%;
   left: 0;
-  width: 44rem;
   padding: 2.4rem 1.2rem;
   background-color: #fff;
   border-radius: 5px;
@@ -242,7 +244,6 @@ body ul {
   position: relative;
   /* 宽高16:9 */
   padding-top: 56.25%;
-  /* background-image: url('../img/anime/anime1.png'); */
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -303,8 +304,10 @@ body ul {
   pointer-events: auto;
   visibility: visible;
 }
-.game-container {
+.game-container,
+.manga-container {
   display: grid;
+  width: 44rem;
   grid-template-columns: 2fr 1fr;
   font-size: 1.4rem;
   line-height: 1.6;
@@ -314,7 +317,8 @@ body ul {
 }
 
 /* 处理游戏中心弹框左侧 */
-.game-left {
+.game-left,
+.manga-left {
   padding-right: 2rem;
   border-right: 1px solid #e3e5e7;
 }
@@ -331,7 +335,9 @@ body ul {
   color: #000;
   transition: color 0.3s ease-in;
 }
-.game-img {
+
+.game-img,
+.manga-img {
   width: 100%;
   border-radius: 5px;
 }
@@ -349,7 +355,9 @@ body ul {
 
 /* 处理非第一个游戏项hover状态 */
 .game-link:not(:first-child):hover .game-name,
-.game-link:not(:first-child):active .game-name {
+.game-link:not(:first-child):active .game-name,
+.manga-link:hover .manga-name,
+.manga-link:active .manga-name {
   color: #00aeec;
 }
 
@@ -369,9 +377,11 @@ body ul {
   gap: 0.8rem;
 }
 .game-right-list-item a:link,
-.game-right-list-item a:visited {
+.game-right-list-item a:visited,
+.manga-right-list-item a:link,
+.manga-right-list-item a:visited {
   display: block;
-  width: 10rem;
+  width: 90%;
   padding: 0.4rem 0.8rem;
   border-radius: 5px;
   font-size: 1.2rem;
@@ -384,19 +394,80 @@ body ul {
   text-overflow: ellipsis;
 }
 .game-right-list-item a:hover,
-.game-right-list-item a:active {
+.game-right-list-item a:active,
+.manga-right-list-item a:hover,
+.manga-right-list-item a:active {
   font-size: 1.2rem;
   color: #61666d;
   background-color: #e3e5e7;
 }
-.game-right-img-box {
+.game-right-img-box,
+.manga-right-img-box {
   position: absolute;
   top: 50%;
   left: 100%;
   transform: translatey(-50%);
   display: none;
 }
+/***************/
+/* 漫画弹框 */
+/***************/
+.manga-container {
+  width: 48rem;
+}
+/* 因为右边的高度比左边的高，为了两边高度一样，左边设置了100%的height */
+.manga-left {
+  height: 100%;
+}
+.manga-link .manga-name {
+  display: block;
+  width: 13rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 1.1rem;
+  color: #000;
+  transition: color 0.3s ease-in;
+}
 
+.manga-right {
+  margin-left: 1.6rem;
+  position: relative;
+}
+.manga-right-title {
+  font-size: 1.8rem;
+  padding-left: 0.8rem;
+  margin-bottom: 1rem;
+}
+
+.manga-right-list {
+  display: flex;
+  flex-direction: column;
+}
+.manga-right-list-item .rank {
+  font-style: italic;
+  font-weight: 900;
+  font-size: 1.4rem;
+  color: #c9ccd0;
+}
+.manga-right-list-item:first-child .rank {
+  color: #ff473d;
+}
+.manga-right-list-item:nth-child(2) .rank {
+  color: #ff6a29;
+}
+.manga-right-list-item:nth-child(3) .rank {
+  color: #ff9218;
+}
+.manga-right-img-box {
+  width: 16rem;
+  border-radius: 5px;
+}
+.manga-right-img {
+  border-radius: 5px;
+  width: 100%;
+  height: 100%;
+}
 /***************/
 /* 导航栏中间 */
 /***************/

@@ -25,7 +25,7 @@ class GamePopView extends View {
     `
       )
       .join('');
-    const gameRightHTML = this._data.gameRight
+    const gameRightHTML = this._data.gameRight.items
       .map(
         item => `
           <li class="game-right-list-item">
@@ -41,7 +41,7 @@ class GamePopView extends View {
           ${gameLeftHTML}
         </div>
         <div class="game-right">
-          <p class="game-right-title">新游预告</p>
+          <p class="game-right-title">${this._data.gameRight.title}</p>
           <ul class="game-right-list">
             ${gameRightHTML}
           </ul>
