@@ -6,9 +6,9 @@ export default class View {
 
   constructor() {}
 
-  render(data) {
+  render(data, position = 'afterbegin') {
     this._data = data;
     const markup = this._generateMarkup();
-    this._parentEl.insertAdjacentHTML('afterbegin', markup);
+    this._parentEl.insertAdjacentHTML(position, markup);
   }
 }
