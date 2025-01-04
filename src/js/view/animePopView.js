@@ -15,14 +15,14 @@ class AnimePopView extends View {
       .map(
         item =>
           `
-          <a href="#" class="pop-item">
-            <div class="pop-img-box" style="background-image: url(${item.img.webp})">
-              <div class="pop-item-description">
+          <a href="#" class="anime-item">
+            <div class="anime-img-box" style="background-image: url(${item.img.webp})">
+              <div class="anime-item-description">
                 <p class="eposide">${item.episode}</p>
                 <p class="score">${item.score}</p>
               </div>
             </div>
-            <div class="pop-item-title">
+            <div class="anime-item-title">
               ${item.title}
             </div>
           </a>
@@ -31,8 +31,8 @@ class AnimePopView extends View {
       .join('');
     const popHTML = `
               <div class="pop">
-                <p class="pop-title">${this._data.title}</p>
-                <div class="pop-item-box grid grid--3-cols">
+                <p class="anime-title">${this._data.title}</p>
+                <div class="anime-item-box grid grid--3-cols">
                   ${itemsHTML}
                 </div>
               </div>

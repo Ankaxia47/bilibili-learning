@@ -1,0 +1,36 @@
+/***************/
+/* 通用 */
+/***************/
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+body {
+  line-height: 1;
+  font-size: 1.6rem;
+}
+.icon {
+  width: 1.8rem;
+  height: 1.8rem;
+}
+body a {
+  text-decoration: none;
+}
+body ul {
+  list-style: none;
+}
+.grid {
+  display: grid;
+  gap: 1.2rem;
+}
+.grid--2-cols {
+  grid-template-columns: repeat(2, 1fr);
+}
+.grid--3-cols {
+  grid-template-columns: repeat(3, 1fr);
+}
