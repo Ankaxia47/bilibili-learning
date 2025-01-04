@@ -358,6 +358,31 @@ export const loadNav = async function () {
           {
             itemName: '下载客户端',
             icon: 'download-icon',
+            pop: {
+              type: 'download',
+              downloadLeft: {
+                icon: 'phone-icon',
+                typeName: '手机版',
+                description: '扫码即可下载手机APP',
+                qrcodeImg: {
+                  origin: 'src/img/download/origin/qrcode.png',
+                },
+              },
+              downloadRight: {
+                icon: 'computer-icon',
+                typeName: 'Windows端',
+                description: '适合WIN系统设备',
+                bilibiliImg: {
+                  origin: 'src/img/download/origin/bilibili.png',
+                  webp: 'src/img/download/webp/bilibili.webp',
+                  avif: 'src/img/download/avif/bilibili.avif',
+                },
+              },
+              downloadMore: {
+                text: '点击查看更多下载内容',
+                icon: 'arrow-icon',
+              },
+            },
           },
         ],
         rightNav: [{}],

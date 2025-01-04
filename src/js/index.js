@@ -5,6 +5,7 @@ import animePopView from './view/animePopView.js';
 import gamePopView from './view/gamePopView.js';
 import mangaPopView from './view/mangaPopView.js';
 import matchPopView from './view/matchPopView.js';
+import downloadPopView from './view/downloadPopView.js';
 
 ////////////////////////////////
 // 顶部图片
@@ -81,6 +82,9 @@ const initNav = async function () {
           matchPopView.initParentEl();
           matchPopView.render(item.pop);
           break;
+        case 'download':
+          downloadPopView.initParentEl();
+          downloadPopView.render(item.pop);
       }
     }
   });

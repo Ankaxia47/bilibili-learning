@@ -8,7 +8,7 @@
   transform: translateX(-25%);
   padding: 2.4rem 1.2rem;
   background-color: #fff;
-  border-radius: 5px;
+  border-radius: 9px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
   transition: all 0.2s ease-in;
   /* 无法在display:none上面添加动画 */
@@ -411,4 +411,92 @@
   background-color: #fff;
   border: 1px solid #ff6699;
   padding: 0.2rem 0;
+}
+
+/***************/
+/* 下载客户端弹框 */
+/***************/
+.download-container {
+  width: 36rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  margin-bottom: 1.2rem;
+}
+.download-left,
+.download-right {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.download-left {
+  padding-right: 2rem;
+  border-right: 1px solid #e3e5e7;
+}
+.download-right {
+  padding-left: 2rem;
+}
+.download-type {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-bottom: 0.4rem;
+}
+.dowload-type-name {
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+.dowload-description {
+  font-size: 1.2rem;
+  letter-spacing: 1px;
+  color: #61666d;
+  justify-content: center;
+  margin-bottom: 1.2rem;
+}
+
+.download-qrcode-box {
+  width: 9.6rem;
+  height: 9.6rem;
+  padding: 0.4rem;
+  border: 1px solid #e3e5e7;
+  border-radius: 9px;
+}
+.download-qrcode {
+  width: 100%;
+  height: 100%;
+}
+
+.download-bilibili {
+  width: 4.8rem;
+  height: 4.8rem;
+  margin-bottom: 1.2rem;
+}
+
+.download-btn:link,
+.download-btn:visited {
+  display: block;
+  background-color: #00aeec;
+  color: #fff;
+  padding: 0.8rem 1.6rem;
+  border-radius: 9px;
+  font-size: 1.4rem;
+  transition: background-color 0.3s ease-in;
+}
+.download-btn:hover {
+  background-color: #40c5f1;
+}
+
+.download-more:link,
+.download-more:visited {
+  display: flex;
+  color: #9a9fa5;
+  font-size: 1.2rem;
+  justify-content: center;
+  transition: color 0.3s ease-in;
+}
+.download-more:hover {
+  color: #00aeec;
+}
+.download-arrow-icon {
+  width: 1.2rem;
+  height: 1.2rem;
 }

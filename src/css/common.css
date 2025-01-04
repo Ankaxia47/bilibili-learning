@@ -34,3 +34,12 @@ body ul {
 .grid--3-cols {
   grid-template-columns: repeat(3, 1fr);
 }
+.arrow-right {
+  transform: rotate(-90deg);
+}
+.arrow-left {
+  transform: rotate(90deg);
+}
+.arrow-up {
+  transform: rotate(180deg);
+}
