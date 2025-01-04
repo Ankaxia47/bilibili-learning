@@ -1,0 +1,414 @@
+/***************/
+/* 导航栏弹框 */
+/***************/
+.pop {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  transform: translateX(-25%);
+  padding: 2.4rem 1.2rem;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  transition: all 0.2s ease-in;
+  /* 无法在display:none上面添加动画 */
+  /* 1) 视觉上隐藏元素 */
+  opacity: 0;
+  /* 2) 不允许鼠标和键盘访问 */
+  pointer-events: none;
+  /* 3) 从屏幕阅读器中隐藏 */
+  visibility: hidden;
+  /* 父元素设置了鼠标变成手指，这里鼠标状态恢复默认 */
+  cursor: auto;
+}
+.nav-item:hover .pop,
+.pop:hover {
+  opacity: 1;
+  pointer-events: auto;
+  visibility: visible;
+}
+/***************/
+/* 番剧弹框 */
+/***************/
+/* 番剧弹框不移动，防止超出屏幕 */
+.anime-pop-box .pop {
+  transform: translateX(0);
+}
+.anime-item {
+  color: #000;
+}
+.anime-title {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 2.4rem;
+}
+
+.anime-img-box {
+  position: relative;
+  /* 宽高16:9 */
+  padding-top: 56.25%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 5px;
+  overflow: hidden;
+}
+.anime-img-box::after {
+  content: '';
+  bottom: 0;
+  left: 0;
+  right: 0;
+  position: absolute;
+  height: 30%;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.9),
+    rgb(255, 255, 255, 0.5)
+  );
+  z-index: 1;
+}
+.anime-item-description {
+  position: absolute;
+  width: 100%;
+  bottom: 5%;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 0.5rem;
+  z-index: 2;
+}
+.anime-item-description .eposide {
+  font-size: 1rem;
+}
+.anime-item-description .score {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+.anime-item-title {
+  width: 12rem;
+  margin-top: 0.5rem;
+  letter-spacing: 0.5px;
+  font-size: 1.2rem;
+  /* 控制文字不换行 */
+  white-space: nowrap;
+  /* 文字超出隐藏 */
+  overflow: hidden;
+  /* 隐藏的文字显示 ... */
+  text-overflow: ellipsis;
+}
+
+/***************/
+/* 游戏中心弹框 */
+/***************/
+
+.pop-visible {
+  opacity: 1;
+  pointer-events: auto;
+  visibility: visible;
+}
+.game-container,
+.manga-container {
+  display: grid;
+  width: 44rem;
+  grid-template-columns: 2fr 1fr;
+  font-size: 1.4rem;
+  line-height: 1.6;
+  letter-spacing: 0.5px;
+  color: #000;
+  align-items: start;
+}
+
+/* 处理游戏中心弹框左侧 */
+.game-left,
+.manga-left {
+  padding-right: 2rem;
+  border-right: 1px solid #e3e5e7;
+}
+
+.game-link .game-name {
+  /* 游戏名字最多支持两行，超过两行... */
+  display: -webkit-box;
+  line-clamp: 2;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+  color: #000;
+  transition: color 0.3s ease-in;
+}
+
+.game-img,
+.manga-img {
+  width: 100%;
+  border-radius: 5px;
+}
+/* 处理第一个游戏项布局 */
+.game-link:first-child {
+  position: relative;
+  grid-column: 1 / -1;
+}
+.game-link:first-child .game-name {
+  color: #fff;
+  position: absolute;
+  left: 2%;
+  bottom: 8%;
+}
+
+/* 处理非第一个游戏项hover状态 */
+.game-link:not(:first-child):hover .game-name,
+.game-link:not(:first-child):active .game-name,
+.manga-link:hover .manga-name,
+.manga-link:active .manga-name {
+  color: #00aeec;
+}
+
+/* 处理游戏中心弹框右侧 */
+.game-right {
+  margin-left: 2rem;
+  position: relative;
+}
+.game-right-title {
+  font-size: 2rem;
+  padding-left: 0.8rem;
+  margin-bottom: 1.2rem;
+}
+.game-right-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+.game-right-list-item a:link,
+.game-right-list-item a:visited,
+.manga-right-list-item a:link,
+.manga-right-list-item a:visited {
+  display: block;
+  width: 90%;
+  padding: 0.4rem 0.8rem;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  color: #61666d;
+  /* 控制文字不换行 */
+  white-space: nowrap;
+  /* 文字超出隐藏 */
+  overflow: hidden;
+  /* 隐藏的文字显示 ... */
+  text-overflow: ellipsis;
+}
+.game-right-list-item a:hover,
+.game-right-list-item a:active,
+.manga-right-list-item a:hover,
+.manga-right-list-item a:active {
+  font-size: 1.2rem;
+  color: #61666d;
+  background-color: #e3e5e7;
+}
+.game-right-img-box,
+.manga-right-img-box {
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  transform: translatey(-50%);
+  display: none;
+}
+/***************/
+/* 漫画弹框 */
+/***************/
+.manga-container {
+  width: 48rem;
+}
+/* 因为右边的高度比左边的高，为了两边高度一样，左边设置了100%的height */
+.manga-left {
+  height: 100%;
+}
+.manga-link .manga-name {
+  display: block;
+  width: 13rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 1.1rem;
+  color: #000;
+  transition: color 0.3s ease-in;
+}
+
+.manga-right {
+  margin-left: 1.6rem;
+  position: relative;
+}
+.manga-right-title {
+  font-size: 1.8rem;
+  padding-left: 0.8rem;
+  margin-bottom: 1rem;
+}
+
+.manga-right-list {
+  display: flex;
+  flex-direction: column;
+}
+.manga-right-list-item .rank {
+  font-style: italic;
+  font-weight: 900;
+  font-size: 1.4rem;
+  color: #c9ccd0;
+}
+.manga-right-list-item:first-child .rank {
+  color: #ff473d;
+}
+.manga-right-list-item:nth-child(2) .rank {
+  color: #ff6a29;
+}
+.manga-right-list-item:nth-child(3) .rank {
+  color: #ff9218;
+}
+.manga-right-img-box {
+  width: 16rem;
+  border-radius: 5px;
+}
+.manga-right-img {
+  border-radius: 5px;
+  width: 100%;
+  height: 100%;
+}
+
+/***************/
+/* 赛事弹框 */
+/***************/
+.match-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  width: 64rem;
+}
+.match-left {
+  padding-right: 2rem;
+  border-right: 1px solid #e3e5e7;
+}
+.match-image-link:first-child {
+  grid-column: 1 / -1;
+}
+.match-img {
+  border-radius: 9px;
+}
+
+.match-right {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  padding-left: 1.2rem;
+}
+.match-right-list-title {
+  font-size: 2rem;
+  letter-spacing: 0.5px;
+  margin-bottom: 1.2rem;
+  margin-left: 0.8rem;
+}
+.match-right-list {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.match-link:link,
+.match-link:visited {
+  display: flex;
+  width: 100%;
+  height: 3.2rem;
+  align-items: center;
+  color: #000;
+  padding: 0.4rem 0.8rem;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  position: relative;
+}
+.match-link:hover,
+.match-link:active {
+  background-color: #f1f2f3;
+}
+.match-title-pop {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -110%);
+  background-color: #000;
+  color: #fff;
+  font-size: 1.4rem;
+  white-space: nowrap;
+  padding: 1.2rem 1.2rem;
+  border-radius: 9px;
+  cursor: default;
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+  /* 弹框消失的时候也需要动画，visibility不支持动画过渡，在opacity的动画之后再隐藏 */
+  transition: opacity 0.2s ease-in, visibility 0s 0.2s;
+}
+
+.match-link:hover .match-title-pop {
+  opacity: 1;
+  pointer-events: auto;
+  visibility: visible;
+  transition: opacity 0.2s ease-in;
+}
+.match-right-list-item .rank {
+  font-style: italic;
+}
+.match-right-list-item:first-child .rank {
+  color: #ff473d;
+}
+.match-right-list-item:nth-child(2) .rank {
+  color: #ff6a29;
+}
+.match-right-list-item:nth-child(3) .rank {
+  color: #ff9218;
+}
+.match-icon {
+  margin-left: 0.4rem;
+  margin-right: 0.8rem;
+  flex-shrink: 0;
+}
+.match-hot .match-title,
+.match-preview .match-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.match-hot .match-title {
+  width: 27rem;
+}
+.match-preview .match-title {
+  width: 18rem;
+}
+.match-playback-btn,
+.match-subscription-btn {
+  font-size: 1.2rem;
+  margin-left: auto;
+  white-space: nowrap;
+  border-radius: 5px;
+  width: 5rem;
+  cursor: pointer;
+}
+
+.match-playback-btn {
+  display: none;
+  color: #fff;
+  background-color: #ff6699;
+  border: none;
+  padding: 0.2rem 0;
+}
+.match-hot .match-link:hover .match-title {
+  width: 20rem;
+}
+.match-hot .match-link:hover .match-playback-btn {
+  display: block;
+}
+.match-time {
+  color: #77706f;
+  white-space: nowrap;
+  margin-right: 0.4rem;
+}
+.match-subscription-btn {
+  color: #ff6699;
+  background-color: #fff;
+  border: 1px solid #ff6699;
+  padding: 0.2rem 0;
+}
