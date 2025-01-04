@@ -6,6 +6,7 @@ import gamePopView from './view/gamePopView.js';
 import mangaPopView from './view/mangaPopView.js';
 import matchPopView from './view/matchPopView.js';
 import downloadPopView from './view/downloadPopView.js';
+import rightNavView from './view/rightNavView.js';
 
 ////////////////////////////////
 // 顶部图片
@@ -62,6 +63,8 @@ const initNav = async function () {
   await model.loadNav();
   // 渲染导航栏左侧
   leftNavView.render(model.nav.leftNav);
+  // 渲染导航栏右侧
+  rightNavView.render(model.nav.rightNav, 'beforeend');
   // 渲染弹窗
   model.nav.leftNav.forEach(item => {
     if (item.pop) {
@@ -195,6 +198,23 @@ const controlSearchFormBackgroundColor = function () {
   });
 };
 ////////////////////////////////
+// 鼠标悬停头像放大
+////////////////////////////////
+const controlAvatar = function () {
+  const avatarEl = document.querySelector('.avatar');
+  const avatarBoxEl = document.querySelector('.avatar-box');
+  const avatarCardEl = document.querySelector('.avatar-card');
+  avatarEl.addEventListener('mouseenter', function () {
+    avatarBoxEl.style.transform = 'translate(-0.5rem, 1rem) scale(2)';
+    avatarCardEl.style.display = 'block';
+  });
+
+  avatarBoxEl.addEventListener('mouseleave', function () {
+    avatarBoxEl.style.transform = 'translate(0, 0) scale(1)';
+    avatarCardEl.style.display = 'none';
+  });
+};
+////////////////////////////////
 // header初始化
 ////////////////////////////////
 const initHeader = async function () {
@@ -204,6 +224,7 @@ const initHeader = async function () {
   controlTopImg();
   controlGamePopImg();
   controlMangaPopImg();
+  controlAvatar();
 };
 initHeader();
 
@@ -300,18 +321,3 @@ class Slide {
   }
 }
 const slide = new Slide();
-////////////////////////////////
-// 鼠标悬停头像放大
-////////////////////////////////
-const avatarEl = document.querySelector('.avatar');
-const avatarBoxEl = document.querySelector('.avatar-box');
-const avatarCardEl = document.querySelector('.avatar-card');
-avatarEl.addEventListener('mouseenter', function () {
-  avatarBoxEl.style.transform = 'translate(-0.5rem, 1rem) scale(2)';
-  avatarCardEl.style.display = 'block';
-});
-
-avatarBoxEl.addEventListener('mouseleave', function () {
-  avatarBoxEl.style.transform = 'translate(0, 0) scale(1)';
-  avatarCardEl.style.display = 'none';
-});

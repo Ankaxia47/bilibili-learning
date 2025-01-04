@@ -385,7 +385,52 @@ export const loadNav = async function () {
             },
           },
         ],
-        rightNav: [{}],
+        rightNav: {
+          avatar: {
+            img: {
+              origin: 'src/img/avatar/origin/avatar.png',
+              webp: 'src/img/avatar/webp/avatar.webp',
+              avif: 'src/img/avatar/avif/avatar.avif',
+            },
+          },
+          items: [
+            {
+              itemName: '大会员',
+              icon: 'vip-icon',
+              type: 'link',
+            },
+            {
+              itemName: '消息',
+              icon: 'message-icon',
+              type: 'link',
+            },
+            {
+              itemName: '动态',
+              icon: 'microblog-icon',
+              type: 'link',
+            },
+            {
+              itemName: '收藏',
+              icon: 'favorite-icon',
+              type: 'link',
+            },
+            {
+              itemName: '历史',
+              icon: 'history-icon',
+              type: 'link',
+            },
+            {
+              itemName: '创作中心',
+              icon: 'creation-icon',
+              type: 'link',
+            },
+            {
+              itemName: '投稿',
+              icon: 'upload-icon',
+              type: 'button',
+            },
+          ],
+        },
       };
       console.log('加载顶部导航栏数据end...');
       resolve();
