@@ -4,6 +4,7 @@ import leftNavView from './view/leftNavView.js';
 import animePopView from './view/animePopView.js';
 import gamePopView from './view/gamePopView.js';
 import mangaPopView from './view/mangaPopView.js';
+import matchPopView from './view/matchPopView.js';
 
 ////////////////////////////////
 // 顶部图片
@@ -76,6 +77,10 @@ const initNav = async function () {
           mangaPopView.initParentEl();
           mangaPopView.render(item.pop);
           break;
+        case 'match':
+          matchPopView.initParentEl();
+          matchPopView.render(item.pop);
+          break;
       }
     }
   });
@@ -90,7 +95,6 @@ const controlGamePopImg = function () {
   const gameRightListEl = document.querySelector('.game-right-list');
   const gameRightImgEl = document.querySelector('.game-right-img');
   const gameRightImgBoxEl = document.querySelector('.game-right-img-box');
-  console.log(gameRightImgBoxEl);
   const avifSourceEl = gameRightImgBoxEl.querySelector(
     'source[type="image/avif"]'
   );

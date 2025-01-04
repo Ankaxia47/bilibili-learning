@@ -210,6 +210,7 @@ body ul {
   position: absolute;
   top: 100%;
   left: 0;
+  transform: translateX(-25%);
   padding: 2.4rem 1.2rem;
   background-color: #fff;
   border-radius: 5px;
@@ -224,6 +225,10 @@ body ul {
   visibility: hidden;
   /* 父元素设置了鼠标变成手指，这里鼠标状态恢复默认 */
   cursor: auto;
+}
+/* 番剧弹框不移动，防止超出屏幕 */
+.anime-pop-box .pop {
+  transform: translateX(0);
 }
 .nav-item:hover .pop,
 .pop:hover {
@@ -468,6 +473,148 @@ body ul {
   width: 100%;
   height: 100%;
 }
+
+/***************/
+/* 赛事弹框 */
+/***************/
+.match-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  width: 64rem;
+}
+.match-left {
+  padding-right: 2rem;
+  border-right: 1px solid #e3e5e7;
+}
+.match-image-link:first-child {
+  grid-column: 1 / -1;
+}
+.match-img {
+  border-radius: 9px;
+}
+
+.match-right {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  padding-left: 1.2rem;
+}
+.match-right-list-title {
+  font-size: 2rem;
+  letter-spacing: 0.5px;
+  margin-bottom: 1.2rem;
+  margin-left: 0.8rem;
+}
+.match-right-list {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.match-link:link,
+.match-link:visited {
+  display: flex;
+  width: 100%;
+  height: 3.2rem;
+  align-items: center;
+  color: #000;
+  padding: 0.4rem 0.8rem;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  position: relative;
+}
+.match-link:hover,
+.match-link:active {
+  background-color: #f1f2f3;
+}
+.match-title-pop {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -110%);
+  background-color: #000;
+  color: #fff;
+  font-size: 1.4rem;
+  white-space: nowrap;
+  padding: 1.2rem 1.2rem;
+  border-radius: 9px;
+  cursor: default;
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+  /* 弹框消失的时候也需要动画，visibility不支持动画过渡，在opacity的动画之后再隐藏 */
+  transition: opacity 0.2s ease-in, visibility 0s 0.2s;
+}
+
+.match-link:hover .match-title-pop {
+  opacity: 1;
+  pointer-events: auto;
+  visibility: visible;
+  transition: opacity 0.2s ease-in;
+}
+.match-right-list-item .rank {
+  font-style: italic;
+}
+.match-right-list-item:first-child .rank {
+  color: #ff473d;
+}
+.match-right-list-item:nth-child(2) .rank {
+  color: #ff6a29;
+}
+.match-right-list-item:nth-child(3) .rank {
+  color: #ff9218;
+}
+.match-icon {
+  margin-left: 0.4rem;
+  margin-right: 0.8rem;
+  flex-shrink: 0;
+}
+.match-hot .match-title,
+.match-preview .match-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.match-hot .match-title {
+  width: 27rem;
+}
+.match-preview .match-title {
+  width: 18rem;
+}
+.match-playback-btn,
+.match-subscription-btn {
+  font-size: 1.2rem;
+  margin-left: auto;
+  white-space: nowrap;
+  border-radius: 5px;
+  width: 5rem;
+  cursor: pointer;
+}
+
+.match-playback-btn {
+  display: none;
+  color: #fff;
+  background-color: #ff6699;
+  border: none;
+  padding: 0.2rem 0;
+}
+.match-hot .match-link:hover .match-title {
+  width: 20rem;
+}
+.match-hot .match-link:hover .match-playback-btn {
+  display: block;
+}
+.match-time {
+  color: #77706f;
+  white-space: nowrap;
+  margin-right: 0.4rem;
+}
+.match-subscription-btn {
+  color: #ff6699;
+  background-color: #fff;
+  border: 1px solid #ff6699;
+  padding: 0.2rem 0;
+}
+
 /***************/
 /* 导航栏中间 */
 /***************/
