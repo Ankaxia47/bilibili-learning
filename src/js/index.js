@@ -64,7 +64,7 @@ const initNav = async function () {
   // 渲染导航栏左侧
   leftNavView.render(model.nav.leftNav);
   // 渲染导航栏右侧
-  rightNavView.render(model.nav.rightNav, 'beforeend');
+  // rightNavView.render(model.nav.rightNav, 'beforeend');
   // 渲染弹窗
   model.nav.leftNav.forEach(item => {
     if (item.pop) {
@@ -200,20 +200,20 @@ const controlSearchFormBackgroundColor = function () {
 ////////////////////////////////
 // 鼠标悬停头像放大
 ////////////////////////////////
-const controlAvatar = function () {
-  const avatarEl = document.querySelector('.avatar');
-  const avatarBoxEl = document.querySelector('.avatar-box');
-  const avatarCardEl = document.querySelector('.avatar-card');
-  avatarEl.addEventListener('mouseenter', function () {
-    avatarBoxEl.style.transform = 'translate(-0.5rem, 1rem) scale(2)';
-    avatarCardEl.style.display = 'block';
-  });
+// const controlAvatar = function () {
+//   const avatarEl = document.querySelector('.avatar');
+//   const avatarBoxEl = document.querySelector('.avatar-box');
+//   const avatarCardEl = document.querySelector('.avatar-card');
+//   avatarEl.addEventListener('mouseenter', function () {
+//     avatarEl.style.transform = 'translate(-3.2rem, 1rem) scale(2)';
+//     avatarEl.style.pointerEvents = 'none';
+//   });
 
-  avatarBoxEl.addEventListener('mouseleave', function () {
-    avatarBoxEl.style.transform = 'translate(0, 0) scale(1)';
-    avatarCardEl.style.display = 'none';
-  });
-};
+//   avatarEl.addEventListener('mouseleave', function () {
+//     avatarEl.style.transform = 'translate(0, 0) scale(1)';
+//     avatarEl.style.pointerEvents = 'auto';
+//   });
+// };
 ////////////////////////////////
 // header初始化
 ////////////////////////////////
@@ -224,7 +224,7 @@ const initHeader = async function () {
   controlTopImg();
   controlGamePopImg();
   controlMangaPopImg();
-  controlAvatar();
+  // controlAvatar();
 };
 initHeader();
 

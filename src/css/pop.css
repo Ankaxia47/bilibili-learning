@@ -5,7 +5,6 @@
   position: absolute;
   top: 100%;
   left: 0;
-  transform: translateX(-25%);
   padding: 2.4rem 1.2rem;
   background-color: #fff;
   border-radius: 9px;
@@ -22,6 +21,7 @@
   cursor: auto;
 }
 .nav-item:hover .pop,
+.right-nav-item:hover .pop,
 .pop:hover {
   opacity: 1;
   pointer-events: auto;
@@ -101,7 +101,9 @@
 /***************/
 /* 游戏中心弹框 */
 /***************/
-
+.game-pop-box .pop {
+  transform: translateX(-25%);
+}
 .pop-visible {
   opacity: 1;
   pointer-events: auto;
@@ -215,6 +217,9 @@
 /***************/
 /* 漫画弹框 */
 /***************/
+.manga-pop-box .pop {
+  transform: translateX(-25%);
+}
 .manga-container {
   width: 48rem;
 }
@@ -275,6 +280,9 @@
 /***************/
 /* 赛事弹框 */
 /***************/
+.match-pop-box .pop {
+  transform: translateX(-25%);
+}
 .match-container {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -415,6 +423,9 @@
 
 /***************/
 /* 下载客户端弹框 */
+.download-pop-box .pop {
+  transform: translateX(-25%);
+}
 /***************/
 .download-container {
   width: 36rem;
@@ -499,4 +510,25 @@
 .download-arrow-icon {
   width: 1.2rem;
   height: 1.2rem;
+}
+
+/***************/
+/* 头像弹框 */
+/***************/
+.avatar-pop-box .pop {
+  transform: translate(-50%);
+}
+.avatar-container {
+  width: 24rem;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-items: center;
+}
+.nickname:link,
+.nickname:visited {
+  display: block;
+  padding-top: 1.6rem;
+  color: #000;
+  font-weight: 600;
 }
