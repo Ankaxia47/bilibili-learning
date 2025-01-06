@@ -3,12 +3,7 @@
 /***************/
 .pop {
   position: absolute;
-  top: 100%;
-  left: 0;
-  padding: 2.4rem 1.2rem;
-  background-color: #fff;
-  border-radius: 9px;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  background-color: transparent;
   transition: all 0.2s ease-in;
   /* 无法在display:none上面添加动画 */
   /* 1) 视觉上隐藏元素 */
@@ -20,13 +15,28 @@
   /* 父元素设置了鼠标变成手指，这里鼠标状态恢复默认 */
   cursor: auto;
 }
-.nav-item:hover .pop,
-.right-nav-item:hover .pop,
+.pop > div {
+  border-radius: 9px;
+  background-color: #fff;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+.pop-right {
+  left: 100%;
+  top: 0;
+}
+.pop-bottom {
+  top: 100%;
+  left: 0;
+}
+.nav-item:hover .pop.pop-bottom,
+.right-nav-item:hover .pop.pop-bottom,
+.links-list-item:hover .pop.pop-right,
 .pop:hover {
   opacity: 1;
   pointer-events: auto;
   visibility: visible;
 }
+
 /***************/
 /* 番剧弹框 */
 /***************/
@@ -515,14 +525,14 @@
 /***************/
 /* 头像弹框 */
 /***************/
-.avatar-pop-box .pop {
+.avatar-pop-box .pop-bottom {
   transform: translate(-50%);
 }
 .avatar-container {
-  width: 24rem;
+  width: 28rem;
+  padding: 2.4rem;
   display: flex;
   flex-direction: column;
-  /* justify-content: center; */
   align-items: center;
 }
 .nickname:link,
@@ -531,4 +541,148 @@
   padding-top: 1.6rem;
   color: #000;
   font-weight: 600;
+}
+.level-icon {
+  width: 2.4rem;
+  height: 2.4rem;
+}
+.coin-box {
+  display: flex;
+  gap: 1.2rem;
+  margin-bottom: 1.2rem;
+}
+.coin {
+  font-size: 1.2rem;
+}
+.coin-text {
+  color: #979da3;
+}
+.coin-num {
+  color: #000;
+}
+.counts-box {
+  display: flex;
+  gap: 6.4rem;
+  margin-bottom: 1.6rem;
+}
+.counts-item:link,
+.counts-item:visited {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  align-items: center;
+}
+
+.counts-item:link .counts-num,
+.counts-item:visited .counts-num {
+  color: #000;
+  transition: color 0.3s;
+}
+.counts-item:link .counts-text,
+.counts-item:visited .counts-text {
+  color: #979da3;
+  font-size: 1.2rem;
+  transition: color 0.3s;
+}
+
+.counts-item:hover .counts-num,
+.counts-item:active .counts-num,
+.counts-item:hover .counts-text,
+.counts-item:active .counts-text {
+  color: #00aeec;
+}
+
+.vip-box {
+  width: 100%;
+  border-radius: 9px;
+  padding: 1.2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin-bottom: 1.2rem;
+  cursor: pointer;
+}
+.vip-box-left p {
+  width: 13rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.vip-box-left p:first-child {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #ff6699;
+  margin-bottom: 0.8rem;
+}
+.vip-box-left p:nth-child(2) {
+  font-size: 1rem;
+  color: #61666d;
+}
+.vip-box-right {
+  color: #ff6b9c;
+  border-radius: 5px;
+  padding: 0.6rem 1.2rem;
+  font-size: 1.2rem;
+  background-color: #fff;
+}
+.links-list {
+  width: 100%;
+  padding-bottom: 0.8rem;
+  border-bottom: 1px solid #e3e5e7;
+}
+.links-list-item {
+  position: relative;
+  cursor: pointer;
+  border-radius: 9px;
+  transition: background-color 0.2s ease-in;
+}
+.links-list-item.hover {
+  background-color: #e3e5e7;
+}
+.links-list-item .pop {
+  top: 50%;
+  transform: translateY(-50%);
+  padding-left: 1.2rem;
+}
+.sub-pop-container {
+  width: 14rem;
+  padding: 1.2rem;
+}
+.sub-pop-container .links-list {
+  padding-bottom: 0;
+  border: none;
+}
+.sub-pop-container .links-list-item {
+  padding-right: 0;
+}
+.links-item:link,
+.links-item:visited {
+  display: flex;
+  align-items: center;
+  padding: 1.2rem;
+  border-radius: 9px;
+  font-size: 1.4rem;
+  color: var(--text2);
+}
+
+.links-item .icon {
+  margin-right: 1.2rem;
+}
+.links-item .arrow-right {
+  width: 1rem;
+  height: 1rem;
+  margin-left: auto;
+  margin-right: 0;
+}
+
+.quit-box {
+  margin-top: 0.8rem;
+  width: 100%;
+  transition: background-color 0.2s ease-in;
+}
+.quit-box:hover {
+  background-color: #e3e5e7;
 }
