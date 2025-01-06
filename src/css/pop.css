@@ -40,9 +40,9 @@
 /***************/
 /* 番剧弹框 */
 /***************/
-/* 番剧弹框不移动，防止超出屏幕 */
-.anime-pop-box .pop {
-  transform: translateX(0);
+.anime-container {
+  background-color: #fff;
+  padding: 2.4rem 1.2rem;
 }
 .anime-item {
   color: #000;
@@ -122,7 +122,9 @@
 .game-container,
 .manga-container {
   display: grid;
-  width: 44rem;
+  width: 48rem;
+  padding: 2.4rem 1.2rem;
+  background-color: #fff;
   grid-template-columns: 2fr 1fr;
   font-size: 1.4rem;
   line-height: 1.6;
@@ -196,7 +198,7 @@
 .manga-right-list-item a:link,
 .manga-right-list-item a:visited {
   display: block;
-  width: 90%;
+  width: 14rem;
   padding: 0.4rem 0.8rem;
   border-radius: 5px;
   font-size: 1.2rem;
@@ -212,8 +214,6 @@
 .game-right-list-item a:active,
 .manga-right-list-item a:hover,
 .manga-right-list-item a:active {
-  font-size: 1.2rem;
-  color: #61666d;
   background-color: #e3e5e7;
 }
 .game-right-img-box,
@@ -249,7 +249,7 @@
 }
 
 .manga-right {
-  margin-left: 1.6rem;
+  padding-left: 1.6rem;
   position: relative;
 }
 .manga-right-title {
@@ -296,7 +296,9 @@
 .match-container {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  width: 64rem;
+  width: 66.4rem;
+  background-color: #fff;
+  padding: 2.4rem 1.2rem;
 }
 .match-left {
   padding-right: 2rem;
@@ -307,6 +309,8 @@
 }
 .match-img {
   border-radius: 9px;
+  width: 100%;
+  height: 100%;
 }
 
 .match-right {
@@ -324,12 +328,10 @@
 .match-right-list {
   display: flex;
   flex-direction: column;
-  width: 100%;
 }
 .match-link:link,
 .match-link:visited {
   display: flex;
-  width: 100%;
   height: 3.2rem;
   align-items: center;
   color: #000;
@@ -351,7 +353,7 @@
   color: #fff;
   font-size: 1.4rem;
   white-space: nowrap;
-  padding: 1.2rem 1.2rem;
+  padding: 1.2rem;
   border-radius: 9px;
   cursor: default;
   opacity: 0;
@@ -391,10 +393,10 @@
   text-overflow: ellipsis;
 }
 .match-hot .match-title {
-  width: 27rem;
+  width: 25rem;
 }
 .match-preview .match-title {
-  width: 18rem;
+  width: 16rem;
 }
 .match-playback-btn,
 .match-subscription-btn {
@@ -438,10 +440,14 @@
 }
 /***************/
 .download-container {
+  background-color: #fff;
+  padding: 2.4rem 1.2rem;
+}
+.download-content {
   width: 36rem;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  margin-bottom: 1.2rem;
+  margin-bottom: 1.6rem;
 }
 .download-left,
 .download-right {

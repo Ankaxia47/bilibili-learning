@@ -52,9 +52,9 @@ class AvatarPopView extends View {
       </div>
     `;
     const vipHTML = `
-      <a class="vip-box" style="background-image: ${
+      <a class="vip-box" style="background-image: url(${
         this._data.vip.vipBackgroundImg
-      }">
+      })">
         <div class="vip-box-left">
           ${this._data.vip.vipLeft
             .map(

@@ -71,23 +71,18 @@ const initNav = async function () {
     if (item.pop) {
       switch (item.pop.type) {
         case 'anime':
-          animePopView.initParentEl();
           animePopView.render(item.pop);
           break;
         case 'game':
-          gamePopView.initParentEl();
           gamePopView.render(item.pop);
           break;
         case 'manga':
-          mangaPopView.initParentEl();
           mangaPopView.render(item.pop);
           break;
         case 'match':
-          matchPopView.initParentEl();
           matchPopView.render(item.pop);
           break;
         case 'download':
-          downloadPopView.initParentEl();
           downloadPopView.render(item.pop);
       }
     }

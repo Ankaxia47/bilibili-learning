@@ -40,7 +40,7 @@ class GamePopView extends View {
       )
       .join('');
     return `
-    <div class="pop">
+    <div class="pop pop-bottom">
       <div class="game-container">
         <div class="game-left grid grid--3-cols">
           ${gameLeftHTML}

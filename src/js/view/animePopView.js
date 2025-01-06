@@ -30,10 +30,12 @@ class AnimePopView extends View {
       )
       .join('');
     const popHTML = `
-              <div class="pop">
-                <p class="anime-title">${this._data.title}</p>
-                <div class="anime-item-box grid grid--3-cols">
-                  ${itemsHTML}
+              <div class="pop pop-bottom">
+                <div class="anime-container">
+                  <p class="anime-title">${this._data.title}</p>
+                  <div class="anime-item-box grid grid--3-cols">
+                    ${itemsHTML}
+                  </div>
                 </div>
               </div>
             `;
