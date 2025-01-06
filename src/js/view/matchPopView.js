@@ -78,7 +78,7 @@ class MatchPopView extends View {
         </div>
       `;
     return `
-    <div class="pop">
+    <div class="pop pop-bottom">
       <div class="match-container">
         <div class="match-left grid grid--2-cols">
           ${matchLeftHTML}

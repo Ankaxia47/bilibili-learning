@@ -392,6 +392,77 @@ export const loadNav = async function () {
               webp: 'src/img/avatar/webp/avatar.webp',
               avif: 'src/img/avatar/avif/avatar.avif',
             },
+            pop: {
+              type: 'avatar',
+              nickname: '咕咕鸡',
+              levelIcon: 'level-icon',
+              coin: [
+                {
+                  coinText: '硬币',
+                  coinNum: 1070,
+                },
+                {
+                  coinText: 'B币',
+                  coinNum: 0,
+                },
+              ],
+              counts: [
+                {
+                  countsText: '关注',
+                  countsNum: 120,
+                },
+                {
+                  countsText: '粉丝',
+                  countsNum: 5,
+                },
+                {
+                  countsText: '动态',
+                  countsNum: 99,
+                },
+              ],
+              vip: {
+                vipLeft: ['最后1天，大会员限时4.6折', '低至3.9折仅148元'],
+                vipRight: '会员中心',
+                vipBackgroundImg:
+                  'src/img/avatar/origin/vip-background-image.png',
+              },
+              links: [
+                {
+                  linkIcon: 'user-icon',
+                  linkText: '个人中心',
+                },
+                {
+                  linkIcon: 'file-icon',
+                  linkText: '投稿管理',
+                },
+                {
+                  linkIcon: 'star-icon',
+                  linkText: '推荐服务',
+                  subLinks: [
+                    {
+                      linkIcon: 'camera-icon',
+                      linkText: '直播中心',
+                    },
+                    {
+                      linkIcon: 'book-icon',
+                      linkText: '我的课程',
+                    },
+                    {
+                      linkIcon: 'wallet-icon',
+                      linkText: 'B币钱包',
+                    },
+                    {
+                      linkIcon: 'list-icon',
+                      linkText: '订单中心',
+                    },
+                  ],
+                },
+              ],
+              quit: {
+                quitIcon: 'quit-icon',
+                quitText: '退出登录',
+              },
+            },
           },
           items: [
             {

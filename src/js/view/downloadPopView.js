@@ -56,17 +56,19 @@ class DownloadPopView extends View {
       </div>
     `;
     return `
-    <div class="pop">
+    <div class="pop pop-bottom">
       <div class="download-container">
-          ${downloadLeftHTML}
-          ${downloadRightHTML}
+        <div class="download-content">
+            ${downloadLeftHTML}
+            ${downloadRightHTML}
+        </div>
+        <a href="#" class="download-more">
+          <span>${this._data.downloadMore.text}</span>
+          <svg class="arrow-right download-arrow-icon">
+            <use href="src/img/icons.svg#${this._data.downloadMore.icon}"></use>
+          </svg>
+        </a>
       </div>
-      <a href="#" class="download-more">
-        <span>${this._data.downloadMore.text}</span>
-        <svg class="arrow-right download-arrow-icon">
-          <use href="src/img/icons.svg#${this._data.downloadMore.icon}"></use>
-        </svg>
-      </a>
     </div>
   `;
   }

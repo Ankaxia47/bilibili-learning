@@ -3,13 +3,7 @@
 /***************/
 .pop {
   position: absolute;
-  top: 100%;
-  left: 0;
-  transform: translateX(-25%);
-  padding: 2.4rem 1.2rem;
-  background-color: #fff;
-  border-radius: 9px;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  background-color: transparent;
   transition: all 0.2s ease-in;
   /* 无法在display:none上面添加动画 */
   /* 1) 视觉上隐藏元素 */
@@ -21,18 +15,34 @@
   /* 父元素设置了鼠标变成手指，这里鼠标状态恢复默认 */
   cursor: auto;
 }
-.nav-item:hover .pop,
+.pop > div {
+  border-radius: 9px;
+  background-color: #fff;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+.pop-right {
+  left: 100%;
+  top: 0;
+}
+.pop-bottom {
+  top: 100%;
+  left: 0;
+}
+.nav-item:hover .pop.pop-bottom,
+.right-nav-item:hover .pop.pop-bottom,
+.links-list-item:hover .pop.pop-right,
 .pop:hover {
   opacity: 1;
   pointer-events: auto;
   visibility: visible;
 }
+
 /***************/
 /* 番剧弹框 */
 /***************/
-/* 番剧弹框不移动，防止超出屏幕 */
-.anime-pop-box .pop {
-  transform: translateX(0);
+.anime-container {
+  background-color: #fff;
+  padding: 2.4rem 1.2rem;
 }
 .anime-item {
   color: #000;
@@ -101,7 +111,9 @@
 /***************/
 /* 游戏中心弹框 */
 /***************/
-
+.game-pop-box .pop {
+  transform: translateX(-25%);
+}
 .pop-visible {
   opacity: 1;
   pointer-events: auto;
@@ -110,7 +122,9 @@
 .game-container,
 .manga-container {
   display: grid;
-  width: 44rem;
+  width: 48rem;
+  padding: 2.4rem 1.2rem;
+  background-color: #fff;
   grid-template-columns: 2fr 1fr;
   font-size: 1.4rem;
   line-height: 1.6;
@@ -184,7 +198,7 @@
 .manga-right-list-item a:link,
 .manga-right-list-item a:visited {
   display: block;
-  width: 90%;
+  width: 14rem;
   padding: 0.4rem 0.8rem;
   border-radius: 5px;
   font-size: 1.2rem;
@@ -200,8 +214,6 @@
 .game-right-list-item a:active,
 .manga-right-list-item a:hover,
 .manga-right-list-item a:active {
-  font-size: 1.2rem;
-  color: #61666d;
   background-color: #e3e5e7;
 }
 .game-right-img-box,
@@ -215,6 +227,9 @@
 /***************/
 /* 漫画弹框 */
 /***************/
+.manga-pop-box .pop {
+  transform: translateX(-25%);
+}
 .manga-container {
   width: 48rem;
 }
@@ -234,7 +249,7 @@
 }
 
 .manga-right {
-  margin-left: 1.6rem;
+  padding-left: 1.6rem;
   position: relative;
 }
 .manga-right-title {
@@ -275,10 +290,15 @@
 /***************/
 /* 赛事弹框 */
 /***************/
+.match-pop-box .pop {
+  transform: translateX(-25%);
+}
 .match-container {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  width: 64rem;
+  width: 66.4rem;
+  background-color: #fff;
+  padding: 2.4rem 1.2rem;
 }
 .match-left {
   padding-right: 2rem;
@@ -289,6 +309,8 @@
 }
 .match-img {
   border-radius: 9px;
+  width: 100%;
+  height: 100%;
 }
 
 .match-right {
@@ -306,12 +328,10 @@
 .match-right-list {
   display: flex;
   flex-direction: column;
-  width: 100%;
 }
 .match-link:link,
 .match-link:visited {
   display: flex;
-  width: 100%;
   height: 3.2rem;
   align-items: center;
   color: #000;
@@ -333,7 +353,7 @@
   color: #fff;
   font-size: 1.4rem;
   white-space: nowrap;
-  padding: 1.2rem 1.2rem;
+  padding: 1.2rem;
   border-radius: 9px;
   cursor: default;
   opacity: 0;
@@ -373,10 +393,10 @@
   text-overflow: ellipsis;
 }
 .match-hot .match-title {
-  width: 27rem;
+  width: 25rem;
 }
 .match-preview .match-title {
-  width: 18rem;
+  width: 16rem;
 }
 .match-playback-btn,
 .match-subscription-btn {
@@ -415,12 +435,19 @@
 
 /***************/
 /* 下载客户端弹框 */
+.download-pop-box .pop {
+  transform: translateX(-25%);
+}
 /***************/
 .download-container {
+  background-color: #fff;
+  padding: 2.4rem 1.2rem;
+}
+.download-content {
   width: 36rem;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  margin-bottom: 1.2rem;
+  margin-bottom: 1.6rem;
 }
 .download-left,
 .download-right {
@@ -499,4 +526,169 @@
 .download-arrow-icon {
   width: 1.2rem;
   height: 1.2rem;
+}
+
+/***************/
+/* 头像弹框 */
+/***************/
+.avatar-pop-box .pop-bottom {
+  transform: translate(-50%);
+}
+.avatar-container {
+  width: 28rem;
+  padding: 2.4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.nickname:link,
+.nickname:visited {
+  display: block;
+  padding-top: 1.6rem;
+  color: #000;
+  font-weight: 600;
+}
+.level-icon {
+  width: 2.4rem;
+  height: 2.4rem;
+}
+.coin-box {
+  display: flex;
+  gap: 1.2rem;
+  margin-bottom: 1.2rem;
+}
+.coin {
+  font-size: 1.2rem;
+}
+.coin-text {
+  color: #979da3;
+}
+.coin-num {
+  color: #000;
+}
+.counts-box {
+  display: flex;
+  gap: 6.4rem;
+  margin-bottom: 1.6rem;
+}
+.counts-item:link,
+.counts-item:visited {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  align-items: center;
+}
+
+.counts-item:link .counts-num,
+.counts-item:visited .counts-num {
+  color: #000;
+  transition: color 0.3s;
+}
+.counts-item:link .counts-text,
+.counts-item:visited .counts-text {
+  color: #979da3;
+  font-size: 1.2rem;
+  transition: color 0.3s;
+}
+
+.counts-item:hover .counts-num,
+.counts-item:active .counts-num,
+.counts-item:hover .counts-text,
+.counts-item:active .counts-text {
+  color: #00aeec;
+}
+
+.vip-box {
+  width: 100%;
+  border-radius: 9px;
+  padding: 1.2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin-bottom: 1.2rem;
+  cursor: pointer;
+}
+.vip-box-left p {
+  width: 13rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.vip-box-left p:first-child {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #ff6699;
+  margin-bottom: 0.8rem;
+}
+.vip-box-left p:nth-child(2) {
+  font-size: 1rem;
+  color: #61666d;
+}
+.vip-box-right {
+  color: #ff6b9c;
+  border-radius: 5px;
+  padding: 0.6rem 1.2rem;
+  font-size: 1.2rem;
+  background-color: #fff;
+}
+.links-list {
+  width: 100%;
+  padding-bottom: 0.8rem;
+  border-bottom: 1px solid #e3e5e7;
+}
+.links-list-item {
+  position: relative;
+  cursor: pointer;
+  border-radius: 9px;
+  transition: background-color 0.2s ease-in;
+}
+.links-list-item.hover {
+  background-color: #e3e5e7;
+}
+.links-list-item .pop {
+  top: 50%;
+  transform: translateY(-50%);
+  padding-left: 1.2rem;
+}
+.sub-pop-container {
+  width: 14rem;
+  padding: 1.2rem;
+}
+.sub-pop-container .links-list {
+  padding-bottom: 0;
+  border: none;
+}
+.sub-pop-container .links-list-item {
+  padding-right: 0;
+}
+.links-item:link,
+.links-item:visited {
+  display: flex;
+  align-items: center;
+  padding: 1.2rem;
+  border-radius: 9px;
+  font-size: 1.4rem;
+  color: var(--text2);
+}
+
+.links-item .icon {
+  margin-right: 1.2rem;
+}
+.links-item .arrow-right {
+  width: 1rem;
+  height: 1rem;
+  margin-left: auto;
+  margin-right: 0;
+}
+
+.quit-box {
+  margin-top: 0.8rem;
+  width: 100%;
+  transition: background-color 0.2s ease-in;
+}
+.quit-box:hover {
+  background-color: #e3e5e7;
 }

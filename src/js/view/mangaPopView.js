@@ -45,7 +45,7 @@ class MangaPopView extends View {
       )
       .join('');
     return `
-    <div class="pop">
+    <div class="pop pop-bottom">
       <div class="manga-container">
         <div class="manga-left grid grid--2-cols">
           ${mangaLeftHTML}

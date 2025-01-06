@@ -7,6 +7,7 @@ import mangaPopView from './view/mangaPopView.js';
 import matchPopView from './view/matchPopView.js';
 import downloadPopView from './view/downloadPopView.js';
 import rightNavView from './view/rightNavView.js';
+import avatarPopView from './view/avatarPopView.js';
 
 ////////////////////////////////
 // 顶部图片
@@ -70,27 +71,26 @@ const initNav = async function () {
     if (item.pop) {
       switch (item.pop.type) {
         case 'anime':
-          animePopView.initParentEl();
           animePopView.render(item.pop);
           break;
         case 'game':
-          gamePopView.initParentEl();
           gamePopView.render(item.pop);
           break;
         case 'manga':
-          mangaPopView.initParentEl();
           mangaPopView.render(item.pop);
           break;
         case 'match':
-          matchPopView.initParentEl();
           matchPopView.render(item.pop);
           break;
         case 'download':
-          downloadPopView.initParentEl();
           downloadPopView.render(item.pop);
       }
     }
   });
+  // 头像弹框渲染
+  if (model.nav.rightNav.avatar.pop) {
+    avatarPopView.render(model.nav.rightNav.avatar.pop);
+  }
   // 菜单渲染完成之后再显示
   navEl.style.display = 'flex';
 };
@@ -198,22 +198,72 @@ const controlSearchFormBackgroundColor = function () {
   });
 };
 ////////////////////////////////
-// 鼠标悬停头像放大
+// 处理头像弹框的hover状态
 ////////////////////////////////
-const controlAvatar = function () {
-  const avatarEl = document.querySelector('.avatar');
-  const avatarBoxEl = document.querySelector('.avatar-box');
-  const avatarCardEl = document.querySelector('.avatar-card');
-  avatarEl.addEventListener('mouseenter', function () {
-    avatarBoxEl.style.transform = 'translate(-0.5rem, 1rem) scale(2)';
-    avatarCardEl.style.display = 'block';
-  });
 
-  avatarBoxEl.addEventListener('mouseleave', function () {
-    avatarBoxEl.style.transform = 'translate(0, 0) scale(1)';
-    avatarCardEl.style.display = 'none';
-  });
+const controlAvatarPopHover = function () {
+  // 捕获阶段处理事件，模仿事件委托
+  // 鼠标进入item增加hover类
+  const linksListEl = document.querySelector('.links-list');
+  linksListEl.addEventListener(
+    'mouseenter',
+    function (e) {
+      const liksListItemEl = e.target.closest('.links-list-item');
+      if (!liksListItemEl || e.target !== liksListItemEl) return;
+      liksListItemEl.classList.add('hover');
+    },
+    // 捕获阶段处理事件
+    true
+  );
+  // 鼠标移出item移除hover类
+  linksListEl.addEventListener(
+    'mouseleave',
+    function (e) {
+      const liksListItemEl = e.target.closest('.links-list-item');
+      if (!liksListItemEl || e.target !== liksListItemEl) return;
+      liksListItemEl.classList.remove('hover');
+    },
+    // 捕获阶段处理事件
+    true
+  );
+
+  linksListEl.addEventListener(
+    'mouseenter',
+    function (e) {
+      const childItemEl = e.target.closest('.child-item');
+      if (!childItemEl || e.target !== childItemEl) return;
+      const parentItemActiveEl = e.target.closest('.parent-item');
+      parentItemActiveEl.classList.remove('hover');
+    },
+    // 捕获阶段处理事件
+    true
+  );
+  // 从头像弹框移动到子弹框，取消父弹框hover状态
+  linksListEl.addEventListener(
+    'mouseenter',
+    function (e) {
+      const childItemEl = e.target.closest('.parent-item>.pop');
+      if (!childItemEl || e.target !== childItemEl) return;
+      const parentItemActiveEl = e.target.closest('.parent-item');
+      parentItemActiveEl.classList.remove('hover');
+    },
+    // 捕获阶段处理事件
+    true
+  );
+  // 从头像弹框移动到子弹框，恢复父弹框hover状态
+  linksListEl.addEventListener(
+    'mouseleave',
+    function (e) {
+      const childItemEl = e.target.closest('.parent-item>.pop');
+      if (!childItemEl || e.target !== childItemEl) return;
+      const parentItemActiveEl = e.target.closest('.parent-item');
+      parentItemActiveEl.classList.add('hover');
+    },
+    // 捕获阶段处理事件
+    true
+  );
 };
+
 ////////////////////////////////
 // header初始化
 ////////////////////////////////
@@ -224,7 +274,7 @@ const initHeader = async function () {
   controlTopImg();
   controlGamePopImg();
   controlMangaPopImg();
-  controlAvatar();
+  controlAvatarPopHover();
 };
 initHeader();
 
