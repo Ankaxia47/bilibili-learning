@@ -7,7 +7,7 @@ class RightNavView extends View {
     const avatarHTML = `
       <li class="right-nav-item ${
         this._data.avatar.pop ? `${this._data.avatar.pop.type}-pop-box` : ''
-      }"" >
+      }" >
         <a class="avatar-box" href="#" class="link">
           <picture>
             <source srcset="${this._data.avatar.img.avif}" type="image/avif" />
@@ -27,7 +27,7 @@ class RightNavView extends View {
           `
           <li class="right-nav-item ${
             item.pop ? `${item.pop.type}-pop-box` : ''
-          }"">
+          }">
             <a href="#" class="link ${
               item.type === 'button' ? 'btn-top' : 'nav-right-link'
             }  ">
