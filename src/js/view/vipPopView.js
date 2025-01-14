@@ -13,18 +13,20 @@ class VipPopView extends View {
   _generateMarkup() {
     const descriptionLeftHTML = `
       <div class="description-left">
-        <p class="description-title">${
+        <a href="#" class="description-title">${
           this._data.vipDescription.descriptionLeft.descriptionTitle
-        }</p>
+        }</a>
         <ul class="description-list">
           ${this._data.vipDescription.descriptionLeft.descriptionList
             .map(
               item => `
               <li class="description-list-item">
-                <svg class="vip-icon">
-                  <use href="src/img/icons.svg#${item.icon}"></use>
-                </svg>
-                <span class="description-text">${item.text}</span>
+                <a href="#" class="description-item-link">
+                  <svg class="vip-icon">
+                    <use href="src/img/icons.svg#${item.icon}"></use>
+                  </svg>
+                  <span class="description-text">${item.text}</span>
+                </a>
               </li>
             `
             )
