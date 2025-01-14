@@ -8,6 +8,7 @@ import matchPopView from './view/matchPopView.js';
 import downloadPopView from './view/downloadPopView.js';
 import rightNavView from './view/rightNavView.js';
 import avatarPopView from './view/avatarPopView.js';
+import vipPopView from './view/vipPopView.js';
 
 ////////////////////////////////
 // 顶部图片
@@ -84,6 +85,7 @@ const initNav = async function () {
           break;
         case 'download':
           downloadPopView.render(item.pop);
+          break;
       }
     }
   });
@@ -91,6 +93,16 @@ const initNav = async function () {
   if (model.nav.rightNav.avatar.pop) {
     avatarPopView.render(model.nav.rightNav.avatar.pop);
   }
+  // 右侧导航栏弹框渲染
+  model.nav.rightNav.items.forEach(item => {
+    if (item.pop) {
+      switch (item.pop.type) {
+        case 'vip':
+          vipPopView.render(item.pop);
+          break;
+      }
+    }
+  });
   // 菜单渲染完成之后再显示
   navEl.style.display = 'flex';
 };
