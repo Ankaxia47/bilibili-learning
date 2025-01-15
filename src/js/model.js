@@ -2,7 +2,7 @@
 // 数据处理
 ////////////////////////////////
 export let nav = {};
-
+export let topImg = {};
 export const loadNav = async function () {
   await new Promise(resolve => {
     setTimeout(() => {
@@ -546,5 +546,53 @@ export const loadNav = async function () {
       console.log('加载顶部导航栏数据end...');
       resolve();
     }, 200);
+  });
+};
+export const loadTopImg = async function () {
+  await new Promise(resolve => {
+    setTimeout(() => {
+      topImg = {
+        morning: {
+          tree: {
+            origin: 'src/img/top-img/origin/bilibili-winter-tree-1.png',
+            webp: 'src/img/top-img/webp/bilibili-winter-tree-1.webp',
+            avif: 'src/img/top-img/avif/bilibili-winter-tree-1.avif',
+          },
+          view: {
+            origin: 'src/img/top-img/origin/bilibili-winter-view-1.jpg',
+            webp: 'src/img/top-img/webp/bilibili-winter-view-1.webp',
+            avif: 'src/img/top-img/avif/bilibili-winter-view-1.avif',
+          },
+        },
+        afternoon: {
+          tree: {
+            origin: 'src/img/top-img/origin/bilibili-winter-tree-2.png',
+            webp: 'src/img/top-img/webp/bilibili-winter-tree-2.webp',
+            avif: 'src/img/top-img/avif/bilibili-winter-tree-2.avif',
+          },
+          view: {
+            origin: 'src/img/top-img/origin/bilibili-winter-view-2.jpg',
+            webp: 'src/img/top-img/webp/bilibili-winter-view-2.webp',
+            avif: 'src/img/top-img/avif/bilibili-winter-view-2.avif',
+          },
+        },
+        evening: {
+          tree: {
+            origin: 'src/img/top-img/origin/bilibili-winter-tree-3.png',
+            webp: 'src/img/top-img/webp/bilibili-winter-tree-3.webp',
+            avif: 'src/img/top-img/avif/bilibili-winter-tree-3.avif',
+          },
+          view: {
+            origin: 'src/img/top-img/origin/bilibili-winter-view-3.webm',
+          },
+          window: {
+            origin: 'src/img/top-img/origin/bilibili-winter-view-3-snow.png',
+            webp: 'src/img/top-img/webp/bilibili-winter-view-3-snow.webp',
+            avif: 'src/img/top-img/avif/bilibili-winter-view-3-snow.avif',
+          },
+        },
+      };
+      resolve();
+    }, 100);
   });
 };

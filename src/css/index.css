@@ -53,7 +53,8 @@ Medium: 11px
   position: absolute;
   top: 0;
   bottom: 0;
-  left: 0;
+  /* 默认设置--percentage: 0.5; 图片会向右移动一段距离，所以让容器一开始更左边一点 */
+  left: -10%;
   right: 0;
   display: flex;
   justify-content: center;
@@ -62,10 +63,12 @@ Medium: 11px
 .top-img img,
 .top-img video {
   position: absolute;
+  top: 0;
+  left: 0;
   /* img、video是行内元素设置宽高需要先变成块元素 */
   display: block;
   /* 图片设置大一些 便于图片移动 */
-  width: 120%;
+  width: 110%;
   height: 100%;
   /* 图片按比例放大填满容器 */
   object-fit: cover;

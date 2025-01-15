@@ -9,6 +9,7 @@ import downloadPopView from './view/downloadPopView.js';
 import rightNavView from './view/rightNavView.js';
 import avatarPopView from './view/avatarPopView.js';
 import vipPopView from './view/vipPopView.js';
+import topImgView from './view/topImgView.js';
 
 ////////////////////////////////
 // 顶部图片
@@ -275,12 +276,19 @@ const controlAvatarPopHover = function () {
     true
   );
 };
-
+////////////////////////////////
+// 顶部图片
+////////////////////////////////
+const initTopImg = async function () {
+  await model.loadTopImg();
+  topImgView.render(model.topImg);
+};
 ////////////////////////////////
 // header初始化
 ////////////////////////////////
 const initHeader = async function () {
   controlSearchFormBackgroundColor();
+  await initTopImg();
   // 需要先初始化导航栏，controlTopImg、controlGamePopImg中需要获取弹窗元素
   await initNav();
   controlTopImg();
