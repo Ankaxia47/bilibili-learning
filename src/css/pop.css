@@ -808,3 +808,26 @@
   border-radius: 3px;
   font-size: 1rem;
 }
+/***************/
+/* 消息弹框 */
+/***************/
+.message-pop-box .pop {
+  transform: translateX(-30%);
+}
+.message-container {
+  width: 14rem;
+  padding: 1.6rem 0;
+}
+
+.message-link:link,
+.message-link:visited {
+  font-size: 1.4rem;
+  color: #61666d;
+  display: block;
+  padding: 1.4rem 0 1.4rem 2.4rem;
+  transition: background-color 0.3s;
+}
+.message-link:hover,
+.message-link:active {
+  background-color: #e3e5e7;
+}

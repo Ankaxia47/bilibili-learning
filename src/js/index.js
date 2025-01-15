@@ -10,6 +10,7 @@ import rightNavView from './view/rightNavView.js';
 import avatarPopView from './view/avatarPopView.js';
 import vipPopView from './view/vipPopView.js';
 import topImgView from './view/topImgView.js';
+import messagePopView from './view/messagePopView.js';
 
 ////////////////////////////////
 // 顶部图片
@@ -100,6 +101,9 @@ const initNav = async function () {
       switch (item.pop.type) {
         case 'vip':
           vipPopView.render(item.pop);
+          break;
+        case 'message':
+          messagePopView.render(item.pop);
           break;
       }
     }
