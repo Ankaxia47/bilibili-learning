@@ -514,6 +514,16 @@ export const loadNav = async function () {
               itemName: '消息',
               icon: 'message-icon',
               type: 'link',
+              pop: {
+                type: 'message',
+                items: [
+                  '回复我的',
+                  '@我的',
+                  '收到的赞',
+                  '系统消息',
+                  '我的消息',
+                ],
+              },
             },
             {
               itemName: '动态',
