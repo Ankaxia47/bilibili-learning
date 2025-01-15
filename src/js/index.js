@@ -288,9 +288,9 @@ const initTopImg = async function () {
 ////////////////////////////////
 const initHeader = async function () {
   controlSearchFormBackgroundColor();
-  await initTopImg();
   // 需要先初始化导航栏，controlTopImg、controlGamePopImg中需要获取弹窗元素
-  await initNav();
+  // 顶部图片和nav没有依赖关系，并发请求数据
+  await Promise.allSettled([initTopImg(), initNav()]);
   controlTopImg();
   controlGamePopImg();
   controlMangaPopImg();
