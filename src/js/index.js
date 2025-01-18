@@ -11,6 +11,7 @@ import avatarPopView from './view/avatarPopView.js';
 import vipPopView from './view/vipPopView.js';
 import topImgView from './view/topImgView.js';
 import messagePopView from './view/messagePopView.js';
+import microblogPopView from './view/microblogPopView.js';
 
 ////////////////////////////////
 // 顶部图片
@@ -104,6 +105,9 @@ const initNav = async function () {
           break;
         case 'message':
           messagePopView.render(item.pop);
+          break;
+        case 'microblog':
+          microblogPopView.render(item.pop);
           break;
       }
     }

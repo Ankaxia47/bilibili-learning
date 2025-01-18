@@ -529,6 +529,104 @@ export const loadNav = async function () {
               itemName: '动态',
               icon: 'microblog-icon',
               type: 'link',
+              pop: {
+                type: 'microblog',
+                liveUps: [
+                  {
+                    avatar: {
+                      origin:
+                        'src/img/microblog/up-avatar/origin/ElevenOfficial_.jpg',
+                      webp: 'src/img/microblog/up-avatar/webp/ElevenOfficial_.webp',
+                      avif: 'src/img/microblog/up-avatar/avif/ElevenOfficial_.avif',
+                    },
+                    upName: 'ElevenOfficial_',
+                  },
+                  {
+                    avatar: {
+                      origin: 'src/img/microblog/up-avatar/origin/hhHaya.jpg',
+                      webp: 'src/img/microblog/up-avatar/webp/hhHaya.webp',
+                      avif: 'src/img/microblog/up-avatar/avif/hhHaya.avif',
+                    },
+                    upName: '花花Haya',
+                  },
+                  {
+                    avatar: {
+                      origin:
+                        'src/img/microblog/up-avatar/origin/blblyxlmss.jpg',
+                      webp: 'src/img/microblog/up-avatar/webp/blblyxlmss.webp',
+                      avif: 'src/img/microblog/up-avatar/avif/blblyxlmss.avif',
+                    },
+                    upName: '哔哩哔哩英雄联盟赛事',
+                  },
+                  {
+                    avatar: {
+                      origin: 'src/img/microblog/up-avatar/origin/jwmb.jpg',
+                      webp: 'src/img/microblog/up-avatar/webp/jwmb.webp',
+                      avif: 'src/img/microblog/up-avatar/avif/jwmb.avif',
+                    },
+                    upName: '叫我棉被',
+                  },
+                  {
+                    avatar: {
+                      origin: 'src/img/microblog/up-avatar/origin/amdxrb.jpg',
+                      webp: 'src/img/microblog/up-avatar/webp/amdxrb.webp',
+                      avif: 'src/img/microblog/up-avatar/avif/amdxrb.avif',
+                    },
+                    upName: '傲慢的小肉包',
+                  },
+                  {
+                    avatar: {
+                      origin: 'src/img/microblog/up-avatar/origin/amdxrb.jpg',
+                      webp: 'src/img/microblog/up-avatar/webp/amdxrb.webp',
+                      avif: 'src/img/microblog/up-avatar/avif/amdxrb.avif',
+                    },
+                    upName: '傲慢的小肉包',
+                  },
+                ],
+                microblogHistory: [
+                  {
+                    up: {
+                      avatar: {
+                        origin: 'src/img/microblog/up-avatar/origin/sxgls.jpg',
+                        webp: 'src/img/microblog/up-avatar/webp/sxgls.webp',
+                        avif: 'src/img/microblog/up-avatar/avif/sxgls.avif',
+                      },
+                      upName: '三星GALAXY盖乐世',
+                    },
+                    video: {
+                      videoImg: {
+                        origin:
+                          'src/img/microblog/video-img/origin/sxgls-video.jpg',
+                        webp: 'src/img/microblog/video-img/webp/sxgls-video.webp',
+                        avif: 'src/img/microblog/video-img/avif/sxgls-video.avif',
+                      },
+                      videoName: '交 流 神 器',
+                      publishTimestamp: 1737043199000,
+                    },
+                  },
+                  {
+                    up: {
+                      avatar: {
+                        origin: 'src/img/microblog/up-avatar/origin/jwmb.jpg',
+                        webp: 'src/img/microblog/up-avatar/webp/jwmb.webp',
+                        avif: 'src/img/microblog/up-avatar/avif/jwmb.avif',
+                      },
+                      upName: '叫我棉被',
+                    },
+                    video: {
+                      videoImg: {
+                        origin:
+                          'src/img/microblog/video-img/origin/jwmb-video.jpg',
+                        webp: 'src/img/microblog/video-img/webp/jwmb-video.webp',
+                        avif: 'src/img/microblog/video-img/avif/jwmb-video.avif',
+                      },
+                      videoName:
+                        '【剑与远征：启程】新赛季，最佳回坑时机？！「冬夜残响」内容详解新角色双子、洛桑',
+                      publishTimestamp: 1737043199000,
+                    },
+                  },
+                ],
+              },
             },
             {
               itemName: '收藏',
