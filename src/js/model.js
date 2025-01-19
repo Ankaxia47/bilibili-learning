@@ -719,6 +719,7 @@ export const loadPageMicroblogHistory = async function (
                 avif: 'src/img/microblog/up-avatar/avif/sxgls.avif',
               },
               upName: '三星GALAXY盖乐世',
+              icon: 'src/img/icon/business.svg',
             },
             multimedia: {
               type: 'video',
@@ -739,6 +740,7 @@ export const loadPageMicroblogHistory = async function (
                 avif: 'src/img/microblog/up-avatar/avif/jwmb.avif',
               },
               upName: '叫我棉被',
+              icon: 'src/img/icon/personal.svg',
             },
             multimedia: {
               type: 'video',
@@ -760,6 +762,7 @@ export const loadPageMicroblogHistory = async function (
                 avif: 'src/img/microblog/up-avatar/avif/EverydayOneCat.avif',
               },
               upName: 'EverydayOneCat',
+              icon: 'src/img/icon/personal.svg',
             },
             multimedia: {
               type: 'article',
@@ -781,6 +784,7 @@ export const loadPageMicroblogHistory = async function (
                 avif: 'src/img/microblog/up-avatar/avif/jwmb.avif',
               },
               upName: '叫我棉被',
+              icon: 'src/img/icon/personal.svg',
             },
             multimedia: {
               type: 'video',
@@ -801,6 +805,7 @@ export const loadPageMicroblogHistory = async function (
                 avif: 'src/img/microblog/up-avatar/avif/Machi.avif',
               },
               upName: 'Machi马吉',
+              icon: 'src/img/icon/personal.svg',
             },
             multimedia: {
               type: 'video',
@@ -821,6 +826,7 @@ export const loadPageMicroblogHistory = async function (
                 avif: 'src/img/microblog/up-avatar/avif/Seseren.avif',
               },
               upName: 'Seseren',
+              icon: 'src/img/icon/big-vip.svg',
             },
             multimedia: {
               type: 'video',
@@ -842,6 +848,7 @@ export const loadPageMicroblogHistory = async function (
                 avif: 'src/img/microblog/up-avatar/avif/Seseren.avif',
               },
               upName: 'Seseren',
+              icon: 'src/img/icon/big-vip.svg',
             },
             multimedia: {
               type: 'video',

@@ -960,11 +960,23 @@
   height: 4rem;
   margin-right: 0.4rem;
   flex-shrink: 0;
+  position: relative;
 }
 .history-avatar {
   width: 100%;
   border: 2px solid #e3e5e7;
   border-radius: 50%;
+}
+.avatar-icon {
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  display: block;
+  height: 1.2rem;
+  width: 1.2rem;
+  position: absolute;
+  right: 0;
+  bottom: 0;
 }
 .history-content {
   flex-grow: 1;

@@ -35,6 +35,11 @@ class MicroblogPopView extends View {
                   class="history-avatar"
                 />
               </picture>
+              ${
+                item.up.icon
+                  ? `<span class="avatar-icon" style="background-image: url(${item.up.icon});"></span>`
+                  : ''
+              }
             </a>
           </div>
           <div class="history-content">
