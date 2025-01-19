@@ -704,3 +704,208 @@ export const loadTopImg = async function () {
     }, 100);
   });
 };
+export const loadPageMicroblogHistory = async function (
+  pageParam = { pageNum: 1, pageSize: 5 }
+) {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      const remoteData = {
+        list: [
+          {
+            up: {
+              avatar: {
+                origin: 'src/img/microblog/up-avatar/origin/sxgls.jpg',
+                webp: 'src/img/microblog/up-avatar/webp/sxgls.webp',
+                avif: 'src/img/microblog/up-avatar/avif/sxgls.avif',
+              },
+              upName: '三星GALAXY盖乐世',
+            },
+            multimedia: {
+              type: 'video',
+              img: {
+                origin: 'src/img/microblog/video-img/origin/sxgls-video.jpg',
+                webp: 'src/img/microblog/video-img/webp/sxgls-video.webp',
+                avif: 'src/img/microblog/video-img/avif/sxgls-video.avif',
+              },
+              title: '交 流 神 器',
+              publishTimestamp: 1737043199000,
+            },
+          },
+          {
+            up: {
+              avatar: {
+                origin: 'src/img/microblog/up-avatar/origin/jwmb.jpg',
+                webp: 'src/img/microblog/up-avatar/webp/jwmb.webp',
+                avif: 'src/img/microblog/up-avatar/avif/jwmb.avif',
+              },
+              upName: '叫我棉被',
+            },
+            multimedia: {
+              type: 'video',
+              img: {
+                origin: 'src/img/microblog/video-img/origin/jwmb-video.jpg',
+                webp: 'src/img/microblog/video-img/webp/jwmb-video.webp',
+                avif: 'src/img/microblog/video-img/avif/jwmb-video.avif',
+              },
+              title:
+                '【剑与远征：启程】新赛季，最佳回坑时机？！「冬夜残响」内容详解新角色双子、洛桑',
+              publishTimestamp: 1737043199000,
+            },
+          },
+          {
+            up: {
+              avatar: {
+                origin: 'src/img/microblog/up-avatar/origin/EverydayOneCat.jpg',
+                webp: 'src/img/microblog/up-avatar/webp/EverydayOneCat.webp',
+                avif: 'src/img/microblog/up-avatar/avif/EverydayOneCat.avif',
+              },
+              upName: 'EverydayOneCat',
+            },
+            multimedia: {
+              type: 'article',
+              img: {
+                origin:
+                  'src/img/microblog/article-img/origin/EverydayOneCat-article-1.jpg',
+                webp: 'src/img/microblog/article-img/webp/EverydayOneCat-article-1.webp',
+                avif: 'src/img/microblog/article-img/avif/EverydayOneCat-article-1.avif',
+              },
+              title: ' 猫包封面的紧急变动！ˢᵒʳʳʸ....',
+              publishTimestamp: 1737043199000,
+            },
+          },
+          {
+            up: {
+              avatar: {
+                origin: 'src/img/microblog/up-avatar/origin/jwmb.jpg',
+                webp: 'src/img/microblog/up-avatar/webp/jwmb.webp',
+                avif: 'src/img/microblog/up-avatar/avif/jwmb.avif',
+              },
+              upName: '叫我棉被',
+            },
+            multimedia: {
+              type: 'video',
+              img: {
+                origin: 'src/img/microblog/video-img/origin/jwmb-video-2.jpg',
+                webp: 'src/img/microblog/video-img/webp/jwmb-video-2.webp',
+                avif: 'src/img/microblog/video-img/avif/jwmb-video-2.avif',
+              },
+              title: '【「相逢会佳期」——2025重返未来新春会 ｜ 完整正片',
+              publishTimestamp: 1737043199000,
+            },
+          },
+          {
+            up: {
+              avatar: {
+                origin: 'src/img/microblog/up-avatar/origin/Machi.jpg',
+                webp: 'src/img/microblog/up-avatar/webp/Machi.webp',
+                avif: 'src/img/microblog/up-avatar/avif/Machi.avif',
+              },
+              upName: 'Machi马吉',
+            },
+            multimedia: {
+              type: 'video',
+              img: {
+                origin: 'src/img/microblog/video-img/origin/Machi-video-1.jpg',
+                webp: 'src/img/microblog/video-img/webp/Machi-video-1.webp',
+                avif: 'src/img/microblog/video-img/avif/Machi-video-1.avif',
+              },
+              title: ' 水着流萤  和你现实中相见',
+              publishTimestamp: 1737043199000,
+            },
+          },
+          {
+            up: {
+              avatar: {
+                origin: 'src/img/microblog/up-avatar/origin/Seseren.jpg',
+                webp: 'src/img/microblog/up-avatar/webp/Seseren.webp',
+                avif: 'src/img/microblog/up-avatar/avif/Seseren.avif',
+              },
+              upName: 'Seseren',
+            },
+            multimedia: {
+              type: 'video',
+              img: {
+                origin:
+                  'src/img/microblog/video-img/origin/Seseren-video-1.jpg',
+                webp: 'src/img/microblog/video-img/webp/Seseren-video-1.webp',
+                avif: 'src/img/microblog/video-img/avif/Seseren-video-1.avif',
+              },
+              title: '星穹铁道 大黑塔 绿幕素材 25.01.15',
+              publishTimestamp: 1737043199000,
+            },
+          },
+          {
+            up: {
+              avatar: {
+                origin: 'src/img/microblog/up-avatar/origin/Seseren.jpg',
+                webp: 'src/img/microblog/up-avatar/webp/Seseren.webp',
+                avif: 'src/img/microblog/up-avatar/avif/Seseren.avif',
+              },
+              upName: 'Seseren',
+            },
+            multimedia: {
+              type: 'video',
+              img: {
+                origin:
+                  'src/img/microblog/video-img/origin/Seseren-video-2.jpg',
+                webp: 'src/img/microblog/video-img/webp/Seseren-video-2.webp',
+                avif: 'src/img/microblog/video-img/avif/Seseren-video-2.avif',
+              },
+              title: '崩坏星穹铁道 星 绿幕 25.01.17',
+              publishTimestamp: 1737043199000,
+            },
+          },
+          {
+            up: {
+              avatar: {
+                origin:
+                  'src/img/microblog/up-avatar/origin/NoWorld_Official.jpg',
+                webp: 'src/img/microblog/up-avatar/webp/NoWorld_Official.webp',
+                avif: 'src/img/microblog/up-avatar/avif/NoWorld_Official.avif',
+              },
+              upName: 'Seseren',
+            },
+            multimedia: {
+              type: 'video',
+              img: {
+                origin:
+                  'src/img/microblog/video-img/origin/NoWorld_Official-video-1.jpg',
+                webp: 'src/img/microblog/video-img/webp/NoWorld_Official-video-1.webp',
+                avif: 'src/img/microblog/video-img/avif/NoWorld_Official-video-1.avif',
+              },
+              title: '【直播回放】唱歌歌 2025年01月18日20点场',
+              publishTimestamp: 1737043199000,
+            },
+          },
+        ],
+        total: 8,
+      };
+      let pageNum = pageParam.pageNum;
+      let pageSize = pageParam.pageSize;
+      if (pageNum <= 0 || pageSize <= 0) {
+        resolve({
+          list: [],
+          total: 8,
+        });
+      }
+      const start = (pageNum - 1) * pageSize;
+      const end = pageNum * pageSize;
+      if (start > remoteData.total) {
+        resolve({
+          list: [],
+          total: 8,
+        });
+      }
+      if (end >= remoteData.total) {
+        resolve({
+          list: remoteData.list.slice(start),
+          total: remoteData.total,
+        });
+      }
+      resolve({
+        list: remoteData.list.slice(start, end),
+        total: remoteData.total,
+      });
+    }, 100);
+  });
+};

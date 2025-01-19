@@ -5,10 +5,82 @@ import { convertTimestamp } from '../config.js';
 ////////////////////////////////
 class MicroblogPopView extends View {
   _parentEl;
+  _historyListEl;
 
   initParentEl() {
     // microblog-pop-box由js添加，一开始不存在，所以要延迟加载
     this._parentEl = document.querySelector('.microblog-pop-box');
+  }
+
+  _generateHistoryListMarkup(data) {
+    return data
+      .map(
+        item =>
+          `
+        <li class="history-list-item">
+          <div class="history-avatar-box">
+            <a href="#" title="${item.up.upName}">
+              <picture>
+                <source
+                  srcset="${item.up.avatar.avif}"
+                  type="image/avif"
+                />
+                <source
+                  srcset="${item.up.avatar.webp}"
+                  type="image/webp"
+                />
+                <img
+                  src="${item.up.avatar.origin}"
+                  alt="up头像"
+                  class="history-avatar"
+                />
+              </picture>
+            </a>
+          </div>
+          <div class="history-content">
+            <a href="#" title="${item.up.upName}">
+              <div class="up-name">${item.up.upName}</div>
+            </a>
+            <a href="#" class="video-name">
+              ${
+                item.multimedia.type === 'article'
+                  ? '<span class="article-tag">专栏</span>'
+                  : ''
+              }
+              ${item.multimedia.title}
+            </a>
+            <div class="publish-time">${convertTimestamp(
+              item.multimedia.publishTimestamp
+            )}</div>
+          </div>
+          <a href="#" title="${item.multimedia.title}">
+            <div class="history-video-img-box">
+              <picture>
+                <source
+                  srcset="${item.multimedia.img.avif}"
+                  type="image/avif"
+                />
+                <source
+                  srcset="${item.multimedia.img.webp}"
+                  type="image/webp"
+                />
+                <img
+                  src="${item.multimedia.img.origin}"
+                  alt="视频图片"
+                  class="history-video-img"
+                />
+              </picture>
+              <div class="watch-later-icon-box">
+                <svg class="watch-later-icon">
+                  <use href="src/img/icons.svg#watch-later-icon"></use>
+                </svg>
+              </div>
+            </div>
+          </a>
+        </li> 
+      `
+      )
+      .join('');
   }
 
   _generateMarkup() {
@@ -61,69 +133,6 @@ class MicroblogPopView extends View {
         </div>
       </div>
     `;
-    const historyListHTML = this._data.microblogHistory
-      .map(
-        item =>
-          `
-        <li class="history-list-item">
-          <div class="history-avatar-box">
-            <a href="#" title="${item.up.upName}">
-              <picture>
-                <source
-                  srcset="${item.up.avatar.avif}"
-                  type="image/avif"
-                />
-                <source
-                  srcset="${item.up.avatar.webp}"
-                  type="image/webp"
-                />
-                <img
-                  src="${item.up.avatar.origin}"
-                  alt="up头像"
-                  class="history-avatar"
-                />
-              </picture>
-            </a>
-          </div>
-          <div class="history-content">
-            <a href="#" title="${item.up.upName}">
-              <div class="up-name">${item.up.upName}</div>
-            </a>
-            <a href="#" class="video-name">
-            ${item.video.videoName}
-            </a>
-            <div class="publish-time">${convertTimestamp(
-              item.video.publishTimestamp
-            )}</div>
-          </div>
-          <a href="#" title="${item.video.videoName}">
-            <div class="history-video-img-box">
-              <picture>
-                <source
-                  srcset="${item.video.videoImg.avif}"
-                  type="image/avif"
-                />
-                <source
-                  srcset="${item.video.videoImg.webp}"
-                  type="image/webp"
-                />
-                <img
-                  src="${item.video.videoImg.origin}"
-                  alt="视频图片"
-                  class="history-video-img"
-                />
-              </picture>
-              <div class="watch-later-icon-box">
-                <svg class="watch-later-icon">
-                  <use href="src/img/icons.svg#watch-later-icon"></use>
-                </svg>
-              </div>
-            </div>
-          </a>
-        </li> 
-      `
-      )
-      .join('');
     const microblogHistoryHTML = `
       <div class="microblog-history">
         <div class="history-title">
@@ -131,7 +140,6 @@ class MicroblogPopView extends View {
         </div>
         <div class="history-container">
           <ul class="history-list">
-            ${historyListHTML}
           </ul>
         </div>
         <a href="#" class="history-more">
@@ -150,6 +158,13 @@ class MicroblogPopView extends View {
       </div>
     </div>
     `;
+  }
+  appendHistoryListHTML(data, position = 'beforeend') {
+    const markup = this._generateHistoryListMarkup(data);
+    if (!this._historyListEl) {
+      this._historyListEl = document.querySelector('.history-list');
+    }
+    this._historyListEl.insertAdjacentHTML(position, markup);
   }
 }
 export default new MicroblogPopView();

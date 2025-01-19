@@ -980,6 +980,13 @@
   color: #000;
   margin-bottom: 0.6rem;
 }
+.article-tag {
+  font-size: 1.2rem;
+  color: #ff6699;
+  border: 1px solid #ff6699;
+  border-radius: 2px;
+  padding: 0 2px;
+}
 .publish-time {
   color: #999ea5;
   font-size: 1.2rem;

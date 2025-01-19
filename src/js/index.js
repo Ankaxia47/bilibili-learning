@@ -108,6 +108,7 @@ const initNav = async function () {
           break;
         case 'microblog':
           microblogPopView.render(item.pop);
+          loadPageMicroblogHistory();
           break;
       }
     }
@@ -115,6 +116,56 @@ const initNav = async function () {
   // 菜单渲染完成之后再显示
   navEl.style.display = 'flex';
 };
+function loadPageMicroblogHistory() {
+  const microblogContainerEl = document.querySelector('.microblog-container');
+  let lastListItemEl = document.querySelector('.history-list');
+  // 限制重复请求
+  let isLoadingData = false;
+  let historyListLenght = 0;
+  let pageNum = 1;
+  const pageSize = 5;
+  const observer = new IntersectionObserver(
+    function (entries) {
+      // 因为只观察一个元素，所以只取第一个元素
+      const [entry] = entries;
+      if (entry.isIntersecting && !isLoadingData) {
+        isLoadingData = true;
+        model
+          .loadPageMicroblogHistory({
+            pageNum: pageNum,
+            pageSize: pageSize,
+          })
+          .then(response => {
+            const data = response.list;
+            // 停止观察
+            observer.unobserve(lastListItemEl);
+            // 没有获取到数据，停止请求
+            if (data.length === 0) return;
+            historyListLenght += data.length;
+            pageNum++;
+            microblogPopView.appendHistoryListHTML(data, 'beforeend');
+            // 重新观察最后一个元素
+            lastListItemEl = document.querySelector(
+              '.history-list-item:last-child'
+            );
+            // 历史数量大于等于10个就不请求数据了
+            if (historyListLenght < 10) {
+              observer.observe(lastListItemEl);
+            }
+            isLoadingData = false;
+          });
+      }
+    },
+    {
+      // 在弹框容器中观察
+      root: microblogContainerEl,
+      // 最后一个元素出现在视口加载新的数据
+      threshold: 1.0,
+    }
+  );
+  observer.observe(lastListItemEl);
+}
+
 ////////////////////////////////
 // 鼠标悬停游戏文字，显示游戏图片
 // 使用事件委托，需要事件冒泡
