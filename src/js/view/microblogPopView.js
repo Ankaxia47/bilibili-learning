@@ -156,7 +156,7 @@ class MicroblogPopView extends View {
       </div>
     `;
     return `
-    <div class="pop pop-bottom pop-visible">
+    <div class="pop pop-bottom">
       <div class="microblog-container">
         ${liveContainerHTML}
         ${microblogHistoryHTML}
