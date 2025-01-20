@@ -632,6 +632,9 @@ export const loadNav = async function () {
               itemName: '收藏',
               icon: 'favorite-icon',
               type: 'link',
+              pop: {
+                type: 'favorite',
+              },
             },
             {
               itemName: '历史',
@@ -913,6 +916,85 @@ export const loadPageMicroblogHistory = async function (
         list: remoteData.list.slice(start, end),
         total: remoteData.total,
       });
+    }, 100);
+  });
+};
+export const loadFavoriteTabList = async function () {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      const remoteData = [
+        {
+          tabId: 1,
+          tabName: '默认收藏夹',
+          favoriteCount: 217,
+        },
+        {
+          tabId: 2,
+          tabName: '稍后再看',
+          favoriteCount: 26,
+        },
+        {
+          tabId: 3,
+          tabName: 'doro合集',
+          favoriteCount: 29,
+        },
+      ];
+      resolve(remoteData);
+    }, 100);
+  });
+};
+export const loadFavoriteContentList = async function (tabId) {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      let remoteData = [];
+      switch (tabId) {
+        case 1:
+          remoteData = [
+            {
+              img: {
+                origin: 'src/img/favorite/origin/favorite-video-1.jpg',
+                webp: 'src/img/favorite/webp/favorite-video-1.webp',
+                avif: 'src/img/favorite/avif/favorite-video-1.avif',
+              },
+              videoDuration: '00:16',
+              title: '起初人们以为这只是一只粉狗。',
+              upName: '笼中鳥-漫剪',
+            },
+          ];
+          break;
+        case 2:
+          remoteData = [
+            {
+              img: {
+                origin: 'src/img/favorite/origin/favorite-video-2.jpg',
+                webp: 'src/img/favorite/webp/favorite-video-2.webp',
+                avif: 'src/img/favorite/avif/favorite-video-2.avif',
+              },
+              videoDuration: '10:45',
+              title:
+                '【中日双语】一口气看完chiikawa151-160集【小可爱/吉伊卡哇/ちいかわ】',
+              upName: '吉哈乌村',
+            },
+          ];
+          break;
+        case 3:
+          remoteData = [
+            {
+              img: {
+                origin: 'src/img/favorite/origin/favorite-video-3.jpg',
+                webp: 'src/img/favorite/webp/favorite-video-3.webp',
+                avif: 'src/img/favorite/avif/favorite-video-3.avif',
+              },
+              videoDuration: '3:45',
+              title: '女神异闻录3 Reload｜《Color Your Night》【Hi-Res】',
+              upName: 'JLRS-jayfm',
+            },
+          ];
+          break;
+      }
+      // 将数据复制20次，不需要手动找数据了
+      [remoteData] = remoteData.map(item => Array(20).fill(item));
+      resolve(remoteData);
     }, 100);
   });
 };

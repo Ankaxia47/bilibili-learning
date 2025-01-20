@@ -3,6 +3,7 @@
 /***************/
 :root {
   --text2: #61666d;
+  --brand_blue: #00aeec;
 }
 * {
   margin: 0;
@@ -23,6 +24,7 @@ body {
 }
 body a {
   text-decoration: none;
+  color: #000;
 }
 body ul {
   list-style: none;

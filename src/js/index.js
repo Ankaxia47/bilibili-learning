@@ -12,6 +12,7 @@ import vipPopView from './view/vipPopView.js';
 import topImgView from './view/topImgView.js';
 import messagePopView from './view/messagePopView.js';
 import microblogPopView from './view/microblogPopView.js';
+import favoritePopView from './view/favoritePopView.js';
 
 ////////////////////////////////
 // 顶部图片
@@ -109,6 +110,22 @@ const initNav = async function () {
         case 'microblog':
           microblogPopView.render(item.pop);
           loadPageMicroblogHistory();
+          break;
+        case 'favorite':
+          favoritePopView.render(item.pop);
+          // 弹框数据初始化
+          model
+            .loadFavoriteTabList()
+            .then(tabList => {
+              favoritePopView.renderTabList(tabList);
+              if (tabList && tabList.length > 0) {
+                return model.loadFavoriteContentList(tabList[0].tabId);
+              }
+            })
+            .then(contentList => {
+              favoritePopView.renderContentList(contentList);
+            });
+          controlChangeFavoriteTab();
           break;
       }
     }
@@ -335,6 +352,23 @@ const controlAvatarPopHover = function () {
     true
   );
 };
+const controlChangeFavoriteTab = function () {
+  const favoriteTabListEl = document.querySelector('.favorite-tab-list');
+  favoriteTabListEl.addEventListener('click', function (e) {
+    const tabElArr = favoriteTabListEl.querySelectorAll('.favorite-tab');
+    tabElArr.forEach(item => item.classList.remove('active'));
+    const favoriteTabEl = e.target.closest('.favorite-tab');
+    if (!favoriteTabEl) return;
+    favoriteTabEl.classList.add('active');
+    // 获取对应tab下的收藏夹数据
+    model
+      .loadFavoriteContentList(parseInt(favoriteTabEl.dataset.tabId))
+      .then(contentList => {
+        favoritePopView.renderContentList(contentList);
+      });
+  });
+};
+
 ////////////////////////////////
 // 顶部图片
 ////////////////////////////////
