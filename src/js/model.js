@@ -1,8 +1,12 @@
+import { ONE_DAY_TIMESTAMP } from './timeHelper.js';
 ////////////////////////////////
 // 数据处理
 ////////////////////////////////
 export let nav = {};
 export let topImg = {};
+/**
+ * 加载顶部导航栏数据
+ */
 export const loadNav = async function () {
   await new Promise(resolve => {
     setTimeout(() => {
@@ -640,6 +644,9 @@ export const loadNav = async function () {
               itemName: '历史',
               icon: 'history-icon',
               type: 'link',
+              pop: {
+                type: 'history',
+              },
             },
             {
               itemName: '创作中心',
@@ -659,6 +666,9 @@ export const loadNav = async function () {
     }, 200);
   });
 };
+/**
+ * 加载顶部图片数据
+ */
 export const loadTopImg = async function () {
   await new Promise(resolve => {
     setTimeout(() => {
@@ -707,6 +717,11 @@ export const loadTopImg = async function () {
     }, 100);
   });
 };
+/**
+ * 分页加载动态历史
+ * @param {*} pageParam 分页参数
+ * @returns 分页数据
+ */
 export const loadPageMicroblogHistory = async function (
   pageParam = { pageNum: 1, pageSize: 5 }
 ) {
@@ -919,6 +934,10 @@ export const loadPageMicroblogHistory = async function (
     }, 100);
   });
 };
+/**
+ * 加载收藏tab列表
+ * @returns 收藏tab列表
+ */
 export const loadFavoriteTabList = async function () {
   return new Promise(resolve => {
     setTimeout(() => {
@@ -943,6 +962,11 @@ export const loadFavoriteTabList = async function () {
     }, 100);
   });
 };
+/**
+ * 根据tabId获取收藏夹下面的内容
+ * @param {*} tabId 收藏tab的id
+ * @returns 收藏夹内容
+ */
 export const loadFavoriteContentList = async function (tabId) {
   return new Promise(resolve => {
     setTimeout(() => {
@@ -997,4 +1021,217 @@ export const loadFavoriteContentList = async function (tabId) {
       resolve(remoteData);
     }, 100);
   });
+};
+/**
+ * 加载历史tab列表数据
+ * @returns 历史tab列表
+ */
+export const loadHistoryTabList = async function () {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      const remoteData = [
+        {
+          type: 'video',
+          name: '视频',
+        },
+        {
+          type: 'live',
+          name: '直播',
+        },
+        {
+          type: 'article',
+          name: '专栏',
+        },
+      ];
+      resolve(remoteData);
+    }, 100);
+  });
+};
+export const loadHistoryContentList = async function (type) {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      let remoteData = {};
+      switch (type) {
+        case 'video':
+          remoteData = {
+            type: 'video',
+            list: [
+              {
+                title: 'Doro不得进入',
+                img: 'src/img/history/video/origin/history-video-1.jpg',
+                upName: '一只不小心的猪',
+                viewAt: 1737543055000,
+                progress: 9,
+                duration: 25,
+                liveStatus: 0,
+              },
+              {
+                title:
+                  '肯德基价格回到30年前活动，没感觉多便宜啊，难道肯德基30年没涨价？',
+                img: 'src/img/history/video/origin/history-video-2.jpg',
+                upName: '转生成为毛毛',
+                viewAt: 1737543055000,
+                progress: 156,
+                duration: 180,
+                liveStatus: 0,
+              },
+              {
+                title: '猫猫第一视角，户外出差到底去了哪里',
+                img: 'src/img/history/video/origin/history-video-3.jpg',
+                upName: '佚村夫',
+                viewAt: 1737464479000,
+                progress: 0,
+                duration: 384,
+                liveStatus: 0,
+              },
+              {
+                title: '不知道它为什么卖59，直到我看见了这个',
+                img: 'src/img/history/video/origin/history-video-4.jpg',
+                upName: 'DFLstone',
+                viewAt: 1737462804000,
+                progress: 3,
+                duration: 22,
+                liveStatus: 0,
+              },
+              {
+                title: '【尘白禁区】我扭头不是拒绝，而是无需多言',
+                img: 'src/img/history/video/origin/history-video-5.jpg',
+                upName: 'Hinata_歪歪',
+                viewAt: 1737419835000,
+                progress: 13,
+                duration: 13,
+                liveStatus: 0,
+              },
+              {
+                title: '【短的发布会】啥时候集5福，变集5*29福了？',
+                img: 'src/img/history/video/origin/history-video-6.jpg',
+                upName: '短的发布会',
+                viewAt: 1737382777000,
+                progress: 183,
+                duration: 187,
+                liveStatus: 0,
+              },
+            ],
+          };
+          break;
+        case 'live':
+          remoteData = {
+            type: 'live',
+            list: [
+              {
+                title: '【试播】狠狠的抽耀佳音小姐',
+                img: 'src/img/history/live/origin/history-live-1.jpg',
+                upName: '铭音MeioN-official',
+                viewAt: 1737551448000,
+                progress: 0,
+                duration: 0,
+                liveStatus: 1,
+              },
+              {
+                title: '谁要和爹妈见面啦',
+                img: 'src/img/history/live/origin/history-live-2.jpg',
+                upName: 'ElevenOfficial_',
+                viewAt: 1737551432000,
+                progress: 0,
+                duration: 0,
+                liveStatus: 0,
+              },
+              {
+                title: '年年有余~',
+                img: 'src/img/history/live/origin/history-live-3.jpg',
+                upName: '花花Haya',
+                viewAt: 1737545213000,
+                progress: 0,
+                duration: 0,
+                liveStatus: 1,
+              },
+              {
+                title: '6点半看FGO新春会',
+                img: 'src/img/history/live/origin/history-live-4.jpg',
+                upName: '削人棍专用BGM',
+                viewAt: 1737540797000,
+                progress: 0,
+                duration: 0,
+                liveStatus: 1,
+              },
+              {
+                title: '肉师傅勇闯夜店！',
+                img: 'src/img/history/live/origin/history-live-5.jpg',
+                upName: 'RO姬_Official',
+                viewAt: 1737464015000,
+                progress: 0,
+                duration: 0,
+                liveStatus: 0,
+              },
+              {
+                title: '安静打会儿游戏',
+                img: 'src/img/history/live/origin/history-live-6.jpg',
+                upName: 'shourei小N',
+                viewAt: 1737383702000,
+                progress: 0,
+                duration: 0,
+                liveStatus: 0,
+              },
+              {
+                title: '终末地测试 我也有资格啦~！',
+                img: 'src/img/history/live/origin/history-live-7.jpg',
+                upName: '黑桐谷歌',
+                viewAt: 1737383673000,
+                progress: 0,
+                duration: 0,
+                liveStatus: 1,
+              },
+            ],
+          };
+          break;
+      }
+      resolve(convertHistoryContentData(remoteData));
+    }, 100);
+  });
+};
+const convertHistoryContentData = function (data) {
+  const today = new Date();
+  const todayStart = new Date(
+    today.getFullYear(),
+    today.getMonth(),
+    today.getDate(),
+    0,
+    0,
+    0,
+    0
+  );
+  const todayStartTimestamp = todayStart.getTime();
+  const yesterdayStartTimestamp = todayStartTimestamp - ONE_DAY_TIMESTAMP;
+  const resultList = data.list
+    .reduce(
+      (result, history) => {
+        if (history.viewAt >= todayStartTimestamp) {
+          result[0].list.push(history);
+        } else if (history.viewAt >= yesterdayStartTimestamp) {
+          result[1].list.push(history);
+        } else {
+          result[2].list.push(history);
+        }
+        return result;
+      },
+      [
+        {
+          timeline: '今天',
+          list: [],
+        },
+        {
+          timeline: '昨天',
+          list: [],
+        },
+        {
+          timeline: '更早',
+          list: [],
+        },
+      ]
+    )
+    .filter(item => item.list.length > 0);
+  return {
+    type: data.type,
+    list: [...resultList],
+  };
 };
