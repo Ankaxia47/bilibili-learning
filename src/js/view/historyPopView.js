@@ -84,6 +84,16 @@ class HistoryPopView extends View {
                         `
                         : ''
                     }
+                    ${
+                      data.type === 'live'
+                        ? `<span class="live-tag ${
+                            history.liveStatus === 1 ? 'living' : 'not-living'
+                          }">${
+                            history.liveStatus === 1 ? '直播中' : '未开播'
+                          }</span>`
+                        : ''
+                    }
+                      
                   </div>
                   <div class="history-description">
                     <div class="title" title="${history.title}">

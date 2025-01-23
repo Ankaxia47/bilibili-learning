@@ -1272,6 +1272,22 @@
 .progress {
   background-color: #fb7199;
 }
+.live-tag {
+  position: absolute;
+  top: 5%;
+  right: 5%;
+  display: block;
+  color: #fff;
+  font-size: 1.2rem;
+  padding: 0.4rem 0.6rem;
+  border-radius: 3px;
+}
+.living {
+  background-color: #fb7299;
+}
+.not-living {
+  background-color: rgba(0, 0, 0, 0.5);
+}
 .history-description {
   display: flex;
   flex-direction: column;
