@@ -1058,7 +1058,11 @@ export const loadHistoryContentList = async function (type) {
             list: [
               {
                 title: 'Doro不得进入',
-                img: 'src/img/history/video/origin/history-video-1.jpg',
+                img: {
+                  origin: 'src/img/history/video/origin/history-video-1.jpg',
+                  webp: 'src/img/history/video/webp/history-video-1.webp',
+                  avif: 'src/img/history/video/avif/history-video-1.avif',
+                },
                 upName: '一只不小心的猪',
                 viewAt: 1737543055000,
                 progress: 9,
@@ -1068,7 +1072,11 @@ export const loadHistoryContentList = async function (type) {
               {
                 title:
                   '肯德基价格回到30年前活动，没感觉多便宜啊，难道肯德基30年没涨价？',
-                img: 'src/img/history/video/origin/history-video-2.jpg',
+                img: {
+                  origin: 'src/img/history/video/origin/history-video-2.jpg',
+                  webp: 'src/img/history/video/webp/history-video-2.webp',
+                  avif: 'src/img/history/video/avif/history-video-2.avif',
+                },
                 upName: '转生成为毛毛',
                 viewAt: 1737543055000,
                 progress: 156,
@@ -1077,7 +1085,11 @@ export const loadHistoryContentList = async function (type) {
               },
               {
                 title: '猫猫第一视角，户外出差到底去了哪里',
-                img: 'src/img/history/video/origin/history-video-3.jpg',
+                img: {
+                  origin: 'src/img/history/video/origin/history-video-3.jpg',
+                  webp: 'src/img/history/video/webp/history-video-3.webp',
+                  avif: 'src/img/history/video/avif/history-video-3.avif',
+                },
                 upName: '佚村夫',
                 viewAt: 1737464479000,
                 progress: 0,
@@ -1086,7 +1098,11 @@ export const loadHistoryContentList = async function (type) {
               },
               {
                 title: '不知道它为什么卖59，直到我看见了这个',
-                img: 'src/img/history/video/origin/history-video-4.jpg',
+                img: {
+                  origin: 'src/img/history/video/origin/history-video-4.jpg',
+                  webp: 'src/img/history/video/webp/history-video-4.webp',
+                  avif: 'src/img/history/video/avif/history-video-4.avif',
+                },
                 upName: 'DFLstone',
                 viewAt: 1737462804000,
                 progress: 3,
@@ -1095,7 +1111,11 @@ export const loadHistoryContentList = async function (type) {
               },
               {
                 title: '【尘白禁区】我扭头不是拒绝，而是无需多言',
-                img: 'src/img/history/video/origin/history-video-5.jpg',
+                img: {
+                  origin: 'src/img/history/video/origin/history-video-5.jpg',
+                  webp: 'src/img/history/video/webp/history-video-5.webp',
+                  avif: 'src/img/history/video/avif/history-video-5.avif',
+                },
                 upName: 'Hinata_歪歪',
                 viewAt: 1737419835000,
                 progress: 13,
@@ -1104,7 +1124,11 @@ export const loadHistoryContentList = async function (type) {
               },
               {
                 title: '【短的发布会】啥时候集5福，变集5*29福了？',
-                img: 'src/img/history/video/origin/history-video-6.jpg',
+                img: {
+                  origin: 'src/img/history/video/origin/history-video-6.jpg',
+                  webp: 'src/img/history/video/webp/history-video-6.webp',
+                  avif: 'src/img/history/video/avif/history-video-6.avif',
+                },
                 upName: '短的发布会',
                 viewAt: 1737382777000,
                 progress: 183,
@@ -1120,7 +1144,11 @@ export const loadHistoryContentList = async function (type) {
             list: [
               {
                 title: '【试播】狠狠的抽耀佳音小姐',
-                img: 'src/img/history/live/origin/history-live-1.jpg',
+                img: {
+                  origin: 'src/img/history/live/origin/history-live-1.jpg',
+                  webp: 'src/img/history/live/webp/history-live-1.webp',
+                  avif: 'src/img/history/live/avif/history-live-1.avif',
+                },
                 upName: '铭音MeioN-official',
                 viewAt: 1737551448000,
                 progress: 0,
@@ -1129,7 +1157,11 @@ export const loadHistoryContentList = async function (type) {
               },
               {
                 title: '谁要和爹妈见面啦',
-                img: 'src/img/history/live/origin/history-live-2.jpg',
+                img: {
+                  origin: 'src/img/history/live/origin/history-live-2.jpg',
+                  webp: 'src/img/history/live/webp/history-live-2.webp',
+                  avif: 'src/img/history/live/avif/history-live-2.avif',
+                },
                 upName: 'ElevenOfficial_',
                 viewAt: 1737551432000,
                 progress: 0,
@@ -1138,7 +1170,11 @@ export const loadHistoryContentList = async function (type) {
               },
               {
                 title: '年年有余~',
-                img: 'src/img/history/live/origin/history-live-3.jpg',
+                img: {
+                  origin: 'src/img/history/live/origin/history-live-3.jpg',
+                  webp: 'src/img/history/live/webp/history-live-3.webp',
+                  avif: 'src/img/history/live/avif/history-live-3.avif',
+                },
                 upName: '花花Haya',
                 viewAt: 1737545213000,
                 progress: 0,
@@ -1147,7 +1183,11 @@ export const loadHistoryContentList = async function (type) {
               },
               {
                 title: '6点半看FGO新春会',
-                img: 'src/img/history/live/origin/history-live-4.jpg',
+                img: {
+                  origin: 'src/img/history/live/origin/history-live-4.jpg',
+                  webp: 'src/img/history/live/webp/history-live-4.webp',
+                  avif: 'src/img/history/live/avif/history-live-4.avif',
+                },
                 upName: '削人棍专用BGM',
                 viewAt: 1737540797000,
                 progress: 0,
@@ -1156,7 +1196,11 @@ export const loadHistoryContentList = async function (type) {
               },
               {
                 title: '肉师傅勇闯夜店！',
-                img: 'src/img/history/live/origin/history-live-5.jpg',
+                img: {
+                  origin: 'src/img/history/live/origin/history-live-5.jpg',
+                  webp: 'src/img/history/live/webp/history-live-5.webp',
+                  avif: 'src/img/history/live/avif/history-live-5.avif',
+                },
                 upName: 'RO姬_Official',
                 viewAt: 1737464015000,
                 progress: 0,
@@ -1165,7 +1209,11 @@ export const loadHistoryContentList = async function (type) {
               },
               {
                 title: '安静打会儿游戏',
-                img: 'src/img/history/live/origin/history-live-6.jpg',
+                img: {
+                  origin: 'src/img/history/live/origin/history-live-6.jpg',
+                  webp: 'src/img/history/live/webp/history-live-6.webp',
+                  avif: 'src/img/history/live/avif/history-live-6.avif',
+                },
                 upName: 'shourei小N',
                 viewAt: 1737383702000,
                 progress: 0,
@@ -1174,7 +1222,11 @@ export const loadHistoryContentList = async function (type) {
               },
               {
                 title: '终末地测试 我也有资格啦~！',
-                img: 'src/img/history/live/origin/history-live-7.jpg',
+                img: {
+                  origin: 'src/img/history/live/origin/history-live-7.jpg',
+                  webp: 'src/img/history/live/webp/history-live-7.webp',
+                  avif: 'src/img/history/live/avif/history-live-7.avif',
+                },
                 upName: '黑桐谷歌',
                 viewAt: 1737383673000,
                 progress: 0,
@@ -1183,6 +1235,98 @@ export const loadHistoryContentList = async function (type) {
               },
             ],
           };
+          break;
+        case 'article':
+          remoteData = {
+            type: 'article',
+            list: [
+              {
+                title: '1月25日不停机更新公告',
+                img: {
+                  origin:
+                    'src/img/history/ariticle/origin/history-article-1.png',
+                  webp: 'src/img/history/ariticle/webp/history-article-1.webp',
+                  avif: 'src/img/history/ariticle/avif/history-article-1.avif',
+                },
+                upName: '尘白禁区',
+                viewAt: 1737792034000,
+                progress: 0,
+                duration: 0,
+                liveStatus: 0,
+              },
+              {
+                title: '《尘白禁区》2.5版本「夙圆心行」活动公告',
+                img: {
+                  origin:
+                    'src/img/history/ariticle/origin/history-article-2.jpg',
+                  webp: 'src/img/history/ariticle/webp/history-article-2.webp',
+                  avif: 'src/img/history/ariticle/avif/history-article-2.avif',
+                },
+                upName: '尘白禁区',
+                viewAt: 1737351575000,
+                progress: 0,
+                duration: 0,
+                liveStatus: 0,
+              },
+              {
+                title: '猫包封面的紧急变动！ˢᵒʳʳʸ....',
+                img: {
+                  origin:
+                    'src/img/history/ariticle/origin/history-article-3.jpg',
+                  webp: 'src/img/history/ariticle/webp/history-article-3.webp',
+                  avif: 'src/img/history/ariticle/avif/history-article-3.avif',
+                },
+                upName: 'EverydayOneCat',
+                viewAt: 1737250769000,
+                progress: 0,
+                duration: 0,
+                liveStatus: 0,
+              },
+              {
+                title: '12月26日不停机更新公告',
+                img: {
+                  origin:
+                    'src/img/history/ariticle/origin/history-article-4.png',
+                  webp: 'src/img/history/ariticle/webp/history-article-4.webp',
+                  avif: 'src/img/history/ariticle/avif/history-article-4.avif',
+                },
+                upName: '尘白禁区',
+                viewAt: 1735198881000,
+                progress: 0,
+                duration: 0,
+                liveStatus: 0,
+              },
+              {
+                title: '自用doro表情包 胜利女神',
+                img: {
+                  origin:
+                    'src/img/history/ariticle/origin/history-article-5.jpg',
+                  webp: 'src/img/history/ariticle/webp/history-article-5.webp',
+                  avif: 'src/img/history/ariticle/avif/history-article-5.avif',
+                },
+                upName: '别叫我上学就好了',
+                viewAt: 1734496302000,
+                progress: 0,
+                duration: 0,
+                liveStatus: 0,
+              },
+              {
+                title: 'doro叼表情收藏',
+                img: {
+                  origin:
+                    'src/img/history/ariticle/origin/history-article-6.jpg',
+                  webp: 'src/img/history/ariticle/webp/history-article-6.webp',
+                  avif: 'src/img/history/ariticle/avif/history-article-6.avif',
+                },
+                upName: 'TFAC-晓桀',
+                viewAt: 1734496104000,
+                progress: 0,
+                duration: 0,
+                liveStatus: 0,
+              },
+            ],
+          };
+          console.log(remoteData);
           break;
       }
       resolve(convertHistoryContentData(remoteData));

@@ -18,7 +18,7 @@ class HistoryPopView extends View {
 
   _generateMarkup() {
     return `
-      <div class="pop pop-bottom pop-visible">
+      <div class="pop pop-bottom">
         <div class="history-container">
           <ul class="history-type-list">
           </ul>
@@ -65,36 +65,53 @@ class HistoryPopView extends View {
             .map(
               history => `
               <li class="history-content-item">
-                <a href="#" class="history-link">
-                  <div class="history-img-box">
-                    <img
-                      class="history-img"
-                      src="${history.img}"
-                      alt="history img"
-                    />
-                    ${
-                      data.type === 'video'
-                        ? `<span class="video-duration">${convertSecondToHHmmss(
-                            history.progress
-                          )}/${convertSecondToHHmmss(history.duration)}</span>
-                          <div class="duration"></div>
-                          <div class="progress" style="width: calc(${
-                            (history.progress / history.duration) * 100
-                          }%);"></div>
-                        `
-                        : ''
-                    }
-                    ${
-                      data.type === 'live'
-                        ? `<span class="live-tag ${
-                            history.liveStatus === 1 ? 'living' : 'not-living'
-                          }">${
-                            history.liveStatus === 1 ? '直播中' : '未开播'
-                          }</span>`
-                        : ''
-                    }
-                      
+                <a href="#" class="history-link ${
+                  data.type === 'article' ? 'history-article' : ''
+                }">
+                  ${
+                    data.type !== 'article'
+                      ? `
+                    <div class="history-img-box">
+                    <picture>
+                      <source
+                        srcset="${history.img.avif}"
+                        type="image/avif"
+                      />
+                      <source
+                        srcset="${history.img.webp}"
+                        type="image/webp"
+                      />
+                      <img
+                        class="history-img"
+                        src="${history.img.origin}"
+                        alt="history img"
+                      />
+                    </picture>
+                      ${
+                        data.type === 'video'
+                          ? `<span class="video-duration">${convertSecondToHHmmss(
+                              history.progress
+                            )}/${convertSecondToHHmmss(history.duration)}</span>
+                            <div class="duration"></div>
+                            <div class="progress" style="width: calc(${
+                              (history.progress / history.duration) * 100
+                            }%);"></div>
+                          `
+                          : ''
+                      }
+                      ${
+                        data.type === 'live'
+                          ? `<span class="live-tag ${
+                              history.liveStatus === 1 ? 'living' : 'not-living'
+                            }">${
+                              history.liveStatus === 1 ? '直播中' : '未开播'
+                            }</span>`
+                          : ''
+                      }
                   </div>
+                  `
+                      : ''
+                  }
                   <div class="history-description">
                     <div class="title" title="${history.title}">
                       ${history.title}
@@ -118,6 +135,30 @@ class HistoryPopView extends View {
                       </div>
                     </div>
                   </div>
+                  ${
+                    data.type === 'article'
+                      ? `
+                        <div class="history-article-box">
+                          <picture>
+                            <source
+                              srcset="${history.img.avif}"
+                              type="image/avif"
+                            />
+                            <source
+                              srcset="${history.img.webp}"
+                              type="image/webp"
+                            />
+                            <img
+                              class="history-img"
+                              src="${history.img.origin}"
+                              alt="history img"
+                            />
+                          </picture>
+                        </div>
+                        `
+                      : ''
+                  }
+                  
                 </a>
               </li>
             `

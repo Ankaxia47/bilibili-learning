@@ -1246,9 +1246,20 @@
 .history-link:active {
   background-color: #e3e5e7;
 }
+.history-link.history-article {
+  justify-content: space-between;
+}
 .history-img-box {
   width: 12.8rem;
   aspect-ratio: 16 / 9;
+  position: relative;
+  border-radius: 5px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.history-article-box {
+  width: 9.6rem;
+  aspect-ratio: 4 / 3;
   position: relative;
   border-radius: 5px;
   overflow: hidden;
