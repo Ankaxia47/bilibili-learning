@@ -1,5 +1,5 @@
 import View from './view.js';
-import { convertTimestamp } from '../config.js';
+import { convertTimestampToTimeInterval } from '../timeHelper.js';
 ////////////////////////////////
 // 顶部导航栏，动态弹框
 ////////////////////////////////
@@ -54,7 +54,7 @@ class MicroblogPopView extends View {
               }
               ${item.multimedia.title}
             </a>
-            <div class="publish-time">${convertTimestamp(
+            <div class="publish-time">${convertTimestampToTimeInterval(
               item.multimedia.publishTimestamp
             )}</div>
           </div>

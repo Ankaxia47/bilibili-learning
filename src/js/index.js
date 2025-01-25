@@ -13,6 +13,7 @@ import topImgView from './view/topImgView.js';
 import messagePopView from './view/messagePopView.js';
 import microblogPopView from './view/microblogPopView.js';
 import favoritePopView from './view/favoritePopView.js';
+import historyPopView from './view/historyPopView.js';
 
 ////////////////////////////////
 // 顶部图片
@@ -126,6 +127,21 @@ const initNav = async function () {
               favoritePopView.renderContentList(contentList);
             });
           controlChangeFavoriteTab();
+          break;
+        case 'history':
+          historyPopView.render(item.pop);
+          model
+            .loadHistoryTabList()
+            .then(tabList => {
+              historyPopView.renderTabList(tabList);
+              if (tabList && tabList.length > 0) {
+                return model.loadHistoryContentList(tabList[0].type);
+              }
+            })
+            .then(contentData => {
+              historyPopView.renderContentList(contentData);
+            });
+          controlChangeHistoryTab();
           break;
       }
     }
@@ -352,19 +368,40 @@ const controlAvatarPopHover = function () {
     true
   );
 };
+////////////////////////////////
+// 控制切换收藏的tab列表
+////////////////////////////////
 const controlChangeFavoriteTab = function () {
   const favoriteTabListEl = document.querySelector('.favorite-tab-list');
   favoriteTabListEl.addEventListener('click', function (e) {
-    const tabElArr = favoriteTabListEl.querySelectorAll('.favorite-tab');
-    tabElArr.forEach(item => item.classList.remove('active'));
     const favoriteTabEl = e.target.closest('.favorite-tab');
     if (!favoriteTabEl) return;
+    const tabElArr = favoriteTabListEl.querySelectorAll('.favorite-tab');
+    tabElArr.forEach(item => item.classList.remove('active'));
     favoriteTabEl.classList.add('active');
     // 获取对应tab下的收藏夹数据
     model
       .loadFavoriteContentList(parseInt(favoriteTabEl.dataset.tabId))
       .then(contentList => {
         favoritePopView.renderContentList(contentList);
+      });
+  });
+};
+////////////////////////////////
+// 控制切换历史的tab列表
+////////////////////////////////
+const controlChangeHistoryTab = function () {
+  const historyTypeListEl = document.querySelector('.history-type-list');
+  historyTypeListEl.addEventListener('click', function (e) {
+    const historyTypeEl = e.target.closest('.history-type');
+    if (!historyTypeEl) return;
+    const typeElArr = historyTypeListEl.querySelectorAll('.history-type');
+    typeElArr.forEach(item => item.classList.remove('active'));
+    historyTypeEl.classList.add('active');
+    model
+      .loadHistoryContentList(historyTypeEl.dataset.type)
+      .then(contentData => {
+        historyPopView.renderContentList(contentData);
       });
   });
 };
