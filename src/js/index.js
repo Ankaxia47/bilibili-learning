@@ -100,7 +100,7 @@ const initNav = async function () {
     avatarPopView.render(model.nav.rightNav.avatar.pop);
   }
   // 右侧导航栏弹框渲染
-  model.nav.rightNav.items.forEach(item => {
+  model.nav.rightNav.items.forEach(async item => {
     if (item.pop) {
       switch (item.pop.type) {
         case 'vip':
@@ -116,32 +116,12 @@ const initNav = async function () {
         case 'favorite':
           favoritePopView.render(item.pop);
           // 弹框数据初始化
-          model
-            .loadFavoriteTabList()
-            .then(tabList => {
-              favoritePopView.renderTabList(tabList);
-              if (tabList && tabList.length > 0) {
-                return model.loadFavoriteContentList(tabList[0].tabId);
-              }
-            })
-            .then(contentList => {
-              favoritePopView.renderContentList(contentList);
-            });
+          initFavoritePop();
           controlChangeFavoriteTab();
           break;
         case 'history':
           historyPopView.render(item.pop);
-          model
-            .loadHistoryTabList()
-            .then(tabList => {
-              historyPopView.renderTabList(tabList);
-              if (tabList && tabList.length > 0) {
-                return model.loadHistoryContentList(tabList[0].type);
-              }
-            })
-            .then(contentData => {
-              historyPopView.renderContentList(contentData);
-            });
+          initHistoryPop();
           controlChangeHistoryTab();
           break;
         case 'upload':
@@ -153,7 +133,7 @@ const initNav = async function () {
   // 菜单渲染完成之后再显示
   navEl.style.display = 'flex';
 };
-function loadPageMicroblogHistory() {
+const loadPageMicroblogHistory = function () {
   const microblogContainerEl = document.querySelector('.microblog-container');
   let lastListItemEl = document.querySelector('.history-list');
   // 限制重复请求
@@ -162,35 +142,32 @@ function loadPageMicroblogHistory() {
   let pageNum = 1;
   const pageSize = 5;
   const observer = new IntersectionObserver(
-    function (entries) {
+    async function (entries) {
       // 因为只观察一个元素，所以只取第一个元素
       const [entry] = entries;
       if (entry.isIntersecting && !isLoadingData) {
         isLoadingData = true;
-        model
-          .loadPageMicroblogHistory({
-            pageNum: pageNum,
-            pageSize: pageSize,
-          })
-          .then(response => {
-            const data = response.list;
-            // 停止观察
-            observer.unobserve(lastListItemEl);
-            // 没有获取到数据，停止请求
-            if (data.length === 0) return;
-            historyListLenght += data.length;
-            pageNum++;
-            microblogPopView.appendHistoryListHTML(data, 'beforeend');
-            // 重新观察最后一个元素
-            lastListItemEl = document.querySelector(
-              '.history-list-item:last-child'
-            );
-            // 历史数量大于等于10个就不请求数据了
-            if (historyListLenght < 10) {
-              observer.observe(lastListItemEl);
-            }
-            isLoadingData = false;
-          });
+        const responseData = await model.loadPageMicroblogHistory({
+          pageNum: pageNum,
+          pageSize: pageSize,
+        });
+        const data = responseData.list;
+        // 停止观察
+        observer.unobserve(lastListItemEl);
+        // 没有获取到数据，停止请求
+        if (data.length === 0) return;
+        historyListLenght += data.length;
+        pageNum++;
+        microblogPopView.appendHistoryListHTML(data, 'beforeend');
+        // 重新观察最后一个元素
+        lastListItemEl = document.querySelector(
+          '.history-list-item:last-child'
+        );
+        // 历史数量大于等于10个就不请求数据了
+        if (historyListLenght < 10) {
+          observer.observe(lastListItemEl);
+        }
+        isLoadingData = false;
       }
     },
     {
@@ -201,7 +178,7 @@ function loadPageMicroblogHistory() {
     }
   );
   observer.observe(lastListItemEl);
-}
+};
 
 ////////////////////////////////
 // 鼠标悬停游戏文字，显示游戏图片
@@ -373,40 +350,60 @@ const controlAvatarPopHover = function () {
   );
 };
 ////////////////////////////////
+// 初始化收藏弹框数据
+////////////////////////////////
+const initFavoritePop = async function () {
+  const tabList = await model.loadFavoriteTabList();
+  favoritePopView.renderTabList(tabList);
+  if (tabList && tabList.length > 0) {
+    const contentList = await model.loadFavoriteContentList(tabList[0].tabId);
+    favoritePopView.renderContentList(contentList);
+  }
+};
+////////////////////////////////
 // 控制切换收藏的tab列表
 ////////////////////////////////
 const controlChangeFavoriteTab = function () {
   const favoriteTabListEl = document.querySelector('.favorite-tab-list');
-  favoriteTabListEl.addEventListener('click', function (e) {
+  favoriteTabListEl.addEventListener('click', async function (e) {
     const favoriteTabEl = e.target.closest('.favorite-tab');
     if (!favoriteTabEl) return;
     const tabElArr = favoriteTabListEl.querySelectorAll('.favorite-tab');
     tabElArr.forEach(item => item.classList.remove('active'));
     favoriteTabEl.classList.add('active');
     // 获取对应tab下的收藏夹数据
-    model
-      .loadFavoriteContentList(parseInt(favoriteTabEl.dataset.tabId))
-      .then(contentList => {
-        favoritePopView.renderContentList(contentList);
-      });
+    const contentList = await model.loadFavoriteContentList(
+      parseInt(favoriteTabEl.dataset.tabId)
+    );
+    favoritePopView.renderContentList(contentList);
   });
+};
+////////////////////////////////
+// 初始化历史弹框数据
+////////////////////////////////
+const initHistoryPop = async function () {
+  const tabList = await model.loadHistoryTabList();
+  historyPopView.renderTabList(tabList);
+  if (tabList && tabList.length > 0) {
+    const contentData = await model.loadHistoryContentList(tabList[0].type);
+    historyPopView.renderContentList(contentData);
+  }
 };
 ////////////////////////////////
 // 控制切换历史的tab列表
 ////////////////////////////////
 const controlChangeHistoryTab = function () {
   const historyTypeListEl = document.querySelector('.history-type-list');
-  historyTypeListEl.addEventListener('click', function (e) {
+  historyTypeListEl.addEventListener('click', async function (e) {
     const historyTypeEl = e.target.closest('.history-type');
     if (!historyTypeEl) return;
     const typeElArr = historyTypeListEl.querySelectorAll('.history-type');
     typeElArr.forEach(item => item.classList.remove('active'));
     historyTypeEl.classList.add('active');
-    model
-      .loadHistoryContentList(historyTypeEl.dataset.type)
-      .then(contentData => {
-        historyPopView.renderContentList(contentData);
-      });
+    const contentData = await model.loadHistoryContentList(
+      historyTypeEl.dataset.type
+    );
+    historyPopView.renderContentList(contentData);
   });
 };
 

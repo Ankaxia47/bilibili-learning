@@ -2,7 +2,7 @@ import View from './view.js';
 import {
   convertTimestampToSpecificTime,
   convertSecondToHHmmss,
-} from '../timeHelper.js';
+} from '../helper/timeHelper.js';
 ////////////////////////////////
 // 顶部导航栏，历史弹框
 ////////////////////////////////

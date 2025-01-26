@@ -1,5 +1,5 @@
 import View from './view.js';
-import { convertTimestampToTimeInterval } from '../timeHelper.js';
+import { convertTimestampToTimeInterval } from '../helper/timeHelper.js';
 ////////////////////////////////
 // 顶部导航栏，动态弹框
 ////////////////////////////////

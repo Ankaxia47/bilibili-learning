@@ -1,0 +1,96 @@
+{
+  "type": "live",
+  "list": [
+    {
+      "title": "【试播】狠狠的抽耀佳音小姐",
+      "img": {
+        "origin": "src/img/history/live/origin/history-live-1.jpg",
+        "webp": "src/img/history/live/webp/history-live-1.webp",
+        "avif": "src/img/history/live/avif/history-live-1.avif"
+      },
+      "upName": "铭音MeioN-official",
+      "viewAt": 1737551448000,
+      "progress": 0,
+      "duration": 0,
+      "liveStatus": 1
+    },
+    {
+      "title": "谁要和爹妈见面啦",
+      "img": {
+        "origin": "src/img/history/live/origin/history-live-2.jpg",
+        "webp": "src/img/history/live/webp/history-live-2.webp",
+        "avif": "src/img/history/live/avif/history-live-2.avif"
+      },
+      "upName": "ElevenOfficial_",
+      "viewAt": 1737551432000,
+      "progress": 0,
+      "duration": 0,
+      "liveStatus": 0
+    },
+    {
+      "title": "年年有余~",
+      "img": {
+        "origin": "src/img/history/live/origin/history-live-3.jpg",
+        "webp": "src/img/history/live/webp/history-live-3.webp",
+        "avif": "src/img/history/live/avif/history-live-3.avif"
+      },
+      "upName": "花花Haya",
+      "viewAt": 1737545213000,
+      "progress": 0,
+      "duration": 0,
+      "liveStatus": 1
+    },
+    {
+      "title": "6点半看FGO新春会",
+      "img": {
+        "origin": "src/img/history/live/origin/history-live-4.jpg",
+        "webp": "src/img/history/live/webp/history-live-4.webp",
+        "avif": "src/img/history/live/avif/history-live-4.avif"
+      },
+      "upName": "削人棍专用BGM",
+      "viewAt": 1737540797000,
+      "progress": 0,
+      "duration": 0,
+      "liveStatus": 1
+    },
+    {
+      "title": "肉师傅勇闯夜店！",
+      "img": {
+        "origin": "src/img/history/live/origin/history-live-5.jpg",
+        "webp": "src/img/history/live/webp/history-live-5.webp",
+        "avif": "src/img/history/live/avif/history-live-5.avif"
+      },
+      "upName": "RO姬_Official",
+      "viewAt": 1737464015000,
+      "progress": 0,
+      "duration": 0,
+      "liveStatus": 0
+    },
+    {
+      "title": "安静打会儿游戏",
+      "img": {
+        "origin": "src/img/history/live/origin/history-live-6.jpg",
+        "webp": "src/img/history/live/webp/history-live-6.webp",
+        "avif": "src/img/history/live/avif/history-live-6.avif"
+      },
+      "upName": "shourei小N",
+      "viewAt": 1737383702000,
+      "progress": 0,
+      "duration": 0,
+      "liveStatus": 0
+    },
+    {
+      "title": "终末地测试 我也有资格啦~！",
+      "img": {
+        "origin": "src/img/history/live/origin/history-live-7.jpg",
+        "webp": "src/img/history/live/webp/history-live-7.webp",
+        "avif": "src/img/history/live/avif/history-live-7.avif"
+      },
+      "upName": "黑桐谷歌",
+      "viewAt": 1737383673000,
+      "progress": 0,
+      "duration": 0,
+      "liveStatus": 1
+    }
+  ]
+}
