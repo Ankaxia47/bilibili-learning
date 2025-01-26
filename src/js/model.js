@@ -657,6 +657,31 @@ export const loadNav = async function () {
               itemName: '投稿',
               icon: 'upload-icon',
               type: 'button',
+              pop: {
+                type: 'upload',
+                list: [
+                  {
+                    icon: 'article-upload-icon',
+                    uploadName: '专栏投稿',
+                  },
+                  {
+                    icon: 'audio-upload-icon',
+                    uploadName: '音频投稿',
+                  },
+                  {
+                    icon: 'sticker-upload-icon',
+                    uploadName: '贴纸投稿',
+                  },
+                  {
+                    icon: 'video-upload-icon',
+                    uploadName: '视频投稿',
+                  },
+                  {
+                    icon: 'upload-manage-icon',
+                    uploadName: '投稿管理',
+                  },
+                ],
+              },
             },
           ],
         },
