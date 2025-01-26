@@ -1352,3 +1352,38 @@
 .history-btn-watch:active {
   color: #000;
 }
+/***************/
+/* 投稿弹框 */
+/***************/
+.upload-pop-box .pop {
+  left: auto;
+  right: 0;
+}
+.upload-container {
+  width: 35rem;
+  padding: 0.8rem;
+}
+.upload-list {
+  display: flex;
+  justify-content: space-between;
+}
+.upload-link:link,
+.upload-link:visited {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.8rem;
+  border-radius: 9px;
+  font-size: 1.2rem;
+  color: var(--text2);
+  transition: background-color 0.2s ease-in;
+}
+.upload-link:hover,
+.upload-link:active {
+  background-color: #e3e5e7;
+}
+.upload-link .icon {
+  width: 2.4rem;
+  height: 2.4rem;
+}

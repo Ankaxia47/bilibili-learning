@@ -227,6 +227,9 @@ Medium: 11px
 .right-nav-item {
   position: relative;
   padding: 1.2rem 0 1.6rem 1.2rem;
+  height: 6.4rem;
+  display: flex;
+  align-items: center;
   cursor: pointer;
 }
 .nav-right-link:link,

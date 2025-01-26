@@ -14,6 +14,7 @@ import messagePopView from './view/messagePopView.js';
 import microblogPopView from './view/microblogPopView.js';
 import favoritePopView from './view/favoritePopView.js';
 import historyPopView from './view/historyPopView.js';
+import uploadPopView from './view/uploadPopView.js';
 
 ////////////////////////////////
 // 顶部图片
@@ -142,6 +143,9 @@ const initNav = async function () {
               historyPopView.renderContentList(contentData);
             });
           controlChangeHistoryTab();
+          break;
+        case 'upload':
+          uploadPopView.render(item.pop);
           break;
       }
     }
