@@ -73,65 +73,66 @@ const initNav = async function () {
   leftNavView.render(model.nav.leftNav);
   // 渲染导航栏右侧
   rightNavView.render(model.nav.rightNav, 'beforeend');
-  // 渲染弹窗
-  model.nav.leftNav.forEach(item => {
-    if (item.pop) {
-      switch (item.pop.type) {
-        case 'anime':
-          animePopView.render(item.pop);
-          break;
-        case 'game':
-          gamePopView.render(item.pop);
-          break;
-        case 'manga':
-          mangaPopView.render(item.pop);
-          break;
-        case 'match':
-          matchPopView.render(item.pop);
-          break;
-        case 'download':
-          downloadPopView.render(item.pop);
-          break;
-      }
-    }
-  });
-  // 头像弹框渲染
-  if (model.nav.rightNav.avatar.pop) {
-    avatarPopView.render(model.nav.rightNav.avatar.pop);
-  }
-  // 右侧导航栏弹框渲染
-  model.nav.rightNav.items.forEach(async item => {
-    if (item.pop) {
-      switch (item.pop.type) {
-        case 'vip':
-          vipPopView.render(item.pop);
-          break;
-        case 'message':
-          messagePopView.render(item.pop);
-          break;
-        case 'microblog':
-          microblogPopView.render(item.pop);
-          loadPageMicroblogHistory();
-          break;
-        case 'favorite':
-          favoritePopView.render(item.pop);
-          // 弹框数据初始化
-          initFavoritePop();
-          controlChangeFavoriteTab();
-          break;
-        case 'history':
-          historyPopView.render(item.pop);
-          initHistoryPop();
-          controlChangeHistoryTab();
-          break;
-        case 'upload':
-          uploadPopView.render(item.pop);
-          break;
-      }
-    }
-  });
   // 菜单渲染完成之后再显示
   navEl.style.display = 'flex';
+  // 渲染弹窗
+  const popResult = await Promise.allSettled([
+    model.loadAnime(),
+    model.loadGame(),
+    model.loadManga(),
+    model.loadMatch(),
+    model.loadDownload(),
+    model.loadAvatar(),
+    model.loadVip(),
+    model.loadMessage(),
+    model.loadMicroblogLiveUps(),
+    model.loadUpload(),
+  ]);
+  popResult.forEach(popResult => {
+    if (popResult.status === 'rejected') {
+      console.log(`请求${popResult.value.type}弹框失败`);
+      return;
+    }
+    switch (popResult.value.type) {
+      case 'anime':
+        animePopView.render(popResult.value);
+        break;
+      case 'game':
+        gamePopView.render(popResult.value);
+        break;
+      case 'manga':
+        mangaPopView.render(popResult.value);
+        break;
+      case 'match':
+        matchPopView.render(popResult.value);
+        break;
+      case 'download':
+        downloadPopView.render(popResult.value);
+        break;
+      case 'avatar':
+        avatarPopView.render(popResult.value);
+        break;
+      case 'vip':
+        vipPopView.render(popResult.value);
+        break;
+      case 'message':
+        messagePopView.render(popResult.value);
+        break;
+      case 'microblog':
+        microblogPopView.render(popResult.value);
+        loadPageMicroblogHistory();
+        break;
+      case 'upload':
+        uploadPopView.render(popResult.value);
+        break;
+    }
+  });
+  // 收藏弹框
+  initFavoritePop();
+  controlChangeFavoriteTab();
+  // 历史弹框
+  initHistoryPop();
+  controlChangeHistoryTab();
 };
 const loadPageMicroblogHistory = function () {
   const microblogContainerEl = document.querySelector('.microblog-container');
@@ -353,6 +354,7 @@ const controlAvatarPopHover = function () {
 // 初始化收藏弹框数据
 ////////////////////////////////
 const initFavoritePop = async function () {
+  favoritePopView.render();
   const tabList = await model.loadFavoriteTabList();
   favoritePopView.renderTabList(tabList);
   if (tabList && tabList.length > 0) {
@@ -382,6 +384,7 @@ const controlChangeFavoriteTab = function () {
 // 初始化历史弹框数据
 ////////////////////////////////
 const initHistoryPop = async function () {
+  historyPopView.render();
   const tabList = await model.loadHistoryTabList();
   historyPopView.renderTabList(tabList);
   if (tabList && tabList.length > 0) {
