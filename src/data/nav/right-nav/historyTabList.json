@@ -1,0 +1,14 @@
+[
+  {
+    "type": "video",
+    "name": "视频"
+  },
+  {
+    "type": "live",
+    "name": "直播"
+  },
+  {
+    "type": "article",
+    "name": "专栏"
+  }
+]

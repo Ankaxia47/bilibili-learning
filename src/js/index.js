@@ -73,87 +73,68 @@ const initNav = async function () {
   leftNavView.render(model.nav.leftNav);
   // 渲染导航栏右侧
   rightNavView.render(model.nav.rightNav, 'beforeend');
-  // 渲染弹窗
-  model.nav.leftNav.forEach(item => {
-    if (item.pop) {
-      switch (item.pop.type) {
-        case 'anime':
-          animePopView.render(item.pop);
-          break;
-        case 'game':
-          gamePopView.render(item.pop);
-          break;
-        case 'manga':
-          mangaPopView.render(item.pop);
-          break;
-        case 'match':
-          matchPopView.render(item.pop);
-          break;
-        case 'download':
-          downloadPopView.render(item.pop);
-          break;
-      }
-    }
-  });
-  // 头像弹框渲染
-  if (model.nav.rightNav.avatar.pop) {
-    avatarPopView.render(model.nav.rightNav.avatar.pop);
-  }
-  // 右侧导航栏弹框渲染
-  model.nav.rightNav.items.forEach(item => {
-    if (item.pop) {
-      switch (item.pop.type) {
-        case 'vip':
-          vipPopView.render(item.pop);
-          break;
-        case 'message':
-          messagePopView.render(item.pop);
-          break;
-        case 'microblog':
-          microblogPopView.render(item.pop);
-          loadPageMicroblogHistory();
-          break;
-        case 'favorite':
-          favoritePopView.render(item.pop);
-          // 弹框数据初始化
-          model
-            .loadFavoriteTabList()
-            .then(tabList => {
-              favoritePopView.renderTabList(tabList);
-              if (tabList && tabList.length > 0) {
-                return model.loadFavoriteContentList(tabList[0].tabId);
-              }
-            })
-            .then(contentList => {
-              favoritePopView.renderContentList(contentList);
-            });
-          controlChangeFavoriteTab();
-          break;
-        case 'history':
-          historyPopView.render(item.pop);
-          model
-            .loadHistoryTabList()
-            .then(tabList => {
-              historyPopView.renderTabList(tabList);
-              if (tabList && tabList.length > 0) {
-                return model.loadHistoryContentList(tabList[0].type);
-              }
-            })
-            .then(contentData => {
-              historyPopView.renderContentList(contentData);
-            });
-          controlChangeHistoryTab();
-          break;
-        case 'upload':
-          uploadPopView.render(item.pop);
-          break;
-      }
-    }
-  });
   // 菜单渲染完成之后再显示
   navEl.style.display = 'flex';
+  // 渲染弹窗
+  const popResult = await Promise.allSettled([
+    model.loadAnime(),
+    model.loadGame(),
+    model.loadManga(),
+    model.loadMatch(),
+    model.loadDownload(),
+    model.loadAvatar(),
+    model.loadVip(),
+    model.loadMessage(),
+    model.loadMicroblogLiveUps(),
+    model.loadUpload(),
+  ]);
+  popResult.forEach(popResult => {
+    if (popResult.status === 'rejected') {
+      console.log(`请求${popResult.value.type}弹框失败`);
+      return;
+    }
+    switch (popResult.value.type) {
+      case 'anime':
+        animePopView.render(popResult.value);
+        break;
+      case 'game':
+        gamePopView.render(popResult.value);
+        break;
+      case 'manga':
+        mangaPopView.render(popResult.value);
+        break;
+      case 'match':
+        matchPopView.render(popResult.value);
+        break;
+      case 'download':
+        downloadPopView.render(popResult.value);
+        break;
+      case 'avatar':
+        avatarPopView.render(popResult.value);
+        break;
+      case 'vip':
+        vipPopView.render(popResult.value);
+        break;
+      case 'message':
+        messagePopView.render(popResult.value);
+        break;
+      case 'microblog':
+        microblogPopView.render(popResult.value);
+        loadPageMicroblogHistory();
+        break;
+      case 'upload':
+        uploadPopView.render(popResult.value);
+        break;
+    }
+  });
+  // 收藏弹框
+  initFavoritePop();
+  controlChangeFavoriteTab();
+  // 历史弹框
+  initHistoryPop();
+  controlChangeHistoryTab();
 };
-function loadPageMicroblogHistory() {
+const loadPageMicroblogHistory = function () {
   const microblogContainerEl = document.querySelector('.microblog-container');
   let lastListItemEl = document.querySelector('.history-list');
   // 限制重复请求
@@ -162,35 +143,32 @@ function loadPageMicroblogHistory() {
   let pageNum = 1;
   const pageSize = 5;
   const observer = new IntersectionObserver(
-    function (entries) {
+    async function (entries) {
       // 因为只观察一个元素，所以只取第一个元素
       const [entry] = entries;
       if (entry.isIntersecting && !isLoadingData) {
         isLoadingData = true;
-        model
-          .loadPageMicroblogHistory({
-            pageNum: pageNum,
-            pageSize: pageSize,
-          })
-          .then(response => {
-            const data = response.list;
-            // 停止观察
-            observer.unobserve(lastListItemEl);
-            // 没有获取到数据，停止请求
-            if (data.length === 0) return;
-            historyListLenght += data.length;
-            pageNum++;
-            microblogPopView.appendHistoryListHTML(data, 'beforeend');
-            // 重新观察最后一个元素
-            lastListItemEl = document.querySelector(
-              '.history-list-item:last-child'
-            );
-            // 历史数量大于等于10个就不请求数据了
-            if (historyListLenght < 10) {
-              observer.observe(lastListItemEl);
-            }
-            isLoadingData = false;
-          });
+        const responseData = await model.loadPageMicroblogHistory({
+          pageNum: pageNum,
+          pageSize: pageSize,
+        });
+        const data = responseData.list;
+        // 停止观察
+        observer.unobserve(lastListItemEl);
+        // 没有获取到数据，停止请求
+        if (data.length === 0) return;
+        historyListLenght += data.length;
+        pageNum++;
+        microblogPopView.appendHistoryListHTML(data, 'beforeend');
+        // 重新观察最后一个元素
+        lastListItemEl = document.querySelector(
+          '.history-list-item:last-child'
+        );
+        // 历史数量大于等于10个就不请求数据了
+        if (historyListLenght < 10) {
+          observer.observe(lastListItemEl);
+        }
+        isLoadingData = false;
       }
     },
     {
@@ -201,7 +179,7 @@ function loadPageMicroblogHistory() {
     }
   );
   observer.observe(lastListItemEl);
-}
+};
 
 ////////////////////////////////
 // 鼠标悬停游戏文字，显示游戏图片
@@ -373,40 +351,62 @@ const controlAvatarPopHover = function () {
   );
 };
 ////////////////////////////////
+// 初始化收藏弹框数据
+////////////////////////////////
+const initFavoritePop = async function () {
+  favoritePopView.render();
+  const tabList = await model.loadFavoriteTabList();
+  favoritePopView.renderTabList(tabList);
+  if (tabList && tabList.length > 0) {
+    const contentList = await model.loadFavoriteContentList(tabList[0].tabId);
+    favoritePopView.renderContentList(contentList);
+  }
+};
+////////////////////////////////
 // 控制切换收藏的tab列表
 ////////////////////////////////
 const controlChangeFavoriteTab = function () {
   const favoriteTabListEl = document.querySelector('.favorite-tab-list');
-  favoriteTabListEl.addEventListener('click', function (e) {
+  favoriteTabListEl.addEventListener('click', async function (e) {
     const favoriteTabEl = e.target.closest('.favorite-tab');
     if (!favoriteTabEl) return;
     const tabElArr = favoriteTabListEl.querySelectorAll('.favorite-tab');
     tabElArr.forEach(item => item.classList.remove('active'));
     favoriteTabEl.classList.add('active');
     // 获取对应tab下的收藏夹数据
-    model
-      .loadFavoriteContentList(parseInt(favoriteTabEl.dataset.tabId))
-      .then(contentList => {
-        favoritePopView.renderContentList(contentList);
-      });
+    const contentList = await model.loadFavoriteContentList(
+      parseInt(favoriteTabEl.dataset.tabId)
+    );
+    favoritePopView.renderContentList(contentList);
   });
+};
+////////////////////////////////
+// 初始化历史弹框数据
+////////////////////////////////
+const initHistoryPop = async function () {
+  historyPopView.render();
+  const tabList = await model.loadHistoryTabList();
+  historyPopView.renderTabList(tabList);
+  if (tabList && tabList.length > 0) {
+    const contentData = await model.loadHistoryContentList(tabList[0].type);
+    historyPopView.renderContentList(contentData);
+  }
 };
 ////////////////////////////////
 // 控制切换历史的tab列表
 ////////////////////////////////
 const controlChangeHistoryTab = function () {
   const historyTypeListEl = document.querySelector('.history-type-list');
-  historyTypeListEl.addEventListener('click', function (e) {
+  historyTypeListEl.addEventListener('click', async function (e) {
     const historyTypeEl = e.target.closest('.history-type');
     if (!historyTypeEl) return;
     const typeElArr = historyTypeListEl.querySelectorAll('.history-type');
     typeElArr.forEach(item => item.classList.remove('active'));
     historyTypeEl.classList.add('active');
-    model
-      .loadHistoryContentList(historyTypeEl.dataset.type)
-      .then(contentData => {
-        historyPopView.renderContentList(contentData);
-      });
+    const contentData = await model.loadHistoryContentList(
+      historyTypeEl.dataset.type
+    );
+    historyPopView.renderContentList(contentData);
   });
 };
 

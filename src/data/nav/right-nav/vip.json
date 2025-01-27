@@ -1,0 +1,40 @@
+{
+  "type": "vip",
+  "vipDescription": {
+    "descriptionLeft": {
+      "descriptionTitle": "大会员特权",
+      "descriptionList": [
+        {
+          "icon": "video-icon",
+          "text": "热剧抢先看"
+        },
+        {
+          "icon": "free-icon",
+          "text": "会员免费看"
+        },
+        {
+          "icon": "hd-icon",
+          "text": "4K超清画质"
+        },
+        {
+          "icon": "dress-icon",
+          "text": "会员专属装扮"
+        }
+      ]
+    },
+    "descriptionRight": {
+      "qrcodeImg": "src/img/vip/origin/qrcode.png",
+      "payTypeImg": "src/img/vip/origin/pay-type.png"
+    }
+  },
+  "vipBtn": {
+    "btnDescription": {
+      "title": "您的大会员已过期",
+      "content": "立即开通继续享受大会员特权"
+    },
+    "btn": {
+      "text": "成为大会员",
+      "tag": "限时特惠"
+    }
+  }
+}

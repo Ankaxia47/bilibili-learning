@@ -1,0 +1,83 @@
+{
+  "type": "video",
+  "list": [
+    {
+      "title": "Doro不得进入",
+      "img": {
+        "origin": "src/img/history/video/origin/history-video-1.jpg",
+        "webp": "src/img/history/video/webp/history-video-1.webp",
+        "avif": "src/img/history/video/avif/history-video-1.avif"
+      },
+      "upName": "一只不小心的猪",
+      "viewAt": 1737543055000,
+      "progress": 9,
+      "duration": 25,
+      "liveStatus": 0
+    },
+    {
+      "title": "肯德基价格回到30年前活动，没感觉多便宜啊，难道肯德基30年没涨价？",
+      "img": {
+        "origin": "src/img/history/video/origin/history-video-2.jpg",
+        "webp": "src/img/history/video/webp/history-video-2.webp",
+        "avif": "src/img/history/video/avif/history-video-2.avif"
+      },
+      "upName": "转生成为毛毛",
+      "viewAt": 1737543055000,
+      "progress": 156,
+      "duration": 180,
+      "liveStatus": 0
+    },
+    {
+      "title": "猫猫第一视角，户外出差到底去了哪里",
+      "img": {
+        "origin": "src/img/history/video/origin/history-video-3.jpg",
+        "webp": "src/img/history/video/webp/history-video-3.webp",
+        "avif": "src/img/history/video/avif/history-video-3.avif"
+      },
+      "upName": "佚村夫",
+      "viewAt": 1737464479000,
+      "progress": 0,
+      "duration": 384,
+      "liveStatus": 0
+    },
+    {
+      "title": "不知道它为什么卖59，直到我看见了这个",
+      "img": {
+        "origin": "src/img/history/video/origin/history-video-4.jpg",
+        "webp": "src/img/history/video/webp/history-video-4.webp",
+        "avif": "src/img/history/video/avif/history-video-4.avif"
+      },
+      "upName": "DFLstone",
+      "viewAt": 1737462804000,
+      "progress": 3,
+      "duration": 22,
+      "liveStatus": 0
+    },
+    {
+      "title": "【尘白禁区】我扭头不是拒绝，而是无需多言",
+      "img": {
+        "origin": "src/img/history/video/origin/history-video-5.jpg",
+        "webp": "src/img/history/video/webp/history-video-5.webp",
+        "avif": "src/img/history/video/avif/history-video-5.avif"
+      },
+      "upName": "Hinata_歪歪",
+      "viewAt": 1737419835000,
+      "progress": 13,
+      "duration": 13,
+      "liveStatus": 0
+    },
+    {
+      "title": "【短的发布会】啥时候集5福，变集5*29福了？",
+      "img": {
+        "origin": "src/img/history/video/origin/history-video-6.jpg",
+        "webp": "src/img/history/video/webp/history-video-6.webp",
+        "avif": "src/img/history/video/avif/history-video-6.avif"
+      },
+      "upName": "短的发布会",
+      "viewAt": 1737382777000,
+      "progress": 183,
+      "duration": 187,
+      "liveStatus": 0
+    }
+  ]
+}

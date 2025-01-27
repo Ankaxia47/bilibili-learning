@@ -1,0 +1,118 @@
+{
+  "leftNav": [
+    {
+      "itemName": "首页",
+      "icon": "zhuzhan-icon"
+    },
+    {
+      "itemName": "番剧",
+      "icon": "",
+      "pop": {
+        "type": "anime"
+      }
+    },
+    {
+      "itemName": "直播",
+      "icon": ""
+    },
+    {
+      "itemName": "游戏中心",
+      "icon": "",
+      "pop": {
+        "type": "game"
+      }
+    },
+    {
+      "itemName": "会员购",
+      "icon": ""
+    },
+    {
+      "itemName": "漫画",
+      "icon": "",
+      "pop": {
+        "type": "manga"
+      }
+    },
+    {
+      "itemName": "赛事",
+      "icon": "",
+      "pop": {
+        "type": "match"
+      }
+    },
+    {
+      "itemName": "下载客户端",
+      "icon": "download-icon",
+      "pop": {
+        "type": "download"
+      }
+    }
+  ],
+  "rightNav": {
+    "avatar": {
+      "img": {
+        "origin": "src/img/avatar/origin/avatar.png",
+        "webp": "src/img/avatar/webp/avatar.webp",
+        "avif": "src/img/avatar/avif/avatar.avif"
+      },
+      "pop": {
+        "type": "avatar"
+      }
+    },
+    "items": [
+      {
+        "itemName": "大会员",
+        "icon": "vip-icon",
+        "type": "link",
+        "pop": {
+          "type": "vip"
+        }
+      },
+      {
+        "itemName": "消息",
+        "icon": "message-icon",
+        "type": "link",
+        "pop": {
+          "type": "message"
+        }
+      },
+      {
+        "itemName": "动态",
+        "icon": "microblog-icon",
+        "type": "link",
+        "pop": {
+          "type": "microblog"
+        }
+      },
+      {
+        "itemName": "收藏",
+        "icon": "favorite-icon",
+        "type": "link",
+        "pop": {
+          "type": "favorite"
+        }
+      },
+      {
+        "itemName": "历史",
+        "icon": "history-icon",
+        "type": "link",
+        "pop": {
+          "type": "history"
+        }
+      },
+      {
+        "itemName": "创作中心",
+        "icon": "creation-icon",
+        "type": "link"
+      },
+      {
+        "itemName": "投稿",
+        "icon": "upload-icon",
+        "type": "button",
+        "pop": {
+          "type": "upload"
+        }
+      }
+    ]
+  }
+}

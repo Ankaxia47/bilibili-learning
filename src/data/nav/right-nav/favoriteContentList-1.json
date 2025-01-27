@@ -1,0 +1,12 @@
+[
+  {
+    "img": {
+      "origin": "src/img/favorite/origin/favorite-video-1.jpg",
+      "webp": "src/img/favorite/webp/favorite-video-1.webp",
+      "avif": "src/img/favorite/avif/favorite-video-1.avif"
+    },
+    "videoDuration": "00:16",
+    "title": "起初人们以为这只是一只粉狗。",
+    "upName": "笼中鳥-漫剪"
+  }
+]

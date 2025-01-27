@@ -1,0 +1,64 @@
+{
+  "type": "match",
+  "matchLeft": [
+    {
+      "matchImg": {
+        "origin": "src/img/match/origin/match1.png",
+        "webp": "src/img/match/webp/match1.webp",
+        "avif": "src/img/match/avif/match1.avif"
+      }
+    },
+    {
+      "matchImg": {
+        "origin": "src/img/match/origin/match2.jpg",
+        "webp": "src/img/match/webp/match2.webp",
+        "avif": "src/img/match/avif/match2.avif"
+      }
+    },
+    {
+      "matchImg": {
+        "origin": "src/img/match/origin/match3.png",
+        "webp": "src/img/match/webp/match3.webp",
+        "avif": "src/img/match/avif/match3.avif"
+      }
+    }
+  ],
+  "matchRight": {
+    "hot": {
+      "title": "热门赛事",
+      "items": [
+        {
+          "icon": "match-icon",
+          "matchName": "2024WRL冬季赛 ：JT vs KBG"
+        },
+        {
+          "icon": "match-icon",
+          "matchName": "2024年王者荣耀挑战者杯 ：青训凌云 vs 佛山DRG"
+        },
+
+        {
+          "icon": "match-icon",
+          "matchName": "2024WRL冬季赛 ：FG vs RV"
+        }
+      ]
+    },
+    "preview": {
+      "title": "精彩预告",
+      "items": [
+        {
+          "matchTime": "今天 17:00",
+          "matchName": "2024WRL冬季赛 ：FG vs JT"
+        },
+        {
+          "matchTime": "01-04 17:00",
+          "matchName": "2024WRL冬季赛 ：RV vs KBG"
+        },
+
+        {
+          "matchTime": "01-04 19:00",
+          "matchName": "2024年王者荣耀挑战者杯 ：苏州KSG vs 重庆狼队"
+        }
+      ]
+    }
+  }
+}
