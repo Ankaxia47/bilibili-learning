@@ -22,11 +22,12 @@ body {
   width: 1.8rem;
   height: 1.8rem;
 }
-body a {
+a {
   text-decoration: none;
-  color: #000;
+  /* 继承父元素颜色 */
+  color: inherit;
 }
-body ul {
+ul {
   list-style: none;
 }
 .grid {

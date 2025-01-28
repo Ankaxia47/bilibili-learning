@@ -221,3 +221,9 @@ const convertHistoryContentData = function (data) {
     list: [...resultList],
   };
 };
+/**
+ * 加载channel的categories数据
+ */
+export const loadChannelData = async function () {
+  return await fetchMockData(config.CHANNEL_CATEGORIES_URL, 100);
+};
