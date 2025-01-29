@@ -43,6 +43,7 @@
 .right-nav-item:hover .pop.pop-bottom,
 .links-list-item:hover .pop.pop-right,
 .channel-category:hover .pop,
+.channel-right-item:hover .pop,
 .pop:hover {
   opacity: 1;
   pointer-events: auto;

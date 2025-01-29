@@ -15,25 +15,7 @@ class ChannelView extends View {
             : 'pop-bottom-center';
         let subChannelListHTML = '';
         if (item.pop) {
-          subChannelListHTML = `
-            <div class="pop ${popPosition}">
-              <div class="channel-pop-container">
-                <ul class="sub-channel-list">
-                  ${item.pop
-                    .map(
-                      subItem => `
-                        <li class="sub-channel-list-item">
-                          <a href="#" class="sub-channel-link">
-                            ${subItem}
-                          </a>
-                        </li>
-                    `
-                    )
-                    .join('')}
-                </ul>
-              </div>
-            </div>
-          `;
+          subChannelListHTML = this._generatePopMarkup(item.pop, popPosition);
         }
         return index === this._data.channelCategories.length - 1
           ? `
@@ -55,10 +37,57 @@ class ChannelView extends View {
         `;
       })
       .join('');
+    const channelRightLinksHTML = this._data.channelRightLinks
+      .map((item, index) => {
+        const popPosition =
+          index < this._data.channelRightLinks.length / 2
+            ? 'pop-top-center'
+            : 'pop-bottom-center';
+        let subChannelListHTML = '';
+        if (item.pop) {
+          subChannelListHTML = this._generatePopMarkup(item.pop, popPosition);
+        }
+        return `
+        <li class="channel-right-item">
+          <a href="#" class="right-link">
+            <svg class="icon">
+              <use href="src/img/icons.svg#${item.icon}"></use>
+            </svg>
+            <span class="right-link-text">${item.channelName}</span>
+          </a>
+          ${subChannelListHTML}
+        </li>
+      `;
+      })
+      .join('');
     return `
       <ul class="channel-categories">
         ${channelCategoryListHTML}
       </ul>
+      <ul class="channel-right-links">
+        ${channelRightLinksHTML}
+      </ul>
+    `;
+  }
+  _generatePopMarkup(popData, popPosition) {
+    return `
+      <div class="pop ${popPosition}">
+        <div class="channel-pop-container">
+          <ul class="sub-channel-list">
+            ${popData
+              .map(
+                subItem => `
+                  <li class="sub-channel-list-item">
+                    <a href="#" class="sub-channel-link">
+                      ${subItem}
+                    </a>
+                  </li>
+              `
+              )
+              .join('')}
+          </ul>
+        </div>
+      </div>
     `;
   }
 }

@@ -194,5 +194,56 @@
       ]
     }
   ],
-  "channelRightLinks": []
+  "channelRightLinks": [
+    {
+      "channelName": "专栏",
+      "icon": "channel-article-icon"
+    },
+    {
+      "channelName": "活动",
+      "icon": "channel-activity-icon"
+    },
+    {
+      "channelName": "社区中心",
+      "icon": "channel-community-center-icon"
+    },
+    {
+      "channelName": "直播",
+      "icon": "channel-live-icon",
+      "pop": [
+        "全部",
+        "网游",
+        "手游",
+        "单机",
+        "娱乐",
+        "电台",
+        "虚拟",
+        "生活",
+        "知识",
+        "赛事",
+        "聊天室",
+        "互动玩法"
+      ]
+    },
+    {
+      "channelName": "课堂",
+      "icon": "channel-classroom-icon",
+      "pop": [
+        "通识科普",
+        "兴趣生活",
+        "语言学习",
+        "考研",
+        "考试考证",
+        "影视·创作",
+        "IT互联网",
+        "职业职场",
+        "个人成长",
+        "我的课程"
+      ]
+    },
+    {
+      "channelName": "新歌热榜",
+      "icon": "channel-music-icon"
+    }
+  ]
 }

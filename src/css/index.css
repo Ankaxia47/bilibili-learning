@@ -40,6 +40,7 @@ Medium: 11px
   --percentage: 0.5;
   position: relative;
   height: 16rem;
+  min-width: 120rem;
 }
 .top-img {
   position: relative;
@@ -141,6 +142,7 @@ Medium: 11px
 }
 
 .nav-item-text {
+  white-space: nowrap;
   font-size: 1.4rem;
 }
 /***************/
@@ -284,6 +286,7 @@ Medium: 11px
 .main-container {
   margin: 0 auto;
   max-width: 140rem;
+  min-width: 120rem;
 }
 /***************/
 /* channel */
@@ -350,6 +353,7 @@ Medium: 11px
 }
 
 .channel-categories {
+  flex-grow: 1;
   display: grid;
   grid-template-columns: repeat(11, 1fr);
   grid-template-rows: repeat(2, 1fr);
@@ -361,7 +365,6 @@ Medium: 11px
   position: relative;
   background-color: #f6f7f8;
   border-radius: 5px;
-  width: 8rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -397,26 +400,27 @@ Medium: 11px
   align-items: center;
   row-gap: 1rem;
 }
-
+.channel-right-item {
+  position: relative;
+  color: #61666d;
+  transition: color 0.2s ease-in;
+}
+.channel-right-item:hover {
+  color: #00aeec;
+}
 .right-link:link,
 .right-link:visited {
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #61666d;
   font-size: 1.4rem;
   gap: 0.6rem;
-  transition: color 0.2s ease-in;
 }
-.right-link:hover,
-.right-link:active {
-  color: #00aeec;
-}
-.right-link .icon {
+.channel-right-item .icon {
   fill: #61666d;
   transition: fill 0.2s ease-in;
 }
-.right-link:hover .icon {
+.channel-right-item:hover .icon {
   fill: #00aeec;
 }
 /***************/
