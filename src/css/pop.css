@@ -14,7 +14,7 @@
   visibility: hidden;
   /* 父元素设置了鼠标变成手指，这里鼠标状态恢复默认 */
   cursor: auto;
-  z-index: 999;
+  z-index: 30;
 }
 .pop > div {
   border-radius: 9px;
