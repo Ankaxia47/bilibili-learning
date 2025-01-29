@@ -15,6 +15,7 @@ import microblogPopView from './view/microblogPopView.js';
 import favoritePopView from './view/favoritePopView.js';
 import historyPopView from './view/historyPopView.js';
 import uploadPopView from './view/uploadPopView.js';
+import channelView from './view/channelView.js';
 
 ////////////////////////////////
 // 顶部图片
@@ -431,7 +432,14 @@ const initHeader = async function () {
   controlAvatarPopHover();
 };
 initHeader();
-
+////////////////////////////////
+// channel初始化
+////////////////////////////////
+const initChannel = async function () {
+  const channelData = await model.loadChannelData();
+  channelView.render(channelData);
+};
+initChannel();
 ////////////////////////////////
 // 轮播图
 ////////////////////////////////

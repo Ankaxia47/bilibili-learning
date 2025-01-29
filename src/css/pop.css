@@ -14,6 +14,7 @@
   visibility: hidden;
   /* 父元素设置了鼠标变成手指，这里鼠标状态恢复默认 */
   cursor: auto;
+  z-index: 999;
 }
 .pop > div {
   border-radius: 9px;
@@ -28,9 +29,21 @@
   top: 100%;
   left: 0;
 }
+.pop-top-center {
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.pop-bottom-center {
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+}
 .nav-item:hover .pop.pop-bottom,
 .right-nav-item:hover .pop.pop-bottom,
 .links-list-item:hover .pop.pop-right,
+.channel-category:hover .pop,
+.channel-right-item:hover .pop,
 .pop:hover {
   opacity: 1;
   pointer-events: auto;
@@ -1386,4 +1399,39 @@
 .upload-link .icon {
   width: 2.4rem;
   height: 2.4rem;
+}
+/***************/
+/* channel弹框 */
+/***************/
+
+.pop-top-center .channel-pop-container {
+  margin-bottom: 0.8rem;
+}
+.pop-bottom-center .channel-pop-container {
+  margin-top: 0.8rem;
+}
+.channel-pop-container {
+  padding: 1.6rem;
+}
+.sub-channel-list {
+  display: grid;
+  grid-template-rows: repeat(4, 1fr);
+  /* 按照一列一列的顺序放置元素 */
+  grid-auto-flow: column;
+  column-gap: 0.8rem;
+}
+.sub-channel-link:link,
+.sub-channel-link:visited {
+  display: block;
+  padding: 0.8rem 0.4rem;
+  color: #000;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  letter-spacing: 1px;
+  white-space: nowrap;
+  transition: background-color 0.2s ease-in;
+}
+.sub-channel-link:hover,
+.sub-channel-link:active {
+  background-color: #e3e5e7;
 }

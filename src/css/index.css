@@ -40,6 +40,7 @@ Medium: 11px
   --percentage: 0.5;
   position: relative;
   height: 16rem;
+  min-width: 120rem;
 }
 .top-img {
   position: relative;
@@ -141,6 +142,7 @@ Medium: 11px
 }
 
 .nav-item-text {
+  white-space: nowrap;
   font-size: 1.4rem;
 }
 /***************/
@@ -283,19 +285,20 @@ Medium: 11px
 /***************/
 .main-container {
   margin: 0 auto;
-  max-width: 150rem;
+  max-width: 140rem;
+  min-width: 120rem;
 }
+/***************/
+/* channel */
+/***************/
 .channel {
   display: flex;
-  gap: 5rem;
   align-items: center;
-  padding: 1rem 0;
+  height: 11rem;
 }
 
 .channel-left {
   display: flex;
-  max-width: 100%;
-  gap: 2rem;
 }
 
 .left-link {
@@ -303,82 +306,126 @@ Medium: 11px
   flex-direction: column;
   align-items: center;
   gap: 1rem;
-}
-
-.link-round-text {
-  font-size: 1.4rem;
+  margin-right: 2.4rem;
 }
 .link-round:link,
 .link-round:visited {
-  display: inline-block;
-  width: 4rem;
-  height: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4.6rem;
+  height: 4.6rem;
   border-radius: 50%;
 }
-
-.link-news {
-  background-color: orange;
+.link-round .icon {
+  color: #fff;
+  width: 2.4rem;
+  height: 2.4rem;
 }
-.link-hot {
-  background-color: red;
+.link-news:link,
+.link-news:visited {
+  background-color: #ff9212;
+  transition: background-color 0.2s ease-in;
+}
+.link-news:hover,
+.link-news:active {
+  background-color: rgba(255, 144, 18, 0.8);
+}
+.link-hot:link,
+.link-hot:visited {
+  background-color: #f07775;
+  transition: background-color 0.2s ease-in;
+}
+.link-hot:hover,
+.link-hot:active {
+  background-color: rgba(240, 119, 117, 0.8);
 }
 
 .left-link-text {
+  font-size: 1.4rem;
   color: #555;
 }
 
 .channel-right {
-  width: 100%;
+  flex-grow: 1;
   display: flex;
+  justify-content: space-between;
 }
 
 .channel-categories {
+  flex-grow: 1;
   display: grid;
-  grid-template-columns: repeat(12, 1fr);
+  grid-template-columns: repeat(11, 1fr);
   grid-template-rows: repeat(2, 1fr);
   gap: 1rem;
-  max-width: 100%;
-  flex-grow: 2;
   padding-right: 3rem;
   border-right: 1px solid #e3e5e7;
 }
-
 .channel-category {
+  position: relative;
   background-color: #f6f7f8;
   border-radius: 5px;
-  width: 100%;
-  color: #555;
   display: flex;
   justify-content: center;
   align-items: center;
+  color: #61666d;
+  padding: 0.6rem;
+  font-size: 1.4rem;
   letter-spacing: 2px;
+  transition: color 0.2s ease-in, background-color 0.2s ease-in;
   cursor: pointer;
 }
-.down-icon {
-  width: 2.4rem;
-  height: 2.4rem;
+.channel-category:hover {
+  color: #000;
+  background-color: #dfe1e3;
+}
+.channel-more {
+  cursor: default;
+}
+.channel-more .icon {
+  width: 1.2rem;
+  height: 1.2rem;
+  transition: transform 0.2s ease-in;
+}
+.channel-more:hover .icon {
+  transform: rotate(180deg);
 }
 
 .channel-right-links {
+  width: 24rem;
   display: grid;
-  max-width: 100%;
-  flex-grow: 1;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: 1fr 1fr 1.4fr;
   grid-template-rows: repeat(2, 1fr);
-  justify-items: start;
+  justify-items: end;
   align-items: center;
-  gap: 1rem;
+  row-gap: 1rem;
 }
-
+.channel-right-item {
+  position: relative;
+  color: #61666d;
+  transition: color 0.2s ease-in;
+}
+.channel-right-item:hover {
+  color: #00aeec;
+}
 .right-link:link,
 .right-link:visited {
-  width: 100%;
-  color: #555;
   display: flex;
   justify-content: center;
   align-items: center;
+  font-size: 1.4rem;
+  gap: 0.6rem;
 }
-
+.channel-right-item .icon {
+  fill: #61666d;
+  transition: fill 0.2s ease-in;
+}
+.channel-right-item:hover .icon {
+  fill: #00aeec;
+}
+/***************/
+/* 视频区域 */
+/***************/
 .container {
   height: 300px;
   display: grid;
