@@ -603,6 +603,12 @@ Medium: 11px
 .video-up-box:active {
   color: #00aeec;
 }
+.like-tag {
+  color: #ff812a;
+  background-color: #fff0e3;
+  padding: 0.4rem;
+  border-radius: 5px;
+}
 .el {
   width: 100%;
   height: 100px;

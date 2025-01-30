@@ -1,4 +1,9 @@
 import View from './view.js';
+import {
+  convertSecondToHHmmss,
+  convertVideoCardTime,
+} from '../helper/timeHelper.js';
+import { convertNumber } from '../helper/numberHelper.js';
 ////////////////////////////////
 // 视频卡片
 ////////////////////////////////
@@ -25,16 +30,18 @@ class VideoCardView extends View {
                   <svg class="icon">
                     <use href="src/img/icons.svg#video-play-icon"></use>
                   </svg>
-                  <span>${item.playCount}</span>
+                  <span>${convertNumber(item.playCount)}</span>
                 </div>
                 <div class="video-status-item">
                   <svg class="icon">
                     <use href="src/img/icons.svg#video-danmaku-icon"></use>
                   </svg>
-                  <span>${item.danmakuCont}</span>
+                  <span>${convertNumber(item.danmakuCont)}</span>
                 </div>
               </div>
-              <div class="video-status-duration">${item.duration}</div>
+              <div class="video-status-duration">${convertSecondToHHmmss(
+                item.duration
+              )}</div>
             </div>
             <div class="watch-later-box">
               <div class="watch-later-icon-box">
@@ -69,11 +76,26 @@ class VideoCardView extends View {
           </div>
         </div>
         <a href="#" class="video-up-box">
-          <svg class="icon">
-            <use href="src/img/icons.svg#${item.icon}"></use>
-          </svg>
+          ${
+            item.icon
+              ? `
+              <svg class="icon">
+                <use href="src/img/icons.svg#${item.icon}"></use>
+              </svg>
+            `
+              : ''
+          }
+          ${
+            item.likeTag
+              ? `
+              <div class="like-tag">${item.likeTag}</div>
+            `
+              : ''
+          }
           <span title="${item.upName}">${item.upName}</span>
-          <span class="release-time">· ${item.releaseTimestamp}</span>
+          <span class="release-time">· ${convertVideoCardTime(
+            item.releaseTimestamp
+          )}</span>
         </a>
       </div>
       `
