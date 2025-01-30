@@ -16,6 +16,7 @@ import favoritePopView from './view/favoritePopView.js';
 import historyPopView from './view/historyPopView.js';
 import uploadPopView from './view/uploadPopView.js';
 import channelView from './view/channelView.js';
+import videoCardView from './view/videoCardView.js';
 
 ////////////////////////////////
 // 顶部图片
@@ -533,3 +534,11 @@ class Slide {
   }
 }
 const slide = new Slide();
+////////////////////////////////
+// 视频卡片
+////////////////////////////////
+const initVideoCard = async function () {
+  const videoData = await model.loadVideoData();
+  videoCardView.render(videoData);
+};
+initVideoCard();
