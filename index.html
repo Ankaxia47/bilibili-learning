@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="src/css/common.css" />
     <link rel="stylesheet" href="src/css/index.css" />
     <link rel="stylesheet" href="src/css/pop.css" />
+    <link rel="stylesheet" href="src/css/query.css" />
     <script defer type="module" src="src/js/index.js"></script>
     <title>bilibili</title>
   </head>
@@ -47,10 +48,33 @@
       </div>
       <section class="container video-container">
         <div class="slide-container">
-          <!-- 控制轮播图的滑动 -->
-          <div class="slide-wrapper"></div>
-          <button class="btn btn-left" data-moveto="">&lt;</button>
-          <button class="btn btn-right" data-moveto="">&gt;</button>
+          <div class="slide-img-container">
+            <!-- 控制轮播图的滑动 -->
+            <div class="slide-wrapper"></div>
+          </div>
+          <div class="slide-footer">
+            <div class="slide-footer-top">
+              <div class="slide-title">每集都是最喜欢的一集</div>
+              <div class="slide-btn-container">
+                <button class="slide-btn btn-left" data-moveto="">
+                  <svg class="icon">
+                    <use href="src/img/icons.svg#arrow-thin-left-icon"></use>
+                  </svg>
+                </button>
+                <button class="slide-btn btn-right" data-moveto="">
+                  <svg class="icon">
+                    <use href="src/img/icons.svg#arrow-thin-right-icon"></use>
+                  </svg>
+                </button>
+              </div>
+            </div>
+            <div class="dots">
+              <div class="dot active"></div>
+              <div class="dot"></div>
+              <div class="dot"></div>
+              <div class="dot"></div>
+            </div>
+          </div>
         </div>
         <div class="video-box">
           <div class="el el-1"></div>

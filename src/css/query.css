@@ -1,0 +1,13 @@
+@media (max-width: 2100px) {
+  /* 100% 缩放 */
+  .main-container {
+    max-width: 160rem;
+  }
+}
+
+@media (max-width: 1700px) {
+  /* 125% 缩放 */
+  .main-container {
+    max-width: 140rem;
+  }
+}

@@ -451,6 +451,7 @@ class Slide {
   _cur = 1;
   // _imgArr = ['src/img/pic1.png', 'src/img/pic2.png', 'src/img/pic3.png'];
   _imgArr = [
+    'src/img/carousel-4.png',
     'src/img/carousel-1.jpg',
     'src/img/carousel-2.jpg',
     'src/img/carousel-3.jpg',
