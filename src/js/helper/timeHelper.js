@@ -145,3 +145,57 @@ export function convertSecondToHHmmss(seconds) {
     ? `${minuteStr}:${secondStr}`
     : `${hourStr}:${minuteStr}:${secondStr}`;
 }
+/**
+ * 传入时间戳，转换成视频卡片的时间格式
+ * 24小时之内，显示xx小时前
+ * 超过24小时，如果是昨天0点之前显示昨天
+ * 超过昨天，显示具体日期 月份-日期，如果不是两位，不需要补零
+ * 去年，显示年月日
+ * @param {*} timestamp
+ * @returns
+ */
+export function convertVideoCardTime(timestamp) {
+  const today = new Date();
+  const curTimestamp = today.getTime();
+  // 目前只支持当前时间之前的时间戳
+  if (timestamp > curTimestamp) {
+    return '';
+  }
+  const diff = curTimestamp - timestamp;
+  if (diff < ONE_MINUTE_TIMESTAMP) {
+    return `${Math.trunc(diff / ONE_SECOND_TIMESTAMP)}秒前`;
+  }
+  if (diff < ONE_HOUR_TIMESTAMP) {
+    return `${Math.trunc(diff / ONE_MINUTE_TIMESTAMP)}分钟前`;
+  }
+  if (diff < ONE_DAY_TIMESTAMP) {
+    return `${Math.trunc(diff / ONE_HOUR_TIMESTAMP)}小时前`;
+  }
+  const todayStart = new Date(
+    today.getFullYear(),
+    today.getMonth(),
+    today.getDate(),
+    0,
+    0,
+    0,
+    0
+  );
+  // 今天0点0时0分的时间戳
+  const todayStartTimestamp = todayStart.getTime();
+  // 昨天0点0时0分的时间戳
+  const yesterdayStartTimestamp = todayStartTimestamp - ONE_DAY_TIMESTAMP;
+  if (timestamp >= yesterdayStartTimestamp) {
+    return '昨天';
+  }
+  const yearStart = new Date(today.getFullYear(), 0, 1, 0, 0, 0, 0);
+  // 今年开始的时间戳
+  const yearStartTimestamp = yearStart.getTime();
+  const date = new Date(timestamp);
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1);
+  const day = String(date.getDate());
+  if (timestamp >= yearStartTimestamp) {
+    return `${month}-${day}`;
+  }
+  return `${year}-${month}-${day}`;
+}

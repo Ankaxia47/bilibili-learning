@@ -222,8 +222,14 @@ const convertHistoryContentData = function (data) {
   };
 };
 /**
- * 加载channel的categories数据
+ * 加载channel数据
  */
 export const loadChannelData = async function () {
-  return await fetchMockData(config.CHANNEL_CATEGORIES_URL, 100);
+  return await fetchMockData(config.CHANNEL_URL, 100);
+};
+/**
+ * 加载video数据
+ */
+export const loadVideoData = async function () {
+  return await fetchMockData(config.VIDEO_CARD_URL, 100);
 };

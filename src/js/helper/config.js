@@ -48,5 +48,7 @@ export const HISOTRY_CONTENT_LIST_3 =
   'src/data/nav/right-nav/historyContentList-3.json';
 // 投稿弹框
 export const UPLOAD_URL = 'src/data/nav/right-nav/upload.json';
-// channel categories数据
-export const CHANNEL_CATEGORIES_URL = 'src/data/channel/channel.json';
+// channel数据
+export const CHANNEL_URL = 'src/data/channel/channel.json';
+// video数据
+export const VIDEO_CARD_URL = 'src/data/video-card/video-card.json';

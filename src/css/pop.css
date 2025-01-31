@@ -39,11 +39,16 @@
   left: 50%;
   transform: translateX(-50%);
 }
+.pop-bottom-right {
+  top: 100%;
+  right: 0;
+}
 .nav-item:hover .pop.pop-bottom,
 .right-nav-item:hover .pop.pop-bottom,
 .links-list-item:hover .pop.pop-right,
 .channel-category:hover .pop,
 .channel-right-item:hover .pop,
+.no-interest-box:hover .pop,
 .pop:hover {
   opacity: 1;
   pointer-events: auto;
@@ -1030,7 +1035,7 @@
 .history-video-img-box:hover .watch-later-icon-box {
   display: block;
 }
-.watch-later-icon-box {
+.history-video-img-box .watch-later-icon-box {
   position: absolute;
   left: 50%;
   top: 50%;
@@ -1041,12 +1046,6 @@
   border-radius: 5px;
   padding: 0.4rem;
   display: none;
-}
-
-.watch-later-icon {
-  width: 100%;
-  height: 100%;
-  color: #fff;
 }
 
 .history-more:link,
@@ -1434,4 +1433,22 @@
 .sub-channel-link:hover,
 .sub-channel-link:active {
   background-color: #e3e5e7;
+}
+/***************/
+/* 不感兴趣弹框 */
+/***************/
+.no-interest-container {
+  margin-top: 0.4rem;
+  padding: 1.2rem 0;
+}
+.no-interest-item {
+  color: #61666d;
+  white-space: nowrap;
+  padding: 1.4rem 2.4rem;
+  font-size: 1.4rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in;
+}
+.no-interest-item:hover {
+  background-color: #f1f2f3;
 }
