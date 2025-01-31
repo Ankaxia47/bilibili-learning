@@ -475,7 +475,6 @@ Medium: 11px
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
 }
 .video-img-box {
   position: relative;
@@ -554,6 +553,12 @@ Medium: 11px
   align-items: center;
   gap: 0.4rem;
 }
+.video-info {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
 .video-title-box {
   display: flex;
   position: relative;
@@ -567,7 +572,7 @@ Medium: 11px
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
-  margin-right: 3rem;
+  margin-right: 2.4rem;
   margin-bottom: 0.8rem;
   transition: color 0.2s ease-in;
 }
