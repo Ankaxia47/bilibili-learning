@@ -1,0 +1,34 @@
+[
+  {
+    "img": {
+      "origin": "src/img/carousel/origin/carousel-4.png"
+    },
+    "title": "每集都是最喜欢的一集！"
+  },
+
+  {
+    "img": {
+      "origin": "src/img/carousel/origin/carousel-1.jpg"
+    },
+    "title": "点击进入你的专属音乐街>>>"
+  },
+  {
+    "img": {
+      "origin": "src/img/carousel/origin/carousel-2.png"
+    },
+    "title": "家有儿女全系列上线！弹幕考古更爆笑"
+  },
+  {
+    "img": {
+      "origin": "src/img/carousel/origin/carousel-3.jpg"
+    },
+    "title": "指挥官一起休息下？"
+  },
+
+  {
+    "img": {
+      "origin": "src/img/carousel/origin/carousel-5.png"
+    },
+    "title": "主唱太拼命了！！！！！"
+  }
+]

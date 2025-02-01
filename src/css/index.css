@@ -445,6 +445,8 @@ Medium: 11px
   height: 100%;
   border-radius: 5px;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 .slide-wrapper {
   display: flex;
@@ -456,6 +458,7 @@ Medium: 11px
   height: 100%;
 }
 .slide-footer {
+  flex-grow: 1;
   background-color: #8191a6;
   padding: 1.2rem;
   position: relative;
@@ -518,6 +521,7 @@ Medium: 11px
   background-color: rgba(255, 255, 255, 0.2);
   border-radius: 50%;
   position: relative;
+  cursor: pointer;
 }
 .dot.active {
   background: none;
@@ -531,9 +535,9 @@ Medium: 11px
   bottom: -0.2rem;
   border-radius: 50%;
   background-color: #fff;
-  animation: eat 0.2s ease-in-out 4 alternate forwards;
+  animation: var(--eat-animation);
 }
-@keyframes eat {
+@keyframes eat-next {
   0% {
     clip-path: circle(50%);
   }
@@ -579,6 +583,55 @@ Medium: 11px
       100% 90%,
       100% 100%,
       0% 100%
+    );
+  }
+}
+@keyframes eat-previous {
+  0% {
+    clip-path: circle(50%);
+  }
+  25% {
+    clip-path: polygon(
+      100% 0%,
+      0% 0%,
+      0% 40%,
+      40% 50%,
+      0% 60%,
+      0% 100%,
+      100% 100%
+    );
+  }
+  50% {
+    clip-path: polygon(
+      100% 0%,
+      0% 0%,
+      0% 30%,
+      40% 50%,
+      0% 70%,
+      0% 100%,
+      100% 100%
+    );
+  }
+  75% {
+    clip-path: polygon(
+      100% 0%,
+      0% 0%,
+      0% 20%,
+      40% 50%,
+      0% 80%,
+      0% 100%,
+      100% 100%
+    );
+  }
+  100% {
+    clip-path: polygon(
+      100% 0%,
+      0% 0%,
+      0% 10%,
+      40% 50%,
+      0% 90%,
+      0% 100%,
+      100% 100%
     );
   }
 }
