@@ -233,3 +233,9 @@ export const loadChannelData = async function () {
 export const loadVideoData = async function () {
   return await fetchMockData(config.VIDEO_CARD_URL, 100);
 };
+/**
+ * 加载轮播图数据
+ */
+export const loadCarouselData = async function () {
+  return await fetchMockData(config.CAROUSEL_URL, 200);
+};

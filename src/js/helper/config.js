@@ -52,3 +52,5 @@ export const UPLOAD_URL = 'src/data/nav/right-nav/upload.json';
 export const CHANNEL_URL = 'src/data/channel/channel.json';
 // video数据
 export const VIDEO_CARD_URL = 'src/data/video-card/video-card.json';
+// 轮播图数据
+export const CAROUSEL_URL = 'src/data/carousel/carousel.json';
