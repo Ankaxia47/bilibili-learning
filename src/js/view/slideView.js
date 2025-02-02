@@ -4,6 +4,7 @@ class SlideView extends View {
   _parentEl = document.querySelector('.video-container');
   _dotsEl;
   _dotElArr;
+  _slideContainerEl;
   _slideWrapperEl;
   _rightBtn;
   _leftBtn;
@@ -25,6 +26,10 @@ class SlideView extends View {
   _firstImgClonePos;
   // 克隆的最后一张图的位置
   _lastImgClonePos;
+  // 定时器id
+  _intervalId;
+  // 自动播放时间间隔，单位秒
+  _autoPlayDuration = 2;
 
   _initData() {
     if (this._data.length === 0) return;
@@ -54,6 +59,9 @@ class SlideView extends View {
   }
 
   initSlideControl() {
+    if (!this._slideContainerEl) {
+      this._slideContainerEl = document.querySelector('.slide-container');
+    }
     if (!this._slideWrapperEl) {
       this._slideWrapperEl = document.querySelector('.slide-wrapper');
     }
@@ -80,6 +88,8 @@ class SlideView extends View {
     this._rightBtn.addEventListener('click', this.showNextSlide.bind(this));
     this._controlDotClick();
     this.tryAdjustHeight();
+    this._controlAutoPlay();
+    this._startAutoPlay();
   }
 
   _showSlide(index) {
@@ -248,6 +258,27 @@ class SlideView extends View {
     }
   }
 
+  _controlAutoPlay() {
+    this._slideContainerEl.addEventListener(
+      'mouseenter',
+      this._stopAutoPlay.bind(this)
+    );
+    this._slideContainerEl.addEventListener(
+      'mouseleave',
+      this._startAutoPlay.bind(this)
+    );
+  }
+
+  _startAutoPlay() {
+    this._intervalId = setInterval(() => {
+      this.showNextSlide();
+    }, this._autoPlayDuration * 1000);
+  }
+  _stopAutoPlay() {
+    if (!this._intervalId) return;
+    clearInterval(this._intervalId);
+  }
+
   _generateMarkup() {
     if (!this._data) return;
     this._initData();
@@ -259,7 +290,19 @@ class SlideView extends View {
             ${this._data
               .map(
                 item => `
-                <img src="${item.img.origin}" class="slide" alt="${item.title}" />
+                  <a href="#" class="slide-link">
+                    <picture>
+                      <source
+                        srcset="${item.img.avif}"
+                        type="image/avif"
+                      />
+                      <source
+                        srcset="${item.img.webp}"
+                        type="image/webp"
+                      />
+                      <img src="${item.img.origin}" class="slide" alt="${item.title}" />
+                    </picture>
+                  </a>
               `
               )
               .join('')}
@@ -267,9 +310,11 @@ class SlideView extends View {
         </div>
         <div class="slide-footer">
           <div class="slide-footer-top">
-            <div class="slide-title">${
-              this._data[this._firstImgPos].title
-            }</div>
+            <a href="#">
+              <div class="slide-title">${
+                this._data[this._firstImgPos].title
+              }</div>
+            </a>
             <div class="slide-btn-container">
               <button class="slide-btn btn-left">
                 <svg class="icon">

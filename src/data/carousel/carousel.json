@@ -1,33 +1,43 @@
 [
   {
     "img": {
-      "origin": "src/img/carousel/origin/carousel-4.png"
+      "origin": "src/img/carousel/origin/carousel-4.png",
+      "webp": "src/img/carousel/webp/carousel-4.webp",
+      "avif": "src/img/carousel/avif/carousel-4.avif"
     },
     "title": "每集都是最喜欢的一集！"
   },
 
   {
     "img": {
-      "origin": "src/img/carousel/origin/carousel-1.jpg"
+      "origin": "src/img/carousel/origin/carousel-1.jpg",
+      "webp": "src/img/carousel/webp/carousel-1.webp",
+      "avif": "src/img/carousel/avif/carousel-1.avif"
     },
     "title": "点击进入你的专属音乐街>>>"
   },
   {
     "img": {
-      "origin": "src/img/carousel/origin/carousel-2.png"
+      "origin": "src/img/carousel/origin/carousel-2.png",
+      "webp": "src/img/carousel/webp/carousel-2.webp",
+      "avif": "src/img/carousel/avif/carousel-2.avif"
     },
     "title": "家有儿女全系列上线！弹幕考古更爆笑"
   },
   {
     "img": {
-      "origin": "src/img/carousel/origin/carousel-3.jpg"
+      "origin": "src/img/carousel/origin/carousel-3.jpg",
+      "webp": "src/img/carousel/webp/carousel-3.webp",
+      "avif": "src/img/carousel/avif/carousel-3.avif"
     },
     "title": "指挥官一起休息下？"
   },
 
   {
     "img": {
-      "origin": "src/img/carousel/origin/carousel-5.png"
+      "origin": "src/img/carousel/origin/carousel-5.png",
+      "webp": "src/img/carousel/webp/carousel-5.webp",
+      "avif": "src/img/carousel/avif/carousel-5.avif"
     },
     "title": "主唱太拼命了！！！！！"
   }

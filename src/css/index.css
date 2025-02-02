@@ -452,6 +452,9 @@ Medium: 11px
   display: flex;
   transition: transform 0.5s ease;
 }
+.slide-link {
+  flex: 0 0 100%;
+}
 .slide {
   display: block;
   width: 100%;
