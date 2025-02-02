@@ -6,6 +6,8 @@ class SlideView extends View {
   _dotElArr;
   _slideContainerEl;
   _slideWrapperEl;
+  _slideFooterEl;
+  _slideElArr;
   _rightBtn;
   _leftBtn;
   _slideTitle;
@@ -65,6 +67,12 @@ class SlideView extends View {
     if (!this._slideWrapperEl) {
       this._slideWrapperEl = document.querySelector('.slide-wrapper');
     }
+    if (!this._slideFooterEl) {
+      this._slideFooterEl = document.querySelector('.slide-footer');
+    }
+    if (!this._slideElArr) {
+      this._slideElArr = Array.from(document.querySelectorAll('.slide'));
+    }
     if (!this._leftBtn) {
       this._leftBtn = document.querySelector('.btn-left');
     }
@@ -90,6 +98,7 @@ class SlideView extends View {
     this.tryAdjustHeight();
     this._controlAutoPlay();
     this._startAutoPlay();
+    this._updateFooterBackgroundColor();
   }
 
   _showSlide(index) {
@@ -112,6 +121,7 @@ class SlideView extends View {
     this._showSlide(this._cur);
     this._controlDotActive(index);
     this._updateSlideTitle();
+    this._updateFooterBackgroundColor();
   }
 
   _updateSlideTitle() {
@@ -277,6 +287,59 @@ class SlideView extends View {
   _stopAutoPlay() {
     if (!this._intervalId) return;
     clearInterval(this._intervalId);
+  }
+  /**
+   * 根据图片颜色更新slideFooter颜色
+   */
+  _updateFooterBackgroundColor() {
+    const img = this._slideElArr[this._cur];
+    // 获取颜色的位置
+    const x = 10;
+    const y = 10;
+    // 系数，获取图片颜色之后乘以这个系数，让颜色深一些
+    const factor = 0.6;
+    if (img.complete && img.naturalWidth > 0) {
+      // 图片加载完成，设置footer颜色
+      const color = this._getImgColor(img, x, y, factor);
+      // 将颜色设置为 div 的背景色
+      this._slideFooterEl.style.setProperty(
+        '--slide-footer-background-color',
+        `${color}`
+      );
+    } else {
+      // 图片加载未完成，监听图片加载
+      img.addEventListener('load', () => {
+        const color = this._getImgColor(img, x, y, factor);
+        // 将颜色设置为 div 的背景色
+        this._slideFooterEl.style.setProperty(
+          '--slide-footer-background-color',
+          `${color}`
+        );
+      });
+    }
+  }
+  /**
+   * 获取图片上某个位置的颜色
+   * @param {*} img 图片
+   * @param {*} x 获取颜色位置水平坐标
+   * @param {*} y 获取颜色位置垂直坐标
+   * @param {*} factor 系数，获取图片颜色之后乘以这个系数
+   * @returns
+   */
+  _getImgColor(img, x, y, factor) {
+    // 创建 canvas 元素
+    const canvas = document.createElement('canvas');
+    canvas.width = img.width;
+    canvas.height = img.height;
+    // 获取 canvas 的 2D 上下文
+    const ctx = canvas.getContext('2d');
+    // 将图片绘制到 canvas 上
+    ctx.drawImage(img, 0, 0, img.width, img.height);
+    const pixel = ctx.getImageData(x, y, 1, 1).data;
+    // 将颜色转换为 CSS 可用的格式
+    return `rgb(${pixel[0] * factor}, ${pixel[1] * factor}, ${
+      pixel[2] * factor
+    })`;
   }
 
   _generateMarkup() {

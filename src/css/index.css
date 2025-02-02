@@ -462,7 +462,7 @@ Medium: 11px
 }
 .slide-footer {
   flex-grow: 1;
-  background-color: #8191a6;
+  background-color: var(--slide-footer-background-color);
   padding: 1.2rem;
   position: relative;
 }
@@ -474,7 +474,7 @@ Medium: 11px
   right: -1rem;
   width: calc(100% + 2rem);
   height: calc(100% + 2rem);
-  background-color: #8191a6;
+  background-color: var(--slide-footer-background-color);
   filter: blur(10px);
 }
 .slide-footer-top {
