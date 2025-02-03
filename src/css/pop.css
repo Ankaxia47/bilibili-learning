@@ -1295,7 +1295,7 @@
 .progress {
   background-color: #fb7199;
 }
-.live-tag {
+.history-img-box .live-tag {
   position: absolute;
   top: 5%;
   right: 5%;
