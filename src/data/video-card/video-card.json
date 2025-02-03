@@ -1,6 +1,7 @@
 [
   {
-    "videoImg": {
+    "type": "video",
+    "img": {
       "origin": "src/img/video-card/origin/video-card-img-1.jpg",
       "webp": "src/img/video-card/webp/video-card-img-1.webp",
       "avif": "src/img/video-card/avif/video-card-img-1.avif"
@@ -14,7 +15,8 @@
     "releaseTimestamp": 1737793535246
   },
   {
-    "videoImg": {
+    "type": "video",
+    "img": {
       "origin": "src/img/video-card/origin/video-card-img-2.jpg",
       "webp": "src/img/video-card/webp/video-card-img-2.webp",
       "avif": "src/img/video-card/avif/video-card-img-2.avif"
@@ -28,7 +30,8 @@
     "releaseTimestamp": 1736997523660
   },
   {
-    "videoImg": {
+    "type": "video",
+    "img": {
       "origin": "src/img/video-card/origin/video-card-img-3.jpg",
       "webp": "src/img/video-card/webp/video-card-img-3.webp",
       "avif": "src/img/video-card/avif/video-card-img-3.avif"
@@ -42,7 +45,8 @@
     "releaseTimestamp": 1736497535246
   },
   {
-    "videoImg": {
+    "type": "video",
+    "img": {
       "origin": "src/img/video-card/origin/video-card-img-4.jpg",
       "webp": "src/img/video-card/webp/video-card-img-4.webp",
       "avif": "src/img/video-card/avif/video-card-img-4.avif"
@@ -56,7 +60,8 @@
     "releaseTimestamp": 1738293523660
   },
   {
-    "videoImg": {
+    "type": "video",
+    "img": {
       "origin": "src/img/video-card/origin/video-card-img-5.jpg",
       "webp": "src/img/video-card/webp/video-card-img-5.webp",
       "avif": "src/img/video-card/avif/video-card-img-5.avif"
@@ -70,7 +75,8 @@
     "releaseTimestamp": 1736911123660
   },
   {
-    "videoImg": {
+    "type": "video",
+    "img": {
       "origin": "src/img/video-card/origin/video-card-img-6.jpg",
       "webp": "src/img/video-card/webp/video-card-img-6.webp",
       "avif": "src/img/video-card/avif/video-card-img-6.avif"
@@ -84,7 +90,8 @@
     "releaseTimestamp": 1736997523660
   },
   {
-    "videoImg": {
+    "type": "video",
+    "img": {
       "origin": "src/img/video-card/origin/video-card-img-7.jpg",
       "webp": "src/img/video-card/webp/video-card-img-7.webp",
       "avif": "src/img/video-card/avif/video-card-img-7.avif"
@@ -98,7 +105,8 @@
     "releaseTimestamp": 1735355923660
   },
   {
-    "videoImg": {
+    "type": "video",
+    "img": {
       "origin": "src/img/video-card/origin/video-card-img-8.jpg",
       "webp": "src/img/video-card/webp/video-card-img-8.webp",
       "avif": "src/img/video-card/avif/video-card-img-8.avif"
@@ -112,7 +120,8 @@
     "releaseTimestamp": 1733541523660
   },
   {
-    "videoImg": {
+    "type": "video",
+    "img": {
       "origin": "src/img/video-card/origin/video-card-img-9.jpg",
       "webp": "src/img/video-card/webp/video-card-img-9.webp",
       "avif": "src/img/video-card/avif/video-card-img-9.avif"
@@ -126,7 +135,8 @@
     "releaseTimestamp": 1737083923660
   },
   {
-    "videoImg": {
+    "type": "video",
+    "img": {
       "origin": "src/img/video-card/origin/video-card-img-10.jpg",
       "webp": "src/img/video-card/webp/video-card-img-10.webp",
       "avif": "src/img/video-card/avif/video-card-img-10.avif"
@@ -138,5 +148,21 @@
     "icon": "video-up-icon",
     "upName": "马蹄厨房",
     "releaseTimestamp": 1735701523660
+  },
+  {
+    "type": "live",
+    "liveType": "主机游戏",
+    "img": {
+      "origin": "src/img/live-card/origin/live-card-1.jpg",
+      "webp": "src/img/live-card/webp/live-card-1.webp",
+      "avif": "src/img/live-card/avif/live-card-1.avif"
+    },
+    "viewer": 1963,
+    "danmakuCont": 0,
+    "duration": 0,
+    "videoTitle": "新年好哇!!新年新游戏！",
+    "icon": "video-up-icon",
+    "upName": "Stan李昂",
+    "releaseTimestamp": 0
   }
 ]
