@@ -11,11 +11,16 @@ class VideoCardView extends View {
   _parentEl = document.querySelector('.video-container');
 
   _generateMarkup() {
-    if (!this._data) return;
-    return this._data
+    return this._generateVideoCardMarkup(this._data);
+  }
+  _generateVideoCardMarkup(data) {
+    if (!data) return;
+    return data
       .map(
-        item => `
-      <div class="video-card">
+        (item, index) => `
+      <div class="video-card ${
+        data.length === 10 && index < 6 ? 'margin-top-0' : ''
+      }">
         <a href="#" class="video-link">
           <div class="video-img-box">
             <picture>
@@ -155,6 +160,10 @@ class VideoCardView extends View {
       `
       )
       .join('');
+  }
+  appendCard(data) {
+    const cardMarkup = this._generateVideoCardMarkup(data);
+    this._parentEl.insertAdjacentHTML('beforeEnd', cardMarkup);
   }
 }
 

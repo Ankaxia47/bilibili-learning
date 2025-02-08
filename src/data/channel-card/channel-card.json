@@ -1,0 +1,70 @@
+[
+  {
+    "type": "live",
+    "liveType": "萌宅领域",
+    "tagIcon": "channel-icon-live",
+    "tagName": "直播",
+    "img": {
+      "origin": "src/img/channel-card/origin/channel-live-1.jpg",
+      "webp": "src/img/channel-card/webp/channel-live-1.webp",
+      "avif": "src/img/channel-card/avif/channel-live-1.avif"
+    },
+    "viewer": 466,
+    "title": "我是蒸的18岁！",
+    "icon": "video-up-icon",
+    "upName": "栗栗票栗子"
+  },
+  {
+    "type": "video",
+    "tagIcon": "channel-icon-anime",
+    "tagName": "番剧",
+    "img": {
+      "origin": "src/img/channel-card/origin/channel-anime-1.png",
+      "webp": "src/img/channel-card/webp/channel-anime-1.webp",
+      "avif": "src/img/channel-card/avif/channel-anime-1.avif"
+    },
+    "playCount": 3286000,
+    "likeCount": 2281000,
+    "title": "神之塔 工房战",
+    "subTitle": "更新至第10话 · 周一更新"
+  },
+  {
+    "type": "video",
+    "tagIcon": "channel-icon-show",
+    "tagName": "综艺",
+    "img": {
+      "origin": "src/img/channel-card/origin/channel-show-1.png",
+      "webp": "src/img/channel-card/webp/channel-show-1.webp",
+      "avif": "src/img/channel-card/avif/channel-show-1.avif"
+    },
+    "playCount": 360000000,
+    "title": "我的音乐你听吗",
+    "subTitle": "B站年度原创音综"
+  },
+  {
+    "type": "video",
+    "tagIcon": "channel-icon-teleplay",
+    "tagName": "电视剧",
+    "img": {
+      "origin": "src/img/channel-card/origin/channel-teleplay-1.jpg",
+      "webp": "src/img/channel-card/webp/channel-teleplay-1.webp",
+      "avif": "src/img/channel-card/avif/channel-teleplay-1.avif"
+    },
+    "playCount": 33000,
+    "title": "【剧情】生活大爆炸 第十二季 （2018）20【 约翰尼·盖尔克奇 /吉姆·帕森斯 】",
+    "icon": "video-up-icon",
+    "upName": "迷影社"
+  },
+  {
+    "type": "video",
+    "tagIcon": "channel-icon-manga",
+    "tagName": "漫画",
+    "img": {
+      "origin": "src/img/channel-card/origin/channel-manga-1.jpg",
+      "webp": "src/img/channel-card/webp/channel-manga-1.webp",
+      "avif": "src/img/channel-card/avif/channel-manga-1.avif"
+    },
+    "title": "步天歌 | 哥哥是高高在上的仙人，妹妹让他低头看看何为凡人",
+    "subTitle": "古风 · 更新至第136话"
+  }
+]

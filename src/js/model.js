@@ -6,6 +6,7 @@ import { fetchMockData } from './helper/AJAXHelper.js';
 ////////////////////////////////
 export let nav = {};
 export let topImg = {};
+let videoRow = 3;
 /**
  * 加载顶部导航栏数据
  */
@@ -229,13 +230,58 @@ export const loadChannelData = async function () {
 };
 /**
  * 加载video数据
+ * @param {*} offset 偏移量
+ * @param {*} limit 每次加载数量
+ * @returns
  */
-export const loadVideoData = async function () {
-  return await fetchMockData(config.VIDEO_CARD_URL, 100);
+
+export const loadVideoData = async function (offset = 0, limit = 10) {
+  const videoCardData = await fetchMockData(config.VIDEO_CARD_URL, 100);
+  return pageCardData(videoCardData, offset, limit);
 };
 /**
  * 加载轮播图数据
  */
 export const loadCarouselData = async function () {
   return await fetchMockData(config.CAROUSEL_URL, 200);
+};
+/**
+ * 加载channel卡片数据
+ * @param {*} offset 偏移量
+ * @param {*} limit 每次加载数量
+ * @returns
+ */
+export const loadChannelCardData = async function (offset = 0, limit = 3) {
+  const channelCardData = await fetchMockData(config.CHANNEL_CARD_URL, 100);
+  return pageCardData(channelCardData, offset, limit);
+};
+const pageCardData = function (data, offset, limit) {
+  const result = [];
+  const realStart = offset % data.length;
+  const realEnd = realStart + limit;
+
+  let loopCount = 0;
+  let restDataLenght = 0;
+  if (realEnd >= data.length) {
+    loopCount = parseInt((realEnd - data.length) / data.length);
+
+    restDataLenght = (realEnd - data.length) % data.length;
+  }
+  result.push(...data.slice(realStart, realEnd));
+  if (loopCount > 0) {
+    for (let i = 0; i < loopCount; i++) {
+      result.push(...data);
+    }
+  }
+  if (restDataLenght > 0) {
+    result.push(...data.slice(0, restDataLenght));
+  }
+
+  return result;
+};
+export const getVideoRow = function () {
+  return videoRow;
+};
+export const increaseVideoRow = function (num) {
+  videoRow += num;
 };

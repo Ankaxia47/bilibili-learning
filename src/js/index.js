@@ -18,6 +18,7 @@ import uploadPopView from './view/uploadPopView.js';
 import channelView from './view/channelView.js';
 import videoCardView from './view/videoCardView.js';
 import slide from './view/slideView.js';
+import channelCardView from './view/channelCardView.js';
 
 ////////////////////////////////
 // 顶部图片
@@ -457,8 +458,61 @@ initCarousel();
 ////////////////////////////////
 // 视频卡片
 ////////////////////////////////
+const loadNewCard = function () {
+  let videoCardOffset = 10;
+  const videoCardLimit = 12;
+  let channelCardOffset = 1;
+  const channelCardLimit = 3;
+  const observer = new IntersectionObserver(
+    entries => {
+      entries.forEach(async entry => {
+        if (entry.isIntersecting) {
+          // 停止观察元素，防止重复触发
+          observer.unobserve(entry.target);
+          const result = await Promise.allSettled([
+            model.loadChannelCardData(channelCardOffset, channelCardLimit),
+            model.loadVideoData(videoCardOffset, videoCardLimit),
+          ]);
+          const [channelCardData, videoCardData] = result;
+          channelCardView.appendCard(
+            channelCardData.value,
+            model.getVideoRow()
+          );
+          // 增加行数
+          model.increaseVideoRow(3);
+          videoCardView.appendCard(videoCardData.value);
+          videoCardOffset += videoCardLimit;
+          channelCardOffset += channelCardLimit;
+          // 重新监听目标元素
+          const target = document.querySelector(
+            '.video-card:nth-last-child(2)'
+          );
+          observer.observe(target);
+        }
+      });
+    },
+    {
+      root: null,
+      threshold: 1.0,
+    }
+  );
+
+  // 监听目标元素
+  const sentinel = document.querySelector('.video-card:nth-last-child(2)');
+  observer.observe(sentinel);
+};
 const initVideoCard = async function () {
-  const videoData = await model.loadVideoData();
-  videoCardView.render(videoData);
+  const videoData = await model.loadVideoData(0, 10);
+  videoCardView.appendCard(videoData);
+  loadNewCard();
 };
 initVideoCard();
+////////////////////////////////
+// channel卡片
+////////////////////////////////
+const initChannelCard = async function () {
+  const channelCardData = await model.loadChannelCardData(0, 1);
+  channelCardView.appendCard(channelCardData, model.getVideoRow());
+  model.increaseVideoRow(1);
+};
+initChannelCard();
