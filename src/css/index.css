@@ -181,16 +181,20 @@ Medium: 11px
   background-color: rgba(220, 228, 235, 0.9);
   display: flex;
   align-items: center;
+  position: relative;
+  min-width: 40rem;
+  max-width: 50rem;
+  flex-grow: 1;
   height: 3.6rem;
-  width: 50rem;
   padding: 0.4rem;
   border-radius: 11px;
 }
 .search-form:hover {
   background-color: #fff;
 }
-.search-form:focus-within {
-  background-color: rgba(232, 235, 240, 0.9);
+.search-form.focus {
+  background-color: #fff;
+  border-radius: 9px 9px 0 0;
 }
 .search-input {
   display: block;
@@ -203,8 +207,8 @@ Medium: 11px
   margin-right: 0.5rem;
   padding-left: 12px;
 }
-.search-input:focus {
-  background-color: rgba(195, 197, 199, 0.9);
+.search-input.focus {
+  background-color: #e3e5e7;
 }
 .search-btn {
   width: 3rem;

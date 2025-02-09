@@ -429,6 +429,7 @@ const initHeader = async function () {
   // 需要先初始化导航栏，controlTopImg、controlGamePopImg中需要获取弹窗元素
   // 顶部图片和nav没有依赖关系，并发请求数据
   await Promise.allSettled([initTopImg(), initNav()]);
+  // await Promise.allSettled([initTopImg()]);
   controlTopImg();
   controlGamePopImg();
   controlMangaPopImg();
@@ -516,3 +517,128 @@ const initChannelCard = async function () {
   model.increaseVideoRow(1);
 };
 initChannelCard();
+////////////////////////////////
+// 搜索框弹框
+////////////////////////////////
+// 控制展开文字是否显示
+const controlExpandTextVisible = function () {
+  const searchHistoryWrapperEl = document.querySelector(
+    '.search-history-wrapper'
+  );
+  const searchHistoryListEl = document.querySelector('.search-history-list');
+  const folderWrapperEl = document.querySelector('.folder-wrapper');
+  if (folderWrapperEl.classList.contains('expand')) {
+    return;
+  }
+  console.log(
+    'list',
+    searchHistoryListEl.offsetHeight,
+    'wrapper',
+    searchHistoryWrapperEl.offsetHeight
+  );
+  const itemEl = document.querySelector('.search-history-item');
+  const itemHeight = itemEl.offsetHeight;
+  const listEl = document.querySelector('.search-history-list');
+  const rowGap = parseInt(getComputedStyle(listEl).rowGap);
+  const wrapperHeight = itemHeight * 2 + rowGap;
+  console.log('wrapperHeight', wrapperHeight);
+  if (
+    searchHistoryListEl.offsetHeight >= searchHistoryWrapperEl.offsetHeight &&
+    searchHistoryListEl.offsetHeight > wrapperHeight
+  ) {
+    folderWrapperEl.style.display = 'block';
+  } else {
+    folderWrapperEl.style.display = 'none';
+  }
+};
+
+// 控制wrapper高度，展开更多
+const controlExpand = function () {
+  const folderWrapperEl = document.querySelector('.folder-wrapper');
+  folderWrapperEl.addEventListener('click', function (e) {
+    const folderTextEl = folderWrapperEl.querySelector('.folder-text');
+    const folderIconEl = folderWrapperEl.querySelector('.folder-icon');
+    const historyWrapperEl = document.querySelector('.search-history-wrapper');
+    const itemEl = document.querySelector('.search-history-item');
+    const itemHeight = itemEl.offsetHeight;
+    const listEl = document.querySelector('.search-history-list');
+    const rowGap = parseInt(getComputedStyle(listEl).rowGap);
+    if (this.classList.contains('expand')) {
+      this.classList.remove('expand');
+      folderTextEl.textContent = '展开更多';
+      folderIconEl.style.transform = 'rotate(0deg)';
+      const wrapperHeight = itemHeight * 2 + rowGap;
+      historyWrapperEl.style.maxHeight = `${wrapperHeight + 12}px`;
+    } else {
+      const wrapperHeight = itemHeight * 4 + rowGap * 3;
+      this.classList.add('expand');
+      folderTextEl.textContent = '收起';
+      folderIconEl.style.transform = 'rotate(180deg)';
+      historyWrapperEl.style.maxHeight = `${wrapperHeight}px`;
+    }
+  });
+};
+controlExpand();
+const controlDeleteSearchHistoryItem = function () {
+  // 删除单个搜索历史, 事件委托
+  const searchHistoryListEl = document.querySelector('.search-history-list');
+  searchHistoryListEl.addEventListener('click', function (e) {
+    const deleteIconEl = e.target.closest('.delete-icon');
+    if (!deleteIconEl) return;
+    // 找到icon对应的搜索历史
+    deleteIconEl.closest('.search-history-item').remove();
+  });
+};
+controlDeleteSearchHistoryItem();
+const controlSearchFormFocus = function () {
+  const searchFormEl = document.querySelector('.search-form');
+  const searchInputEl = document.querySelector('.search-input');
+  document.addEventListener('focusin', function (e) {
+    if (
+      searchFormEl.contains(e.target) &&
+      e.target.classList.contains('search-input')
+    ) {
+      searchFormEl.classList.add('focus');
+      searchInputEl.classList.add('focus');
+      searchFormEl.querySelector('.pop').classList.add('pop-visible');
+    }
+  });
+  // 在捕获阶段处理点击的是否是form内部的，先于搜索词的删除
+  document.addEventListener(
+    'click',
+    function (e) {
+      if (!searchFormEl.contains(e.target)) {
+        searchFormEl.classList.remove('focus');
+        searchInputEl.classList.remove('focus');
+        searchFormEl.querySelector('.pop').classList.remove('pop-visible');
+      }
+    },
+    true
+  );
+};
+controlSearchFormFocus();
+const controlSearch = function () {
+  const searchFormEl = document.querySelector('.search-form');
+  searchFormEl.addEventListener('submit', function (e) {
+    e.preventDefault();
+    const formData = new FormData(this);
+
+    const data = Object.fromEntries(formData.entries());
+    console.log(data);
+    const { 'search-word': searchWord } = data;
+    const searchHistoryListEl = document.querySelector('.search-history-list');
+    searchHistoryListEl.insertAdjacentHTML(
+      'afterbegin',
+      `
+        <li class="search-history-item">
+          <span>${searchWord}</span>
+          <svg class="delete-icon">
+            <use href="src/img/icons.svg#delete-icon"></use>
+          </svg>
+        </li>
+      `
+    );
+    controlExpandTextVisible();
+  });
+};
+controlSearch();

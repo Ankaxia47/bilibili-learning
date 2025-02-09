@@ -1452,3 +1452,84 @@
 .no-interest-item:hover {
   background-color: #f1f2f3;
 }
+/***************/
+/* 搜索弹框 */
+/***************/
+.search-form .pop {
+  width: 100%;
+}
+.search-form div {
+  background-color: #fff;
+  box-shadow: none;
+}
+.search-pop-container {
+  padding: 1.6rem;
+}
+
+.search-history-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.search-history-container {
+  /* margin-bottom: 2.4rem; */
+}
+.search-history-clear {
+  font-size: 1.2rem;
+  color: #999ea5;
+}
+.search-history-wrapper {
+  padding-top: 1.2rem;
+  /* margin-bottom: 1.2rem; */
+  max-height: 7.6rem;
+  overflow: hidden;
+}
+.search-history-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+}
+.search-history-item {
+  font-size: 1.2rem;
+  padding: 0.8rem;
+  border-radius: 5px;
+  background-color: rgb(244, 244, 244);
+  cursor: pointer;
+  position: relative;
+}
+.search-history-item:hover {
+  color: #00aeec;
+}
+.delete-icon {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 0;
+  fill: #cccccc;
+  width: 1.4rem;
+  height: 1.4rem;
+  transform: translate(50%, -50%);
+}
+.search-history-item:hover .delete-icon {
+  display: block;
+}
+.history-folder {
+  display: flex;
+  justify-content: center;
+}
+.folder-wrapper {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  color: #999ea5;
+}
+.folder-wrapper:hover {
+  color: #00aeec;
+}
+.folder-text {
+  font-size: 1.2rem;
+}
+.folder-icon {
+  width: 1.2rem;
+  height: 1.2rem;
+}
