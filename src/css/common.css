@@ -57,3 +57,16 @@ ul {
 .margin-top-0 {
   margin-top: 0 !important;
 }
+.hidden {
+  /* 1) 视觉上隐藏元素 */
+  opacity: 0;
+  /* 2) 不允许鼠标和键盘访问 */
+  pointer-events: none;
+  /* 3) 从屏幕阅读器中隐藏 */
+  visibility: hidden;
+}
+.visible {
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  visibility: visible !important;
+}

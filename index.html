@@ -15,7 +15,17 @@
     <header class="header">
       <nav class="nav">
         <form action="" class="search-form">
-          <input name="search-word" type="text" class="search-input" />
+          <div class="search-input-container">
+            <input
+              name="search-word"
+              type="text"
+              class="search-input"
+              autocomplete="off"
+            />
+            <svg class="search-delete-icon">
+              <use href="src/img/icons.svg#delete-icon"></use>
+            </svg>
+          </div>
           <btton class="search-btn">
             <svg class="icon search-icon">
               <use href="src/img/icons.svg#search-icon"></use>

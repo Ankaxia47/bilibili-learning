@@ -1458,12 +1458,10 @@
 .search-form .pop {
   width: 100%;
 }
-.search-form div {
-  background-color: #fff;
-  box-shadow: none;
-}
-.search-pop-container {
+.search-form .search-pop-container {
   padding: 1.6rem;
+  border-radius: 0;
+  box-shadow: none;
 }
 
 .search-history-top {
@@ -1477,10 +1475,14 @@
 .search-history-clear {
   font-size: 1.2rem;
   color: #999ea5;
+  cursor: pointer;
+}
+.search-history-clear:hover {
+  color: #00aeec;
 }
 .search-history-wrapper {
   padding-top: 1.2rem;
-  /* margin-bottom: 1.2rem; */
+  margin-bottom: 1.2rem;
   max-height: 7.6rem;
   overflow: hidden;
 }
