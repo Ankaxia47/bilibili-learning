@@ -539,6 +539,7 @@ const searchHistoryListEl = document.querySelector('.search-history-list');
 const observer = new MutationObserver(mutations => {
   mutations.forEach(mutation => {
     if (mutation.type === 'childList') {
+      controlSearchHistoryVisible();
       controlExpandTextVisible();
     }
   });
@@ -577,11 +578,11 @@ const controlExpand = function () {
 };
 controlExpand();
 const controlSearchHistoryVisible = function () {
-  const searchHistoryItemEl = document.querySelector('.search-history-item');
+  const searchHistoryListEl = document.querySelector('.search-history-list');
   const searchContainerEl = document.querySelector('.search-history-container');
-  !searchHistoryItemEl
-    ? (searchContainerEl.style.display = 'none')
-    : (searchContainerEl.style.display = 'block');
+  searchHistoryListEl.children.length > 0
+    ? (searchContainerEl.style.display = 'block')
+    : (searchContainerEl.style.display = 'none');
 };
 // 删除单个搜索历史
 const controlDeleteSearchHistoryItem = function () {
@@ -592,7 +593,6 @@ const controlDeleteSearchHistoryItem = function () {
     if (!deleteIconEl) return;
     // 找到icon对应的搜索历史
     deleteIconEl.closest('.search-history-item').remove();
-    controlSearchHistoryVisible();
   });
 };
 controlDeleteSearchHistoryItem();
@@ -602,7 +602,6 @@ const controlClearSearchHistory = function () {
   clearEl.addEventListener('click', function () {
     const searchHistoryListEl = document.querySelector('.search-history-list');
     searchHistoryListEl.innerHTML = '';
-    controlSearchHistoryVisible();
   });
 };
 controlClearSearchHistory();
@@ -641,25 +640,22 @@ const controlSearch = function () {
     const formData = new FormData(this);
     const data = Object.fromEntries(formData.entries());
     const { 'search-word': searchWord } = data;
-    const searchHistoryListEl = document.querySelector('.search-history-list');
-    searchHistoryListEl.insertAdjacentHTML(
-      'afterbegin',
-      `
-        <li class="search-history-item">
-          <span>${searchWord}</span>
-          <svg class="delete-icon">
-            <use href="src/img/icons.svg#delete-icon"></use>
-          </svg>
-        </li>
-      `
-    );
-    const searchContainerEl = document.querySelector(
-      '.search-history-container'
-    );
-    if (searchContainerEl.style.display === 'none') {
-      searchContainerEl.style.display = 'block';
-    }
+    addNewSearchHistory(searchWord);
   });
+};
+const addNewSearchHistory = function (searchWord) {
+  const searchHistoryListEl = document.querySelector('.search-history-list');
+  searchHistoryListEl.insertAdjacentHTML(
+    'afterbegin',
+    `
+      <li class="search-history-item">
+        <span>${searchWord}</span>
+        <svg class="delete-icon">
+          <use href="src/img/icons.svg#delete-icon"></use>
+        </svg>
+      </li>
+    `
+  );
 };
 controlSearch();
 const controlSearchDeleteIconVisible = function () {
@@ -681,3 +677,20 @@ const controlClearSearchInput = function () {
   });
 };
 controlClearSearchInput();
+
+const controlHotSearch = function () {
+  const hotSearchListEl = document.querySelector('.hot-search-list');
+  hotSearchListEl.addEventListener('click', function (e) {
+    const itemEl = e.target.closest('.hot-search-item');
+    if (!itemEl) return;
+    const textEl = itemEl.querySelector('.hot-search-text');
+    console.log(textEl.textContent);
+    const inputEl = document.querySelector('.search-input');
+    const searchWord = textEl.textContent;
+    inputEl.value = searchWord;
+    inputEl.focus();
+    inputEl.dispatchEvent(new Event('input'));
+    addNewSearchHistory(searchWord);
+  });
+};
+controlHotSearch();

@@ -11,3 +11,15 @@
     max-width: 140rem;
   }
 }
+@media (max-width: 1500px) {
+  .hot-search-list {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 1250px) {
+  .left-nav-link:link,
+  .left-nav-link:visited {
+    display: block;
+    padding: 1.2rem 1.2rem 1.2rem 0;
+  }
+}

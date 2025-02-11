@@ -182,7 +182,7 @@ Medium: 11px
   display: flex;
   align-items: center;
   position: relative;
-  min-width: 40rem;
+  min-width: 24rem;
   max-width: 50rem;
   flex-grow: 1;
   height: 3.6rem;
