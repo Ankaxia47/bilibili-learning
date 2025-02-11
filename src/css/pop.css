@@ -1559,7 +1559,7 @@
   padding: 1.2rem 1.2rem 1.2rem 1.8rem;
   cursor: pointer;
 }
-.hot-search-item:nth-child(n + 3) .hot-search-rank {
+.hot-search-item:nth-child(n + 4) .hot-search-rank {
   color: #999ea5;
 }
 .hot-search-item:hover {
