@@ -56,3 +56,7 @@ export const VIDEO_CARD_URL = 'src/data/video-card/video-card.json';
 export const CAROUSEL_URL = 'src/data/carousel/carousel.json';
 // channel卡片数据
 export const CHANNEL_CARD_URL = 'src/data/channel-card/channel-card.json';
+// 搜索历史数据
+export const SEARCH_HISTORY_URL = 'src/data/search/searchHistory.json';
+// 热搜数据
+export const HOT_SEARCH_URL = 'src/data/search/hotSearch.json';

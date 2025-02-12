@@ -285,3 +285,15 @@ export const getVideoRow = function () {
 export const increaseVideoRow = function (num) {
   videoRow += num;
 };
+/**
+ * 加载搜索历史数据
+ */
+export const loadSearchHistoryData = async function () {
+  return await fetchMockData(config.SEARCH_HISTORY_URL, 100);
+};
+/**
+ * 加载热搜数据
+ */
+export const loadHotSearchData = async function () {
+  return await fetchMockData(config.HOT_SEARCH_URL, 100);
+};

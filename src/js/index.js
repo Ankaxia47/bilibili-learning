@@ -19,6 +19,7 @@ import channelView from './view/channelView.js';
 import videoCardView from './view/videoCardView.js';
 import slide from './view/slideView.js';
 import channelCardView from './view/channelCardView.js';
+import searchPopView from './view/searchPopView.js';
 
 ////////////////////////////////
 // 顶部图片
@@ -520,177 +521,14 @@ initChannelCard();
 ////////////////////////////////
 // 搜索框弹框
 ////////////////////////////////
-// 控制展开文字是否显示
-const controlExpandTextVisible = function () {
-  const searchHistoryListEl = document.querySelector('.search-history-list');
-  const folderWrapperEl = document.querySelector('.folder-wrapper');
-  const itemEl = document.querySelector('.search-history-item');
-  if (!itemEl) return;
-  const itemHeight = itemEl.offsetHeight;
-  const listEl = document.querySelector('.search-history-list');
-  const rowGap = parseInt(getComputedStyle(listEl).rowGap);
-  const height = itemHeight * 2 + rowGap;
-  searchHistoryListEl.offsetHeight <= height
-    ? (folderWrapperEl.style.display = 'none')
-    : (folderWrapperEl.style.display = 'block');
+const initSearchPop = async function () {
+  searchPopView.render('', 'beforeend');
+  const [searchHistoryData, hotSearchData] = await Promise.allSettled([
+    model.loadSearchHistoryData(),
+    model.loadHotSearchData(),
+  ]);
+  searchPopView.renderSearchHistory(searchHistoryData.value);
+  searchPopView.renderHotSearch(hotSearchData.value);
+  searchPopView.initControlDom();
 };
-controlExpandTextVisible();
-const searchHistoryListEl = document.querySelector('.search-history-list');
-const observer = new MutationObserver(mutations => {
-  mutations.forEach(mutation => {
-    if (mutation.type === 'childList') {
-      controlSearchHistoryVisible();
-      controlExpandTextVisible();
-    }
-  });
-});
-const config = { childList: true };
-observer.observe(searchHistoryListEl, config);
-
-// 控制wrapper高度，展开更多
-const controlExpand = function () {
-  const folderWrapperEl = document.querySelector('.folder-wrapper');
-  folderWrapperEl.addEventListener('click', function (e) {
-    const folderTextEl = folderWrapperEl.querySelector('.folder-text');
-    const folderIconEl = folderWrapperEl.querySelector('.folder-icon');
-    const historyWrapperEl = document.querySelector('.search-history-wrapper');
-    const itemEl = document.querySelector('.search-history-item');
-    const itemHeight = itemEl.offsetHeight;
-    const listEl = document.querySelector('.search-history-list');
-    const rowGap = parseInt(getComputedStyle(listEl).rowGap);
-    const wrapperPaddingTop = parseInt(
-      getComputedStyle(historyWrapperEl).paddingTop
-    );
-    if (this.classList.contains('expand')) {
-      this.classList.remove('expand');
-      folderTextEl.textContent = '展开更多';
-      folderIconEl.style.transform = 'rotate(0deg)';
-      const wrapperHeight = itemHeight * 2 + rowGap + wrapperPaddingTop;
-      historyWrapperEl.style.maxHeight = `${wrapperHeight}px`;
-    } else {
-      const wrapperHeight = itemHeight * 4 + rowGap * 3 + wrapperPaddingTop;
-      this.classList.add('expand');
-      folderTextEl.textContent = '收起';
-      folderIconEl.style.transform = 'rotate(180deg)';
-      historyWrapperEl.style.maxHeight = `${wrapperHeight}px`;
-    }
-  });
-};
-controlExpand();
-const controlSearchHistoryVisible = function () {
-  const searchHistoryListEl = document.querySelector('.search-history-list');
-  const searchContainerEl = document.querySelector('.search-history-container');
-  searchHistoryListEl.children.length > 0
-    ? (searchContainerEl.style.display = 'block')
-    : (searchContainerEl.style.display = 'none');
-};
-// 删除单个搜索历史
-const controlDeleteSearchHistoryItem = function () {
-  // 删除单个搜索历史, 事件委托
-  const searchHistoryListEl = document.querySelector('.search-history-list');
-  searchHistoryListEl.addEventListener('click', function (e) {
-    const deleteIconEl = e.target.closest('.delete-icon');
-    if (!deleteIconEl) return;
-    // 找到icon对应的搜索历史
-    deleteIconEl.closest('.search-history-item').remove();
-  });
-};
-controlDeleteSearchHistoryItem();
-// 清空搜索历史
-const controlClearSearchHistory = function () {
-  const clearEl = document.querySelector('.search-history-clear');
-  clearEl.addEventListener('click', function () {
-    const searchHistoryListEl = document.querySelector('.search-history-list');
-    searchHistoryListEl.innerHTML = '';
-  });
-};
-controlClearSearchHistory();
-const controlSearchFormFocus = function () {
-  const searchFormEl = document.querySelector('.search-form');
-  const searchInputEl = document.querySelector('.search-input');
-  document.addEventListener('focusin', function (e) {
-    if (
-      searchFormEl.contains(e.target) &&
-      e.target.classList.contains('search-input')
-    ) {
-      searchFormEl.classList.add('focus');
-      searchInputEl.classList.add('focus');
-      searchFormEl.querySelector('.pop').classList.add('visible');
-      controlSearchHistoryVisible();
-    }
-  });
-  // 在捕获阶段处理点击的是否是form内部的，先于搜索词的删除
-  document.addEventListener(
-    'click',
-    function (e) {
-      if (!searchFormEl.contains(e.target)) {
-        searchFormEl.classList.remove('focus');
-        searchInputEl.classList.remove('focus');
-        searchFormEl.querySelector('.pop').classList.remove('visible');
-      }
-    },
-    true
-  );
-};
-controlSearchFormFocus();
-const controlSearch = function () {
-  const searchFormEl = document.querySelector('.search-form');
-  searchFormEl.addEventListener('submit', function (e) {
-    e.preventDefault();
-    const formData = new FormData(this);
-    const data = Object.fromEntries(formData.entries());
-    const { 'search-word': searchWord } = data;
-    addNewSearchHistory(searchWord);
-  });
-};
-const addNewSearchHistory = function (searchWord) {
-  const searchHistoryListEl = document.querySelector('.search-history-list');
-  searchHistoryListEl.insertAdjacentHTML(
-    'afterbegin',
-    `
-      <li class="search-history-item">
-        <span>${searchWord}</span>
-        <svg class="delete-icon">
-          <use href="src/img/icons.svg#delete-icon"></use>
-        </svg>
-      </li>
-    `
-  );
-};
-controlSearch();
-const controlSearchDeleteIconVisible = function () {
-  const searchInputEl = document.querySelector('.search-input');
-  const searchDeleteIconEl = document.querySelector('.search-delete-icon');
-  searchInputEl.addEventListener('input', function () {
-    this.value && this.value.length > 0
-      ? (searchDeleteIconEl.style.display = 'block')
-      : (searchDeleteIconEl.style.display = 'none');
-  });
-};
-controlSearchDeleteIconVisible();
-const controlClearSearchInput = function () {
-  const searchInputEl = document.querySelector('.search-input');
-  const searchDeleteIconEl = document.querySelector('.search-delete-icon');
-  searchDeleteIconEl.addEventListener('click', function () {
-    searchInputEl.value = '';
-    this.style.display = 'none';
-  });
-};
-controlClearSearchInput();
-
-const controlHotSearch = function () {
-  const hotSearchListEl = document.querySelector('.hot-search-list');
-  hotSearchListEl.addEventListener('click', function (e) {
-    const itemEl = e.target.closest('.hot-search-item');
-    if (!itemEl) return;
-    const textEl = itemEl.querySelector('.hot-search-text');
-    console.log(textEl.textContent);
-    const inputEl = document.querySelector('.search-input');
-    const searchWord = textEl.textContent;
-    inputEl.value = searchWord;
-    inputEl.focus();
-    inputEl.dispatchEvent(new Event('input'));
-    addNewSearchHistory(searchWord);
-  });
-};
-controlHotSearch();
+initSearchPop();
