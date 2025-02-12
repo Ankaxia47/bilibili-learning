@@ -1,4 +1,10 @@
+import eventBus from '../helper/eventBus.js';
 import View from './view.js';
+import {
+  EVENT_ADD_SEARCH_HISTORY,
+  EVENT_SEARCH_POP_VISIBLE,
+  EVENT_SEARCH_POP_HIDDEN,
+} from '../helper/config.js';
 ////////////////////////////////
 // 搜索弹框
 ////////////////////////////////
@@ -11,9 +17,9 @@ class SearchPopView extends View {
   _clearEl;
   _searchInputEl;
   _searchPopEl;
-  _searchDeleteIconEl;
   _hotSearchListEl;
   _searchHistoryContainerEl;
+  _historyData;
 
   initParentEl() {
     this._parentEl = document.querySelector('.search-form');
@@ -34,14 +40,7 @@ class SearchPopView extends View {
     if (!this._searchInputEl) {
       this._searchInputEl = this._parentEl.querySelector('.search-input');
     }
-    if (!this._searchPopEl) {
-      this._searchPopEl = this._parentEl.querySelector('.pop');
-    }
-    if (!this._searchDeleteIconEl) {
-      this._searchDeleteIconEl = this._parentEl.querySelector(
-        '.search-delete-icon'
-      );
-    }
+
     if (!this._hotSearchListEl) {
       this._hotSearchListEl = this._parentEl.querySelector('.hot-search-list');
     }
@@ -50,16 +49,25 @@ class SearchPopView extends View {
         '.search-history-container'
       );
     }
+    if (!this._searchPopEl) {
+      this._searchPopEl = this._parentEl.querySelector('.pop');
+    }
+
+    this._controlSearchHistoryVisible();
     this._controlExpandTextVisible();
     this._observeSearchHistory();
     this._controlExpand();
     this._controlDeleteSearchHistoryItem();
     this._controlClearSearchHistory();
-    this._controlSearchFormFocus();
-    this._controlSearch();
-    this._controlSearchDeleteIconVisible();
-    this._controlClearSearchInput();
     this._controlHotSearch();
+    this._controlHistorySearch();
+    eventBus.on(EVENT_ADD_SEARCH_HISTORY, this._addNewSearchHistory.bind(this));
+    eventBus.on(EVENT_SEARCH_POP_VISIBLE, () => {
+      this._searchPopEl.classList.add('visible');
+    });
+    eventBus.on(EVENT_SEARCH_POP_HIDDEN, () => {
+      this._searchPopEl.classList.remove('visible');
+    });
   }
 
   _generateMarkup() {
@@ -99,7 +107,7 @@ class SearchPopView extends View {
       .map(
         item => `
         <li class="search-history-item">
-          <span>${item}</span>
+          <span class="search-history-text">${item}</span>
           <svg class="delete-icon">
             <use href="src/img/icons.svg#delete-icon"></use>
           </svg>
@@ -109,14 +117,25 @@ class SearchPopView extends View {
       .join('');
   }
   renderSearchHistory(data, position = 'afterbegin') {
-    if (!data || data.length === 0) return;
     if (!this._searchHistoryListEl) {
       this._searchHistoryListEl = this._parentEl.querySelector(
         '.search-history-list'
       );
     }
+    if (!data || data.length === 0) return;
     const markup = this._generateSearchHistoryMarkup(data);
     this._searchHistoryListEl.insertAdjacentHTML(position, markup);
+    // 放到缓存
+    if (!this._historyData) {
+      this._historyData = new Map();
+      const itemElArr = this._searchHistoryListEl.querySelectorAll(
+        '.search-history-item'
+      );
+      Array.from(itemElArr).forEach(itemEl => {
+        const text = itemEl.querySelector('.search-history-text').textContent;
+        this._historyData.set(text, itemEl);
+      });
+    }
   }
   _generateHotSearchMarkup(data) {
     return data
@@ -145,10 +164,10 @@ class SearchPopView extends View {
       .join('');
   }
   renderHotSearch(data, position = 'afterbegin') {
-    if (!data || data.length === 0) return;
     if (!this._hotSearchListEl) {
       this._hotSearchListEl = this._parentEl.querySelector('.hot-search-list');
     }
+    if (!data || data.length === 0) return;
     const markup = this._generateHotSearchMarkup(data);
     this._hotSearchListEl.insertAdjacentHTML(position, markup);
   }
@@ -175,6 +194,9 @@ class SearchPopView extends View {
       ? (this._folderWrapperEl.style.display = 'none')
       : (this._folderWrapperEl.style.display = 'block');
   };
+  /**
+   * 监控搜索历史的变化
+   */
   _observeSearchHistory = function () {
     const observer = new MutationObserver(mutations => {
       mutations.forEach(mutation => {
@@ -236,84 +258,27 @@ class SearchPopView extends View {
       this._searchHistoryListEl.innerHTML = '';
     });
   };
-  /**
-   * 控制form的选中状态
-   */
-  _controlSearchFormFocus = function () {
-    document.addEventListener('focusin', e => {
-      if (
-        this._parentEl.contains(e.target) &&
-        e.target.classList.contains('search-input')
-      ) {
-        this._parentEl.classList.add('focus');
-        this._searchInputEl.classList.add('focus');
-        this._searchPopEl.classList.add('visible');
-        this._controlSearchHistoryVisible();
-      }
-    });
-    // 在捕获阶段处理点击的是否是form内部的，先于搜索词的删除
-    document.addEventListener(
-      'click',
-      e => {
-        if (!this._parentEl.contains(e.target)) {
-          this._parentEl.classList.remove('focus');
-          this._searchInputEl.classList.remove('focus');
-          this._searchPopEl.classList.remove('visible');
-        }
-      },
-      true
-    );
-  };
-  /**
-   * 控制搜索
-   */
-  _controlSearch = function () {
-    this._parentEl.addEventListener('submit', e => {
-      e.preventDefault();
-      const formData = new FormData(e.target);
-      const data = Object.fromEntries(formData.entries());
-      const { 'search-word': searchWord } = data;
-      this._addNewSearchHistory(searchWord);
-    });
-  };
-  /**
-   * 控制搜索框显示删除icon
-   */
-  _controlSearchDeleteIconVisible = function () {
-    this._searchInputEl.addEventListener('input', e => {
-      e.target.value && e.target.value.length > 0
-        ? (this._searchDeleteIconEl.style.display = 'block')
-        : (this._searchDeleteIconEl.style.display = 'none');
-    });
-  };
-  /**
-   * 清空搜索框
-   */
-  _controlClearSearchInput = function () {
-    this._searchDeleteIconEl.addEventListener('click', e => {
-      this._searchInputEl.value = '';
-      e.target.style.display = 'none';
-    });
-  };
+
   /**
    * 添加新的搜索历史
    * @param {*} searchWord 搜索词
    */
   _addNewSearchHistory = function (searchWord) {
+    const oldEl = this._historyData.get(searchWord);
+    if (oldEl) {
+      oldEl.remove();
+    }
     this._searchHistoryListEl.insertAdjacentHTML(
       'afterbegin',
-      `
-        <li class="search-history-item">
-          <span>${searchWord}</span>
-          <svg class="delete-icon">
-            <use href="src/img/icons.svg#delete-icon"></use>
-          </svg>
-        </li>
-      `
+      this._generateSearchHistoryMarkup([searchWord])
     );
+    const newEl = this._searchHistoryListEl.querySelector(
+      '.search-history-item'
+    );
+    this._historyData.set(searchWord, newEl);
   };
   /**
-   * 控制点击热词搜搜
+   * 控制点击热词搜索
    */
   _controlHotSearch = function () {
     this._hotSearchListEl.addEventListener('click', e => {
@@ -321,9 +286,25 @@ class SearchPopView extends View {
       if (!itemEl) return;
       const textEl = itemEl.querySelector('.hot-search-text');
       const searchWord = textEl.textContent;
-      this._searchInputEl.value = searchWord;
-      this._searchInputEl.focus();
-      this._searchInputEl.dispatchEvent(new Event('input'));
+      eventBus.emit('searchInputEcho', searchWord);
+      eventBus.emit('search', searchWord);
+      this._addNewSearchHistory(searchWord);
+    });
+  };
+  /**
+   * 控制点击搜索历史搜索
+   */
+  _controlHistorySearch = function () {
+    this._searchHistoryListEl.addEventListener('click', e => {
+      const deleteIconEl = e.target.closest('.delete-icon');
+      // 如果点击的是删除图标，不进行搜索逻辑
+      if (deleteIconEl) return;
+      const itemEl = e.target.closest('.search-history-item');
+      if (!itemEl) return;
+      const textEl = itemEl.querySelector('.search-history-text');
+      const searchWord = textEl.textContent;
+      eventBus.emit('searchInputEcho', searchWord);
+      eventBus.emit('search', searchWord);
       this._addNewSearchHistory(searchWord);
     });
   };

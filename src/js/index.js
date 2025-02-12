@@ -20,6 +20,7 @@ import videoCardView from './view/videoCardView.js';
 import slide from './view/slideView.js';
 import channelCardView from './view/channelCardView.js';
 import searchPopView from './view/searchPopView.js';
+import searchFormView from './view/searchFormView.js';
 
 ////////////////////////////////
 // 顶部图片
@@ -277,19 +278,6 @@ const controlMangaPopImg = function () {
 };
 
 ////////////////////////////////
-// 表单背景颜色
-////////////////////////////////
-const controlSearchFormBackgroundColor = function () {
-  const searchInputEl = document.querySelector('.search-input');
-  const searchFormEl = document.querySelector('.search-form');
-  searchInputEl.addEventListener('focus', function () {
-    searchFormEl.style.setProperty(
-      'backgroud-color',
-      'rgba(255, 255, 255, 0.8)'
-    );
-  });
-};
-////////////////////////////////
 // 处理头像弹框的hover状态
 ////////////////////////////////
 
@@ -423,14 +411,33 @@ const initTopImg = async function () {
   topImgView.render(model.topImg);
 };
 ////////////////////////////////
+// 搜索框
+////////////////////////////////
+const initSearchForm = function () {
+  searchFormView.render();
+  searchFormView.initControlDom();
+};
+initSearchForm();
+////////////////////////////////
+// 搜索框弹框
+////////////////////////////////
+const initSearchPop = async function () {
+  searchPopView.render('', 'beforeend');
+  const [searchHistoryData, hotSearchData] = await Promise.allSettled([
+    model.loadSearchHistoryData(),
+    model.loadHotSearchData(),
+  ]);
+  searchPopView.renderSearchHistory(searchHistoryData.value);
+  searchPopView.renderHotSearch(hotSearchData.value);
+  searchPopView.initControlDom();
+};
+////////////////////////////////
 // header初始化
 ////////////////////////////////
 const initHeader = async function () {
-  controlSearchFormBackgroundColor();
   // 需要先初始化导航栏，controlTopImg、controlGamePopImg中需要获取弹窗元素
   // 顶部图片和nav没有依赖关系，并发请求数据
-  await Promise.allSettled([initTopImg(), initNav()]);
-  // await Promise.allSettled([initTopImg()]);
+  await Promise.allSettled([initTopImg(), initNav(), initSearchPop()]);
   controlTopImg();
   controlGamePopImg();
   controlMangaPopImg();
@@ -518,17 +525,3 @@ const initChannelCard = async function () {
   model.increaseVideoRow(1);
 };
 initChannelCard();
-////////////////////////////////
-// 搜索框弹框
-////////////////////////////////
-const initSearchPop = async function () {
-  searchPopView.render('', 'beforeend');
-  const [searchHistoryData, hotSearchData] = await Promise.allSettled([
-    model.loadSearchHistoryData(),
-    model.loadHotSearchData(),
-  ]);
-  searchPopView.renderSearchHistory(searchHistoryData.value);
-  searchPopView.renderHotSearch(hotSearchData.value);
-  searchPopView.initControlDom();
-};
-initSearchPop();
