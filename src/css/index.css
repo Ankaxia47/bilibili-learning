@@ -181,34 +181,61 @@ Medium: 11px
   background-color: rgba(220, 228, 235, 0.9);
   display: flex;
   align-items: center;
+  position: relative;
+  min-width: 24rem;
+  max-width: 50rem;
+  flex-grow: 1;
   height: 3.6rem;
-  width: 50rem;
   padding: 0.4rem;
-  border-radius: 11px;
+  border-radius: 9px;
 }
 .search-form:hover {
   background-color: #fff;
 }
-.search-form:focus-within {
-  background-color: rgba(232, 235, 240, 0.9);
+.search-form.focus {
+  background-color: #fff;
+  border-radius: 9px 9px 0 0;
+}
+.search-input-container {
+  position: relative;
+  flex-grow: 1;
+  margin-right: 1.2rem;
+  height: 100%;
+  border-radius: 5px;
+  overflow: hidden;
 }
 .search-input {
   display: block;
   width: 100%;
   height: 100%;
-  border-radius: 5px;
   border: none;
   outline: none;
   background: none;
   margin-right: 0.5rem;
   padding-left: 12px;
 }
-.search-input:focus {
-  background-color: rgba(195, 197, 199, 0.9);
+.search-input.focus {
+  background-color: #e3e5e7;
+}
+.search-delete-icon {
+  position: absolute;
+  right: 9px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1.4rem;
+  height: 1.4rem;
+  fill: #c9ccd0;
+  cursor: pointer;
+  display: none;
+}
+.search-delete-icon:hover {
+  fill: #61666d;
 }
 .search-btn {
   width: 3rem;
   height: 100%;
+  border: none;
+  background: none;
   border-radius: 3px;
   display: flex;
   justify-content: center;

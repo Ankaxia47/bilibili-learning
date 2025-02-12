@@ -56,3 +56,17 @@ export const VIDEO_CARD_URL = 'src/data/video-card/video-card.json';
 export const CAROUSEL_URL = 'src/data/carousel/carousel.json';
 // channel卡片数据
 export const CHANNEL_CARD_URL = 'src/data/channel-card/channel-card.json';
+// 搜索历史数据
+export const SEARCH_HISTORY_URL = 'src/data/search/searchHistory.json';
+// 热搜数据
+export const HOT_SEARCH_URL = 'src/data/search/hotSearch.json';
+// 事件总线，搜索
+export const EVENT_SEARCH = 'search';
+// 事件总线，搜索框回显
+export const EVENT_SEARCH_INPUT_ECHO = 'searchInputEcho';
+// 事件总线，添加搜索历史
+export const EVENT_ADD_SEARCH_HISTORY = 'addSearchHistory';
+// 事件总线，显示搜索弹框
+export const EVENT_SEARCH_POP_VISIBLE = 'searchPopVisible';
+// 事件总线，隐藏搜索弹框
+export const EVENT_SEARCH_POP_HIDDEN = 'searchPopHidden';
