@@ -21,6 +21,7 @@ import slide from './view/slideView.js';
 import channelCardView from './view/channelCardView.js';
 import searchPopView from './view/searchPopView.js';
 import searchFormView from './view/searchFormView.js';
+import homePopView from './view/homePopView.js';
 
 ////////////////////////////////
 // 顶部图片
@@ -83,6 +84,7 @@ const initNav = async function () {
   navEl.style.display = 'flex';
   // 渲染弹窗
   const popResult = await Promise.allSettled([
+    model.loadHomeChannelData(),
     model.loadAnime(),
     model.loadGame(),
     model.loadManga(),
@@ -100,6 +102,9 @@ const initNav = async function () {
       return;
     }
     switch (popResult.value.type) {
+      case 'home':
+        homePopView.render(popResult.value.data);
+        break;
       case 'anime':
         animePopView.render(popResult.value);
         break;
@@ -139,6 +144,34 @@ const initNav = async function () {
   // 历史弹框
   initHistoryPop();
   controlChangeHistoryTab();
+  // 控制导航栏置顶
+  controlNavSticky();
+};
+const controlNavSticky = function () {
+  const navEl = document.querySelector('.nav');
+  const navPlaceholderEl = document.querySelector('.nav-placeholder');
+  const stickyItemEl = document.querySelector('.sticky-item');
+  const noStickyItemEl = document.querySelector('.noSticky-item');
+  // 控制导航栏置顶
+  const observe = new IntersectionObserver(
+    entries => {
+      const [entry] = entries;
+      if (entry.isIntersecting) {
+        navEl.classList.remove('sticky');
+        stickyItemEl.style.display = 'none';
+        noStickyItemEl.style.display = 'block';
+      } else {
+        navEl.classList.add('sticky');
+        stickyItemEl.style.display = 'block';
+        noStickyItemEl.style.display = 'none';
+      }
+    },
+    {
+      root: null,
+      threshold: 0,
+    }
+  );
+  observe.observe(navPlaceholderEl);
 };
 const loadPageMicroblogHistory = function () {
   const microblogContainerEl = document.querySelector('.microblog-container');

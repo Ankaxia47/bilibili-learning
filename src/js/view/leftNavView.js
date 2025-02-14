@@ -10,7 +10,11 @@ class LeftNavView extends View {
     const leftNavItem = this._data
       .map(item => {
         return `
-      <li class="nav-item ${item.pop ? `${item.pop.type}-pop-box` : ''}">
+      <li 
+      class="nav-item ${item.pop ? `${item.pop.type}-pop-box` : ''} ${
+          item.type ? `${item.type}-item` : ''
+        }" 
+      ${item.type && item.type === 'sticky' ? 'style= display:none' : ''}>
         <a class="link left-nav-link 
         ${item.icon ? '' : 'move-up-down'}" href="#">
         ${
@@ -19,6 +23,15 @@ class LeftNavView extends View {
             : ''
         }
           <span class="nav-item-text ">${item.itemName}</span>
+          ${
+            item.folderIcon
+              ? `
+              <svg class="folder-icon">
+                <use href="src/img/icons.svg#${item.folderIcon}"></use>
+              </svg>
+            `
+              : ''
+          }
         </a>
       </li>
     `;

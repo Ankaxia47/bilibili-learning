@@ -60,6 +60,8 @@ export const CHANNEL_CARD_URL = 'src/data/channel-card/channel-card.json';
 export const SEARCH_HISTORY_URL = 'src/data/search/searchHistory.json';
 // 热搜数据
 export const HOT_SEARCH_URL = 'src/data/search/hotSearch.json';
+// 首页弹框channel数据
+export const HOME_CHANNEL_URL = 'src/data/nav/left-nav/home.json';
 // 事件总线，搜索
 export const EVENT_SEARCH = 'search';
 // 事件总线，搜索框回显
