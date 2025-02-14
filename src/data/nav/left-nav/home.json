@@ -1,0 +1,47 @@
+{
+  "type": "home",
+  "data": [
+    [
+      { "icon": "channel-icon-anime", "text": "番剧" },
+      { "icon": "channel-icon-movie", "text": "电影" },
+      { "icon": "channel-icon-guochuang", "text": "国创" },
+      { "icon": "channel-icon-teleplay", "text": "电视剧" },
+      { "icon": "channel-icon-zongyi", "text": "综艺" },
+      { "icon": "channel-icon-documentary", "text": "纪录片" },
+      { "icon": "channel-icon-douga", "text": "动画" },
+      { "icon": "channel-icon-game", "text": "游戏" },
+      { "icon": "channel-icon-kichiku", "text": "鬼畜" },
+      { "icon": "channel-icon-music", "text": "音乐" }
+    ],
+    [
+      { "icon": "channel-icon-dance", "text": "舞蹈" },
+      { "icon": "channel-icon-cinephile", "text": "影视" },
+      { "icon": "channel-icon-ent", "text": "娱乐" },
+      { "icon": "channel-icon-knowledge", "text": "知识" },
+      { "icon": "channel-icon-tech", "text": "科技" },
+      { "icon": "channel-icon-information", "text": "资讯" },
+      { "icon": "channel-icon-food", "text": "美食" },
+      { "icon": "channel-icon-life", "text": "生活" },
+      { "icon": "channel-icon-car", "text": "汽车" },
+      { "icon": "channel-icon-fashion", "text": "时尚" }
+    ],
+    [
+      { "icon": "channel-icon-sports", "text": "运动" },
+      { "icon": "channel-icon-animal", "text": "动物圈" },
+      { "icon": "channel-icon-VLOG", "text": "VLOG" },
+      { "icon": "channel-icon-gaoxiao", "text": "搞笑" },
+      { "icon": "channel-icon-danjiyouxi", "text": "单机游戏" },
+      { "icon": "channel-icon-vup", "text": "虚拟up主" },
+      { "icon": "channel-icon-public-welfare", "text": "公益" },
+      { "icon": "channel-icon-open-class", "text": "公开课" }
+    ],
+    [
+      { "icon": "channel-icon-zhuanlan", "text": "专栏" },
+      { "icon": "channel-icon-live", "text": "直播" },
+      { "icon": "channel-icon-activit", "text": "活动" },
+      { "icon": "channel-icon-class", "text": "课堂" },
+      { "icon": "channel-icon-community-center", "text": "社区中心" },
+      { "icon": "channel-icon-musicplus", "text": "新歌热榜" }
+    ]
+  ]
+}

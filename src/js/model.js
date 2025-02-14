@@ -297,3 +297,9 @@ export const loadSearchHistoryData = async function () {
 export const loadHotSearchData = async function () {
   return await fetchMockData(config.HOT_SEARCH_URL, 100);
 };
+/**
+ * 加载首页弹框channel数据
+ */
+export const loadHomeChannelData = async function () {
+  return await fetchMockData(config.HOME_CHANNEL_URL, 100);
+};

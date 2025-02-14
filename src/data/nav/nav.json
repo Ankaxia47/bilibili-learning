@@ -2,7 +2,17 @@
   "leftNav": [
     {
       "itemName": "首页",
-      "icon": "zhuzhan-icon"
+      "icon": "bilibili-icon",
+      "folderIcon": "arrow-icon",
+      "type": "sticky",
+      "pop": {
+        "type": "home"
+      }
+    },
+    {
+      "itemName": "首页",
+      "icon": "zhuzhan-icon",
+      "type": "noSticky"
     },
     {
       "itemName": "番剧",
