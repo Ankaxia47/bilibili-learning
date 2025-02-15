@@ -548,7 +548,8 @@ const controlGridColumnFirst = function () {
   // 创建媒体查询
   const mediaQuery1400 = window.matchMedia('(max-width: 1400px)');
   const mediaQuery1300 = window.matchMedia('(max-width: 1300px)');
-  const changeColumnFirst = function () {
+
+  const changeColumn1400 = function () {
     const gridContainer = document.querySelector('.channel-sticky-categories');
     const leftCategories = document.querySelector('.left-categories');
     const bottomCategories = document.querySelector('.bottom-categories');
@@ -567,13 +568,16 @@ const controlGridColumnFirst = function () {
       bottomCategories.insertAdjacentElement('afterbegin', el2);
       bottomCategories.insertAdjacentElement('afterbegin', el1);
     } else {
-      gridContainer.style.gridTemplateColumns = 'repeat(15, 1fr)';
-      bottomCategories.style.gridTemplateColumns = 'repeat(15, 1fr)';
-      leftCategories.style.gridTemplateColumns = 'repeat(12,1fr)';
-      leftCategories.style.gridColumn = 'span 12';
-      bottomCategories.style.gridColumn = 'span 15';
+      if (leftCategories.children.length < 22) {
+        changeColumn1300();
+      }
       if (leftCategories.children.length < 24) {
         console.log('进入1400else');
+        gridContainer.style.gridTemplateColumns = 'repeat(15, 1fr)';
+        bottomCategories.style.gridTemplateColumns = 'repeat(15, 1fr)';
+        leftCategories.style.gridTemplateColumns = 'repeat(12,1fr)';
+        leftCategories.style.gridColumn = 'span 12';
+        bottomCategories.style.gridColumn = 'span 15';
         const el1 = bottomCategories.children[0];
         const el2 = bottomCategories.children[1];
         leftCategories.children[10].insertAdjacentElement('afterend', el1);
@@ -581,7 +585,7 @@ const controlGridColumnFirst = function () {
       }
     }
   };
-  const changeColumnSecond = function () {
+  const changeColumn1300 = function () {
     const gridContainer = document.querySelector('.channel-sticky-categories');
     const leftCategories = document.querySelector('.left-categories');
     const bottomCategories = document.querySelector('.bottom-categories');
@@ -609,13 +613,13 @@ const controlGridColumnFirst = function () {
       fragment.appendChild(el2Last);
       bottomCategories.insertBefore(fragment, bottomCategories.firstChild);
     } else {
-      console.log('进入1300else');
-      gridContainer.style.gridTemplateColumns = 'repeat(14, 1fr)';
-      bottomCategories.style.gridTemplateColumns = 'repeat(14, 1fr)';
-      leftCategories.style.gridTemplateColumns = 'repeat(11,1fr)';
-      leftCategories.style.gridColumn = 'span 11';
-      bottomCategories.style.gridColumn = 'span 14';
       if (leftCategories.children.length < 22) {
+        console.log('进入1300else');
+        gridContainer.style.gridTemplateColumns = 'repeat(14, 1fr)';
+        bottomCategories.style.gridTemplateColumns = 'repeat(14, 1fr)';
+        leftCategories.style.gridTemplateColumns = 'repeat(11,1fr)';
+        leftCategories.style.gridColumn = 'span 11';
+        bottomCategories.style.gridColumn = 'span 14';
         const el1Penultimate = bottomCategories.children[0];
         const el2Penultimate = bottomCategories.children[1];
         const el1Last = bottomCategories.children[2];
@@ -634,8 +638,10 @@ const controlGridColumnFirst = function () {
       }
     }
   };
-  mediaQuery1400.addEventListener('change', changeColumnFirst);
-  mediaQuery1300.addEventListener('change', changeColumnSecond);
+  changeColumn1400();
+  changeColumn1300();
+  mediaQuery1400.addEventListener('change', changeColumn1400);
+  mediaQuery1300.addEventListener('change', changeColumn1300);
 };
 initChannel();
 ////////////////////////////////
