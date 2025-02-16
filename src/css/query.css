@@ -1,21 +1,47 @@
 @media (max-width: 2100px) {
   /* 100% 缩放 */
-  .main-container {
+  .main-container,
+  .channel-sticky-content {
     max-width: 160rem;
   }
 }
 
 @media (max-width: 1700px) {
   /* 125% 缩放 */
-  .main-container {
+  .main-container,
+  .channel-sticky-content {
     max-width: 140rem;
+  }
+  .channel-sticky-categories .channel-category {
+    font-size: 1.3rem;
   }
 }
 @media (max-width: 1500px) {
   .hot-search-list {
     grid-template-columns: 1fr;
   }
+  .channel-sticky-content {
+    gap: 1.2rem;
+  }
+  .channel-sticky-left {
+    gap: 1.2rem;
+  }
 }
+@media (max-width: 1350px) {
+  .channel-sticky-categories .channel-category {
+    font-size: 1.2rem;
+    min-width: 6.4rem;
+  }
+  .channel-sticky-left {
+    padding-top: 0.2rem;
+    font-size: 1.2rem;
+  }
+  .channel-sticky-left .icon {
+    width: 1.6rem;
+    height: 1.6rem;
+  }
+}
+
 @media (max-width: 1250px) {
   .left-nav-link:link,
   .left-nav-link:visited {

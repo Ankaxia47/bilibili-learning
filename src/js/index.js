@@ -22,6 +22,7 @@ import channelCardView from './view/channelCardView.js';
 import searchPopView from './view/searchPopView.js';
 import searchFormView from './view/searchFormView.js';
 import homePopView from './view/homePopView.js';
+import channelStickyView from './view/channelStickyView.js';
 
 ////////////////////////////////
 // 顶部图片
@@ -480,11 +481,35 @@ initHeader();
 ////////////////////////////////
 // channel初始化
 ////////////////////////////////
-const initChannel = async function () {
+const initChannelAndChannelSticky = async function () {
   const channelData = await model.loadChannelData();
+  initChannel(channelData);
+  initChannelSticky(channelData);
+};
+const initChannel = function (channelData) {
   channelView.render(channelData);
 };
-initChannel();
+const initChannelSticky = function (channelData) {
+  const channelCategories = [];
+  for (const item of channelData.channelCategories) {
+    item.channelName === '更多'
+      ? channelCategories.push(...item.pop)
+      : channelCategories.push(item.channelName);
+  }
+  const leftCategories = channelCategories.slice(0, 24);
+  const bottomCategories = channelCategories.slice(24);
+  const rightCategories = channelData.channelRightLinks.map(
+    item => item.channelName
+  );
+  const channelStickyData = {
+    leftCategories,
+    rightCategories,
+    bottomCategories,
+  };
+  channelStickyView.render(channelStickyData);
+  channelStickyView.initControlDom();
+};
+initChannelAndChannelSticky();
 ////////////////////////////////
 // 轮播图
 ////////////////////////////////
@@ -496,7 +521,6 @@ const initCarousel = async function () {
   window.addEventListener('resize', slide.adjustHeight);
 };
 initCarousel();
-
 ////////////////////////////////
 // 视频卡片
 ////////////////////////////////
