@@ -481,8 +481,15 @@ initHeader();
 ////////////////////////////////
 // channel初始化
 ////////////////////////////////
-const initChannel = async function () {
+const initChannelAndChannelSticky = async function () {
   const channelData = await model.loadChannelData();
+  initChannel(channelData);
+  initChannelSticky(channelData);
+};
+const initChannel = function (channelData) {
+  channelView.render(channelData);
+};
+const initChannelSticky = function (channelData) {
   const channelCategories = [];
   for (const item of channelData.channelCategories) {
     item.channelName === '更多'
@@ -499,151 +506,10 @@ const initChannel = async function () {
     rightCategories,
     bottomCategories,
   };
-  channelView.render(channelData);
   channelStickyView.render(channelStickyData);
-  // controlChannelStickyExpand();
-  controlChannelSticky();
-  controlGridColumnFirst();
+  channelStickyView.initControlDom();
 };
-const controlChannelSticky = function () {
-  const channelEl = document.querySelector('.channel');
-  const channelStickyEl = document.querySelector('.channel-sticky');
-  const observe = new IntersectionObserver(
-    entries => {
-      const [entry] = entries;
-      if (entry.isIntersecting) {
-        channelStickyEl.classList.add('hidden');
-      } else {
-        channelStickyEl.classList.remove('hidden');
-      }
-    },
-    {
-      root: null,
-      threshold: 0,
-    }
-  );
-  observe.observe(channelEl);
-};
-const controlChannelStickyExpand = function () {
-  const channelStickyEl = document.querySelector('.channel-sticky');
-  console.log(channelStickyEl);
-  const contentEl = channelStickyEl.querySelector('.channel-sticky-content');
-  const paddingTop = parseInt(window.getComputedStyle(contentEl).paddingTop);
-  const itemHeight =
-    channelStickyEl.querySelector('.channel-category').offsetHeight;
-  const categoriesHeight = channelStickyEl.querySelector(
-    '.channel-sticky-categories'
-  ).offsetHeight;
-  const notExpandHeight = `${paddingTop * 2 + itemHeight}px`;
-  const expandHeight = `${paddingTop * 2 + categoriesHeight}px`;
-  channelStickyEl.style.maxHeight = notExpandHeight;
-  channelStickyEl.addEventListener('mouseenter', () => {
-    channelStickyEl.style.maxHeight = expandHeight;
-  });
-  channelStickyEl.addEventListener('mouseleave', () => {
-    channelStickyEl.style.maxHeight = notExpandHeight;
-  });
-};
-const controlGridColumnFirst = function () {
-  // 创建媒体查询
-  const mediaQuery1400 = window.matchMedia('(max-width: 1400px)');
-  const mediaQuery1300 = window.matchMedia('(max-width: 1300px)');
-
-  const changeColumn1400 = function () {
-    const gridContainer = document.querySelector('.channel-sticky-categories');
-    const leftCategories = document.querySelector('.left-categories');
-    const bottomCategories = document.querySelector('.bottom-categories');
-    if (mediaQuery1400.matches) {
-      console.log('进入1400');
-      gridContainer.style.gridTemplateColumns = 'repeat(14,1fr)';
-      bottomCategories.style.gridTemplateColumns = 'repeat(14,1fr)';
-      leftCategories.style.gridTemplateColumns = 'repeat(11,1fr)';
-      leftCategories.style.gridColumn = 'span 11';
-      bottomCategories.style.gridColumn = 'span 14';
-      // 第一行最后一个
-      const el1 =
-        leftCategories.children[leftCategories.children.length / 2 - 1];
-      // 第二行最后一个
-      const el2 = leftCategories.lastElementChild;
-      bottomCategories.insertAdjacentElement('afterbegin', el2);
-      bottomCategories.insertAdjacentElement('afterbegin', el1);
-    } else {
-      if (leftCategories.children.length < 22) {
-        changeColumn1300();
-      }
-      if (leftCategories.children.length < 24) {
-        console.log('进入1400else');
-        gridContainer.style.gridTemplateColumns = 'repeat(15, 1fr)';
-        bottomCategories.style.gridTemplateColumns = 'repeat(15, 1fr)';
-        leftCategories.style.gridTemplateColumns = 'repeat(12,1fr)';
-        leftCategories.style.gridColumn = 'span 12';
-        bottomCategories.style.gridColumn = 'span 15';
-        const el1 = bottomCategories.children[0];
-        const el2 = bottomCategories.children[1];
-        leftCategories.children[10].insertAdjacentElement('afterend', el1);
-        leftCategories.insertAdjacentElement('beforeend', el2);
-      }
-    }
-  };
-  const changeColumn1300 = function () {
-    const gridContainer = document.querySelector('.channel-sticky-categories');
-    const leftCategories = document.querySelector('.left-categories');
-    const bottomCategories = document.querySelector('.bottom-categories');
-    if (mediaQuery1300.matches) {
-      console.log('进入1300');
-      gridContainer.style.gridTemplateColumns = 'repeat(12,1fr)';
-      bottomCategories.style.gridTemplateColumns = 'repeat(12,1fr)';
-      leftCategories.style.gridTemplateColumns = 'repeat(9,1fr)';
-      leftCategories.style.gridColumn = 'span 9';
-      bottomCategories.style.gridColumn = 'span 12';
-      // 第一行最后一个
-      const el1Last =
-        leftCategories.children[leftCategories.children.length / 2 - 1];
-      // 第一行倒数第二个
-      const el1Penultimate = el1Last.previousElementSibling;
-      // 第二行最后一个
-      const el2Last = leftCategories.lastElementChild;
-      // 第二行倒数第二个
-      const el2Penultimate = el2Last.previousElementSibling;
-      // 第一行倒数第二个 第二行倒数第二个 第一行最后一个  第二行最后一个
-      const fragment = document.createDocumentFragment();
-      fragment.appendChild(el1Penultimate);
-      fragment.append(el2Penultimate);
-      fragment.appendChild(el1Last);
-      fragment.appendChild(el2Last);
-      bottomCategories.insertBefore(fragment, bottomCategories.firstChild);
-    } else {
-      if (leftCategories.children.length < 22) {
-        console.log('进入1300else');
-        gridContainer.style.gridTemplateColumns = 'repeat(14, 1fr)';
-        bottomCategories.style.gridTemplateColumns = 'repeat(14, 1fr)';
-        leftCategories.style.gridTemplateColumns = 'repeat(11,1fr)';
-        leftCategories.style.gridColumn = 'span 11';
-        bottomCategories.style.gridColumn = 'span 14';
-        const el1Penultimate = bottomCategories.children[0];
-        const el2Penultimate = bottomCategories.children[1];
-        const el1Last = bottomCategories.children[2];
-        const el2Last = bottomCategories.children[3];
-        const fragmentLine1 = document.createDocumentFragment();
-        fragmentLine1.appendChild(el1Penultimate);
-        fragmentLine1.appendChild(el1Last);
-        const fragmentLine2 = document.createDocumentFragment();
-        fragmentLine2.appendChild(el2Penultimate);
-        fragmentLine2.appendChild(el2Last);
-        leftCategories.insertBefore(
-          fragmentLine1,
-          leftCategories.children[leftCategories.children.length / 2]
-        );
-        leftCategories.appendChild(fragmentLine2);
-      }
-    }
-  };
-  changeColumn1400();
-  changeColumn1300();
-  mediaQuery1400.addEventListener('change', changeColumn1400);
-  mediaQuery1300.addEventListener('change', changeColumn1300);
-};
-initChannel();
+initChannelAndChannelSticky();
 ////////////////////////////////
 // 轮播图
 ////////////////////////////////

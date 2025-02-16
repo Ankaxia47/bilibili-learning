@@ -495,7 +495,6 @@ Medium: 11px
 .channel-sticky {
   position: fixed;
   top: 7rem;
-  max-height: 200px;
   left: 0;
   width: 100%;
   min-width: 120rem;
