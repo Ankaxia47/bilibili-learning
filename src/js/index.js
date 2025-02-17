@@ -524,21 +524,25 @@ initCarousel();
 ////////////////////////////////
 // 视频卡片
 ////////////////////////////////
-const loadNewCard = function () {
+const controlCard = function () {
   let videoCardOffset = 10;
   const videoCardLimit = 12;
   let channelCardOffset = 1;
   const channelCardLimit = 3;
+  // 监听目标元素
+  let sentinel = document.querySelector('.video-card:nth-last-child(2)');
   const observer = new IntersectionObserver(
     entries => {
       entries.forEach(async entry => {
         if (entry.isIntersecting) {
           // 停止观察元素，防止重复触发
           observer.unobserve(entry.target);
+          console.log(sentinel);
           const result = await Promise.allSettled([
             model.loadChannelCardData(channelCardOffset, channelCardLimit),
             model.loadVideoData(videoCardOffset, videoCardLimit),
           ]);
+          console.log(result);
           const [channelCardData, videoCardData] = result;
           channelCardView.appendCard(
             channelCardData.value,
@@ -550,10 +554,8 @@ const loadNewCard = function () {
           videoCardOffset += videoCardLimit;
           channelCardOffset += channelCardLimit;
           // 重新监听目标元素
-          const target = document.querySelector(
-            '.video-card:nth-last-child(2)'
-          );
-          observer.observe(target);
+          sentinel = document.querySelector('.video-card:nth-last-child(2)');
+          observer.observe(sentinel);
         }
       });
     },
@@ -562,15 +564,66 @@ const loadNewCard = function () {
       threshold: 1.0,
     }
   );
-
-  // 监听目标元素
-  const sentinel = document.querySelector('.video-card:nth-last-child(2)');
   observer.observe(sentinel);
+  // const videoContainerEl = document.querySelector('.video-container');
+  // // 监听channelCard插入，设置卡片位置
+  // const domObserver = new MutationObserver(mutationsList => {
+  //   mutationsList.forEach(mutation => {
+  //     // 如果是子元素的添加或删除
+  //     if (mutation.type === 'childList') {
+  //       console.log(mutation);
+  //       // if(mutation.addedNodes.length > 0)
+  //       mutation.addedNodes.forEach(addedNode => {
+  //         if (
+  //           addedNode.nodeType === 1 &&
+  //           addedNode.classList.contains('video-card') &&
+  //           !addedNode.classList.contains('channel-card')
+  //         ) {
+  //           sentinel = document.querySelector('.video-card:nth-last-child(2)');
+  //           observer.observe(sentinel);
+  //         }
+  //       });
+  //       mutation.removedNodes.forEach(removedNode => {
+  //         if (
+  //           removedNode.nodeType === 1 &&
+  //           removedNode.classList.contains('video-card') &&
+  //           !removedNode.classList.contains('channel-card')
+  //         ) {
+  //           observer.unobserve(removedNode);
+  //         }
+  //       });
+  //     }
+  //   });
+  // });
+
+  // // 监听 `videoContainerEl` 内的子元素变化
+  // domObserver.observe(videoContainerEl, { childList: true, subtree: true });
+  const controlChange = function () {
+    const changeWrapperEl = document.querySelector('.change-wrapper');
+    let deg = 0;
+    let changeDataIndex = 0;
+    changeWrapperEl.addEventListener('click', async () => {
+      // 停止监视
+      observer.unobserve(sentinel);
+      const iconEl = changeWrapperEl.querySelector('.icon');
+      deg += 360;
+      iconEl.style.transform = `rotate(${deg}deg)`;
+      const videoData = await model.loadVideoData(0, 11);
+      const realIndex = changeDataIndex % videoData.length;
+      const newVideoData = new Array(10).fill(videoData[realIndex]);
+      videoCardView.updateCard(newVideoData);
+      changeDataIndex++;
+      sentinel = document.querySelector('.video-card:nth-last-child(2)');
+      // 重新监视
+      observer.observe(sentinel);
+    });
+  };
+  controlChange();
 };
 const initVideoCard = async function () {
   const videoData = await model.loadVideoData(0, 10);
   videoCardView.appendCard(videoData);
-  loadNewCard();
+  controlCard();
 };
 initVideoCard();
 ////////////////////////////////
@@ -582,3 +635,22 @@ const initChannelCard = async function () {
   model.increaseVideoRow(1);
 };
 initChannelCard();
+////////////////////////////////
+// 换一换
+////////////////////////////////
+// const controlChange = function () {
+//   const changeWrapperEl = document.querySelector('.change-wrapper');
+//   let deg = 0;
+//   let changeDataIndex = 0;
+//   changeWrapperEl.addEventListener('click', async () => {
+//     const iconEl = changeWrapperEl.querySelector('.icon');
+//     deg += 360;
+//     iconEl.style.transform = `rotate(${deg}deg)`;
+//     const videoData = await model.loadVideoData(0, 11);
+//     const realIndex = changeDataIndex % videoData.length;
+//     const newVideoData = new Array(10).fill(videoData[realIndex]);
+//     videoCardView.updateCard(newVideoData);
+//     changeDataIndex++;
+//   });
+// };
+// controlChange();

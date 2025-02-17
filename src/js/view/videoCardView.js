@@ -165,6 +165,24 @@ class VideoCardView extends View {
     const cardMarkup = this._generateVideoCardMarkup(data);
     this._parentEl.insertAdjacentHTML('beforeEnd', cardMarkup);
   }
+  updateCard(newData) {
+    if (!newData || newData.length === 0) return;
+    const videoCards = Array.from(this._parentEl.children)
+      .filter(
+        item =>
+          item.classList.contains('video-card') &&
+          !item.classList.contains('channel-card')
+      )
+      .slice(0, newData.length);
+    const newDataHTML = this._generateVideoCardMarkup(newData);
+    videoCards.forEach(oldCard => oldCard.remove());
+    const targetCard = this._parentEl.querySelector('.video-card');
+    if (!targetCard) {
+      this._parentEl.insertAdjacentHTML('beforeEnd', newDataHTML);
+    } else {
+      targetCard.insertAdjacentHTML('beforebegin', newDataHTML);
+    }
+  }
 }
 
 export default new VideoCardView();
