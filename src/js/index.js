@@ -23,6 +23,8 @@ import searchPopView from './view/searchPopView.js';
 import searchFormView from './view/searchFormView.js';
 import homePopView from './view/homePopView.js';
 import channelStickyView from './view/channelStickyView.js';
+import eventBus from './helper/eventBus.js';
+import * as config from './helper/config.js';
 
 ////////////////////////////////
 // 顶部图片
@@ -529,6 +531,8 @@ const loadNewCard = function () {
   const videoCardLimit = 12;
   let channelCardOffset = 1;
   const channelCardLimit = 3;
+  // 监听目标元素
+  let sentinel = document.querySelector('.video-card:nth-last-child(2)');
   const observer = new IntersectionObserver(
     entries => {
       entries.forEach(async entry => {
@@ -550,10 +554,8 @@ const loadNewCard = function () {
           videoCardOffset += videoCardLimit;
           channelCardOffset += channelCardLimit;
           // 重新监听目标元素
-          const target = document.querySelector(
-            '.video-card:nth-last-child(2)'
-          );
-          observer.observe(target);
+          sentinel = document.querySelector('.video-card:nth-last-child(2)');
+          observer.observe(sentinel);
         }
       });
     },
@@ -562,10 +564,18 @@ const loadNewCard = function () {
       threshold: 1.0,
     }
   );
-
-  // 监听目标元素
-  const sentinel = document.querySelector('.video-card:nth-last-child(2)');
   observer.observe(sentinel);
+  eventBus.on(config.EVENT_UNOBSERVE_CARD_TARGET, () => {
+    observer.unobserve(sentinel);
+  });
+  eventBus.on(config.EVENT_OBSERVE_CARD_TARGET, () => {
+    sentinel = document.querySelector('.video-card:nth-last-child(2)');
+    observer.observe(sentinel);
+  });
+  eventBus.on(config.EVENT_RESET_CARD_OFFSET, () => {
+    videoCardOffset = 10;
+    channelCardOffset = 1;
+  });
 };
 const initVideoCard = async function () {
   const videoData = await model.loadVideoData(0, 10);
@@ -582,3 +592,26 @@ const initChannelCard = async function () {
   model.increaseVideoRow(1);
 };
 initChannelCard();
+////////////////////////////////
+// 换一换
+////////////////////////////////
+const controlChange = function () {
+  const changeWrapperEl = document.querySelector('.change-wrapper');
+  let deg = 0;
+  let changeDataIndex = 0;
+  changeWrapperEl.addEventListener('click', async () => {
+    // 停止监视，防止dom删除了内存泄漏
+    eventBus.emit(config.EVENT_UNOBSERVE_CARD_TARGET);
+    const iconEl = changeWrapperEl.querySelector('.icon');
+    deg += 360;
+    iconEl.style.transform = `rotate(${deg}deg)`;
+    const videoData = await model.loadVideoData(0, 11);
+    const realIndex = changeDataIndex % videoData.length;
+    const newVideoData = new Array(10).fill(videoData[realIndex]);
+    videoCardView.updateCard(newVideoData);
+    changeDataIndex++;
+    // 重新监视，重新可以滚动加载
+    eventBus.emit(config.EVENT_OBSERVE_CARD_TARGET);
+  });
+};
+controlChange();

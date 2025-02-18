@@ -608,6 +608,7 @@ Medium: 11px
   justify-items: center;
   column-gap: 20px;
   row-gap: 20px;
+  position: relative;
 }
 /***************/
 /* 轮播图 */
@@ -1045,4 +1046,37 @@ Medium: 11px
 
 .channel-tag span {
   font-size: 1.4rem;
+}
+/***************/
+/* 换一换 */
+/***************/
+.change-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  gap: 0.8rem;
+  padding: 1.2rem;
+  position: absolute;
+  left: calc(100% + 20px);
+  top: 0;
+  border: 1px solid #e3e5e7;
+  border-radius: 9px;
+  transition: background-color 0.3s ease;
+}
+.change-wrapper:hover {
+  background-color: #e3e5e7;
+}
+
+.change-wrapper .icon {
+  width: 1.6rem;
+  height: 1.6rem;
+  transition: transform 0.5s ease-in-out;
+}
+
+.change-text {
+  writing-mode: vertical-lr;
+  letter-spacing: 2px;
+  font-size: 1.2rem;
 }
