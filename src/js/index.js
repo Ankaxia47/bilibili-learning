@@ -23,6 +23,8 @@ import searchPopView from './view/searchPopView.js';
 import searchFormView from './view/searchFormView.js';
 import homePopView from './view/homePopView.js';
 import channelStickyView from './view/channelStickyView.js';
+import eventBus from './helper/eventBus.js';
+import * as config from './helper/config.js';
 
 ////////////////////////////////
 // 顶部图片
@@ -537,12 +539,10 @@ const controlCard = function () {
         if (entry.isIntersecting) {
           // 停止观察元素，防止重复触发
           observer.unobserve(entry.target);
-          console.log(sentinel);
           const result = await Promise.allSettled([
             model.loadChannelCardData(channelCardOffset, channelCardLimit),
             model.loadVideoData(videoCardOffset, videoCardLimit),
           ]);
-          console.log(result);
           const [channelCardData, videoCardData] = result;
           channelCardView.appendCard(
             channelCardData.value,
@@ -565,60 +565,17 @@ const controlCard = function () {
     }
   );
   observer.observe(sentinel);
-  // const videoContainerEl = document.querySelector('.video-container');
-  // // 监听channelCard插入，设置卡片位置
-  // const domObserver = new MutationObserver(mutationsList => {
-  //   mutationsList.forEach(mutation => {
-  //     // 如果是子元素的添加或删除
-  //     if (mutation.type === 'childList') {
-  //       console.log(mutation);
-  //       // if(mutation.addedNodes.length > 0)
-  //       mutation.addedNodes.forEach(addedNode => {
-  //         if (
-  //           addedNode.nodeType === 1 &&
-  //           addedNode.classList.contains('video-card') &&
-  //           !addedNode.classList.contains('channel-card')
-  //         ) {
-  //           sentinel = document.querySelector('.video-card:nth-last-child(2)');
-  //           observer.observe(sentinel);
-  //         }
-  //       });
-  //       mutation.removedNodes.forEach(removedNode => {
-  //         if (
-  //           removedNode.nodeType === 1 &&
-  //           removedNode.classList.contains('video-card') &&
-  //           !removedNode.classList.contains('channel-card')
-  //         ) {
-  //           observer.unobserve(removedNode);
-  //         }
-  //       });
-  //     }
-  //   });
-  // });
-
-  // // 监听 `videoContainerEl` 内的子元素变化
-  // domObserver.observe(videoContainerEl, { childList: true, subtree: true });
-  const controlChange = function () {
-    const changeWrapperEl = document.querySelector('.change-wrapper');
-    let deg = 0;
-    let changeDataIndex = 0;
-    changeWrapperEl.addEventListener('click', async () => {
-      // 停止监视
-      observer.unobserve(sentinel);
-      const iconEl = changeWrapperEl.querySelector('.icon');
-      deg += 360;
-      iconEl.style.transform = `rotate(${deg}deg)`;
-      const videoData = await model.loadVideoData(0, 11);
-      const realIndex = changeDataIndex % videoData.length;
-      const newVideoData = new Array(10).fill(videoData[realIndex]);
-      videoCardView.updateCard(newVideoData);
-      changeDataIndex++;
-      sentinel = document.querySelector('.video-card:nth-last-child(2)');
-      // 重新监视
-      observer.observe(sentinel);
-    });
-  };
-  controlChange();
+  eventBus.on(config.EVENT_UNOBSERVE_CARD_TARGET, () => {
+    observer.unobserve(sentinel);
+  });
+  eventBus.on(config.EVENT_OBSERVE_CARD_TARGET, () => {
+    sentinel = document.querySelector('.video-card:nth-last-child(2)');
+    observer.observe(sentinel);
+  });
+  eventBus.on(config.EVENT_RESET_CARD_OFFSET, () => {
+    videoCardOffset = 10;
+    channelCardOffset = 1;
+  });
 };
 const initVideoCard = async function () {
   const videoData = await model.loadVideoData(0, 10);
@@ -638,19 +595,23 @@ initChannelCard();
 ////////////////////////////////
 // 换一换
 ////////////////////////////////
-// const controlChange = function () {
-//   const changeWrapperEl = document.querySelector('.change-wrapper');
-//   let deg = 0;
-//   let changeDataIndex = 0;
-//   changeWrapperEl.addEventListener('click', async () => {
-//     const iconEl = changeWrapperEl.querySelector('.icon');
-//     deg += 360;
-//     iconEl.style.transform = `rotate(${deg}deg)`;
-//     const videoData = await model.loadVideoData(0, 11);
-//     const realIndex = changeDataIndex % videoData.length;
-//     const newVideoData = new Array(10).fill(videoData[realIndex]);
-//     videoCardView.updateCard(newVideoData);
-//     changeDataIndex++;
-//   });
-// };
-// controlChange();
+const controlChange = function () {
+  const changeWrapperEl = document.querySelector('.change-wrapper');
+  let deg = 0;
+  let changeDataIndex = 0;
+  changeWrapperEl.addEventListener('click', async () => {
+    // 停止监视，防止dom删除了内存泄漏
+    eventBus.emit(config.EVENT_UNOBSERVE_CARD_TARGET);
+    const iconEl = changeWrapperEl.querySelector('.icon');
+    deg += 360;
+    iconEl.style.transform = `rotate(${deg}deg)`;
+    const videoData = await model.loadVideoData(0, 11);
+    const realIndex = changeDataIndex % videoData.length;
+    const newVideoData = new Array(10).fill(videoData[realIndex]);
+    videoCardView.updateCard(newVideoData);
+    changeDataIndex++;
+    // 重新监视，重新可以滚动加载
+    eventBus.emit(config.EVENT_OBSERVE_CARD_TARGET);
+  });
+};
+controlChange();
