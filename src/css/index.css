@@ -1080,3 +1080,85 @@ Medium: 11px
   letter-spacing: 2px;
   font-size: 1.2rem;
 }
+/***************/
+/* aside */
+/***************/
+.aside {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.8rem;
+}
+.storage-box {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+.aside-btn {
+  width: 4rem;
+  height: 4rem;
+  background-color: #fff;
+  border: 1px solid #e3e5e7;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.aside-btn:hover {
+  background-color: #f1f2f3;
+}
+.aside-btn .icon {
+  width: 2.4rem;
+  height: 2.4rem;
+}
+.aside-text {
+  font-size: 1.2rem;
+}
+.refresh-btn {
+  width: auto;
+  flex-direction: row;
+  border: none;
+  background-color: #00aeec;
+  color: #fff;
+  position: relative;
+  right: 0;
+  transition: max-width 1s ease;
+  overflow: hidden;
+}
+.refresh-btn:hover {
+  max-width: 20rem;
+  width: auto;
+  background-color: #40c5f1;
+}
+.refresh-btn-text {
+  transform: translateX(0.8rem);
+  display: inline-block;
+  max-width: 0;
+  white-space: nowrap;
+  opacity: 1;
+  transition: max-width 1s ease, opacity 0.3s ease;
+}
+.refresh-btn:hover .refresh-btn-text {
+  max-width: 10rem;
+  height: auto;
+  opacity: 1;
+}
+.feedback-btn {
+  padding: 0.4rem;
+}
+.customer-service-btn {
+  height: 4.8rem;
+}
+.return-top-btn {
+  height: 4.4rem;
+}
+.return-top-btn .icon {
+  width: 1.2rem;
+  height: 1.2rem;
+}
