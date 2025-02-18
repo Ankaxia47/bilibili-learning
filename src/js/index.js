@@ -526,7 +526,7 @@ initCarousel();
 ////////////////////////////////
 // 视频卡片
 ////////////////////////////////
-const controlCard = function () {
+const loadNewCard = function () {
   let videoCardOffset = 10;
   const videoCardLimit = 12;
   let channelCardOffset = 1;
@@ -580,7 +580,7 @@ const controlCard = function () {
 const initVideoCard = async function () {
   const videoData = await model.loadVideoData(0, 10);
   videoCardView.appendCard(videoData);
-  controlCard();
+  loadNewCard();
 };
 initVideoCard();
 ////////////////////////////////
