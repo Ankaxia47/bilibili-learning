@@ -1092,11 +1092,6 @@ Medium: 11px
   align-items: flex-end;
   gap: 0.8rem;
 }
-.storage-box {
-  display: flex;
-  flex-direction: column;
-  gap: 0.8rem;
-}
 .aside-btn {
   width: 4rem;
   height: 4rem;
@@ -1151,6 +1146,34 @@ Medium: 11px
 }
 .refresh-btn:hover .icon {
   transform: rotate(360deg);
+}
+.storage-box {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+.storage-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.5s ease, opacity 0.5s ease;
+}
+.storage-box.hover .storage-item {
+  opacity: 1;
+  max-height: 12rem;
+}
+.three-dots-btn {
+  opacity: 1;
+  overflow: hidden;
+  transition: opacity 0.3s ease, height 0.3s ease;
+}
+.storage-box.hover .three-dots-btn {
+  opacity: 0;
+  height: 0;
 }
 .feedback-btn {
   padding: 0.4rem;

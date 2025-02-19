@@ -615,3 +615,24 @@ const controlChange = function () {
   });
 };
 controlChange();
+////////////////////////////////
+// aside
+////////////////////////////////
+const storageBoxEl = document.querySelector('.storage-box');
+const threeDotsBtnEl = document.querySelector('.three-dots-btn');
+let isHover = false;
+storageBoxEl.addEventListener('mouseenter', function () {
+  if (!isHover) {
+    storageBoxEl.classList.add('hover');
+    isHover = true;
+  }
+});
+storageBoxEl.addEventListener('mouseleave', function () {
+  if (isHover) {
+    storageBoxEl.classList.remove('hover');
+    // 防止在元素边缘频繁触发
+    setTimeout(() => {
+      isHover = false;
+    }, 100);
+  }
+});
