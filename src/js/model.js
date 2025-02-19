@@ -6,6 +6,7 @@ import { fetchMockData } from './helper/AJAXHelper.js';
 ////////////////////////////////
 export let nav = {};
 export let topImg = {};
+// 控制channel卡片插入哪一行
 let videoRow = 3;
 /**
  * 加载顶部导航栏数据
@@ -284,6 +285,9 @@ export const getVideoRow = function () {
 };
 export const increaseVideoRow = function (num) {
   videoRow += num;
+};
+export const resrtVideoRow = function () {
+  videoRow = 3;
 };
 /**
  * 加载搜索历史数据

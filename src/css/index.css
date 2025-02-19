@@ -1123,7 +1123,7 @@ Medium: 11px
   border: none;
   background-color: #00aeec;
   color: #fff;
-  transition: background-color 0.3s ease, width 0.5s ease;
+  transition: opacity 0.5s ease, background-color 0.3s ease, width 0.5s ease;
   overflow: hidden;
 }
 .refresh-btn:hover {
@@ -1153,6 +1153,7 @@ Medium: 11px
   flex-direction: column;
   position: relative;
   overflow: hidden;
+  transition: opacity 0.5s ease;
 }
 .storage-item {
   display: flex;
@@ -1184,6 +1185,7 @@ Medium: 11px
 }
 .return-top-btn {
   height: 4.4rem;
+  transition: opacity 0.5s ease, background-color 0.3s ease;
 }
 .return-top-btn .icon {
   width: 1.2rem;

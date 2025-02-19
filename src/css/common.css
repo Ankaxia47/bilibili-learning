@@ -59,11 +59,13 @@ ul {
 }
 .hidden {
   /* 1) 视觉上隐藏元素 */
-  opacity: 0;
+  opacity: 0 !important;
   /* 2) 不允许鼠标和键盘访问 */
-  pointer-events: none;
+  pointer-events: none !important;
   /* 3) 从屏幕阅读器中隐藏 */
-  visibility: hidden;
+  visibility: hidden !important;
+  /* 隐藏元素的时候先让透明度变成0，再hidden */
+  transition: opacity 0.5s ease, visibility 0s 0.5s !important;
 }
 .visible {
   opacity: 1 !important;

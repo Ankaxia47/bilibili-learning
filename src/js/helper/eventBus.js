@@ -15,7 +15,10 @@ const eventBus = {
     if (!this.events[event]) {
       this.events[event] = []; // 如果该事件没有任何回调，初始化为空数组
     }
-    this.events[event].push(callback); // 将回调加入事件对应的回调数组
+    // 如果函数不在数组里面了，添加
+    if (!this.events[event].some(f => this._areFunctionsEqual(f, callback))) {
+      this.events[event].push(callback);
+    }
   },
 
   // 取消订阅
@@ -26,6 +29,10 @@ const eventBus = {
         this.events[event].splice(index, 1); // 从回调数组中移除指定回调
       }
     }
+  },
+  // 判断两个函数内容是否相同
+  _areFunctionsEqual(func1, func2) {
+    return func1.toString() === func2.toString();
   },
 };
 
