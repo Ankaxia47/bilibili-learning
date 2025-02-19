@@ -1116,38 +1116,41 @@ Medium: 11px
 .aside-btn .icon {
   width: 2.4rem;
   height: 2.4rem;
+  flex-shrink: 0;
 }
 .aside-text {
   font-size: 1.2rem;
 }
 .refresh-btn {
-  width: auto;
+  padding: 0 0.8rem;
   flex-direction: row;
   border: none;
   background-color: #00aeec;
   color: #fff;
-  position: relative;
-  right: 0;
-  transition: max-width 1s ease;
+  transition: background-color 0.3s ease, width 0.5s ease;
   overflow: hidden;
 }
 .refresh-btn:hover {
-  max-width: 20rem;
-  width: auto;
+  width: 10rem;
   background-color: #40c5f1;
 }
 .refresh-btn-text {
-  transform: translateX(0.8rem);
-  display: inline-block;
-  max-width: 0;
+  display: block;
+  width: 0;
+  opacity: 0;
   white-space: nowrap;
-  opacity: 1;
-  transition: max-width 1s ease, opacity 0.3s ease;
+  transition: padding-left 0.3s ease, width 0.5s ease, opacity 0.5s ease;
 }
 .refresh-btn:hover .refresh-btn-text {
-  max-width: 10rem;
-  height: auto;
+  width: 6.4rem;
+  padding-left: 0.6rem;
   opacity: 1;
+}
+.refresh-btn .icon {
+  transition: transform 0.7s ease;
+}
+.refresh-btn:hover .icon {
+  transform: rotate(360deg);
 }
 .feedback-btn {
   padding: 0.4rem;
