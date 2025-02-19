@@ -618,21 +618,56 @@ controlChange();
 ////////////////////////////////
 // aside
 ////////////////////////////////
-const storageBoxEl = document.querySelector('.storage-box');
-const threeDotsBtnEl = document.querySelector('.three-dots-btn');
-let isHover = false;
-storageBoxEl.addEventListener('mouseenter', function () {
-  if (!isHover) {
-    storageBoxEl.classList.add('hover');
-    isHover = true;
+const asideEl = document.querySelector('.aside');
+const controlStorageBoxExpand = function () {
+  const storageBoxEl = document.querySelector('.storage-box');
+  let isHover = false;
+  storageBoxEl.addEventListener('mouseenter', function () {
+    if (!isHover) {
+      storageBoxEl.classList.add('hover');
+      isHover = true;
+    }
+  });
+  storageBoxEl.addEventListener('mouseleave', function () {
+    if (isHover) {
+      storageBoxEl.classList.remove('hover');
+      // 防止在元素边缘频繁触发
+      setTimeout(() => {
+        isHover = false;
+      }, 100);
+    }
+  });
+};
+controlStorageBoxExpand();
+const returnTop = function () {
+  const returnTopBtnEl = document.querySelector('.return-top-btn');
+  returnTopBtnEl.addEventListener('click', () => {
+    document.documentElement.scrollIntoView({
+      behavior: 'auto',
+      block: 'start',
+    });
+  });
+};
+returnTop();
+const updateAsidePosition = function () {
+  const mainContainerEl = document.querySelector('.main-container');
+  const mainContainerRight = mainContainerEl.getBoundingClientRect().right;
+  const viewportWidth = document.documentElement.clientWidth;
+  console.log('视口', viewportWidth, 'container', mainContainerRight);
+  const restWidth = viewportWidth - mainContainerRight;
+  let asideElRight;
+  if (restWidth > 40) {
+    asideElRight = restWidth - 40;
+  } else if (restWidth <= 10) {
+    asideElRight = 10;
+  } else {
+    asideElRight = restWidth;
   }
-});
-storageBoxEl.addEventListener('mouseleave', function () {
-  if (isHover) {
-    storageBoxEl.classList.remove('hover');
-    // 防止在元素边缘频繁触发
-    setTimeout(() => {
-      isHover = false;
-    }, 100);
-  }
-});
+  asideEl.style.right = `${asideElRight}px`;
+  console.log(asideEl.style.right);
+};
+const controlAsidePosition = function () {
+  updateAsidePosition();
+  window.addEventListener('resize', updateAsidePosition);
+};
+controlAsidePosition();
