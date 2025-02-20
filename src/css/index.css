@@ -1080,3 +1080,115 @@ Medium: 11px
   letter-spacing: 2px;
   font-size: 1.2rem;
 }
+/***************/
+/* aside */
+/***************/
+.aside {
+  position: fixed;
+  bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.8rem;
+  z-index: 2;
+}
+.aside-btn {
+  width: 4rem;
+  height: 4rem;
+  background-color: #fff;
+  border: 1px solid #e3e5e7;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.aside-btn:hover {
+  background-color: #f1f2f3;
+}
+.aside-btn .icon {
+  width: 2.4rem;
+  height: 2.4rem;
+  flex-shrink: 0;
+}
+.aside-text {
+  font-size: 1.2rem;
+  text-align: center;
+  line-height: 1.2;
+}
+.refresh-btn {
+  padding: 0 0.8rem;
+  flex-direction: row;
+  border: none;
+  background-color: #00aeec;
+  color: #fff;
+  transition: opacity 0.5s ease, background-color 0.3s ease, width 0.5s ease;
+  overflow: hidden;
+}
+.refresh-btn:hover {
+  width: 10rem;
+  background-color: #40c5f1;
+}
+.refresh-btn-text {
+  display: block;
+  width: 0;
+  opacity: 0;
+  white-space: nowrap;
+  transition: padding-left 0.3s ease, width 0.5s ease, opacity 0.5s ease;
+}
+.refresh-btn:hover .refresh-btn-text {
+  width: 6.4rem;
+  padding-left: 0.6rem;
+  opacity: 1;
+}
+.refresh-btn .icon {
+  transition: transform 0.7s ease;
+}
+.refresh-btn:hover .icon {
+  transform: rotate(360deg);
+}
+.storage-box {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  transition: opacity 0.5s ease;
+}
+.storage-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.5s ease, opacity 0.5s ease;
+}
+.storage-box.hover .storage-item {
+  opacity: 1;
+  max-height: 12rem;
+}
+.three-dots-btn {
+  opacity: 1;
+  overflow: hidden;
+  transition: opacity 0.3s ease, height 0.3s ease;
+}
+.storage-box.hover .three-dots-btn {
+  opacity: 0;
+  height: 0;
+}
+.feedback-btn {
+  padding: 0.4rem;
+}
+.customer-service-btn {
+  height: 4.8rem;
+}
+.return-top-btn {
+  height: 4.4rem;
+  transition: opacity 0.5s ease, background-color 0.3s ease;
+}
+.return-top-btn .icon {
+  width: 1.2rem;
+  height: 1.2rem;
+}

@@ -25,6 +25,7 @@ import homePopView from './view/homePopView.js';
 import channelStickyView from './view/channelStickyView.js';
 import eventBus from './helper/eventBus.js';
 import * as config from './helper/config.js';
+import asideView from './view/asideView.js';
 
 ////////////////////////////////
 // 顶部图片
@@ -576,6 +577,9 @@ const loadNewCard = function () {
     videoCardOffset = 10;
     channelCardOffset = 1;
   });
+  eventBus.on(config.EVENT_DISCONNECT_CARD_OBSERVER, () => {
+    observer.disconnect();
+  });
 };
 const initVideoCard = async function () {
   const videoData = await model.loadVideoData(0, 10);
@@ -592,6 +596,15 @@ const initChannelCard = async function () {
   model.increaseVideoRow(1);
 };
 initChannelCard();
+/**
+ * 刷新内容所需的回调函数
+ * 初始化卡片数据
+ */
+const initCard = function () {
+  model.resetVideoRow();
+  initVideoCard();
+  initChannelCard();
+};
 ////////////////////////////////
 // 换一换
 ////////////////////////////////
@@ -615,3 +628,12 @@ const controlChange = function () {
   });
 };
 controlChange();
+////////////////////////////////
+// aside
+////////////////////////////////
+const initAside = function () {
+  asideView.render();
+  asideView.initControlDom();
+  asideView.refreshCardData(initCard);
+};
+initAside();
