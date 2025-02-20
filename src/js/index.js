@@ -581,6 +581,13 @@ const loadNewCard = function () {
     observer.disconnect();
   });
 };
+
+const initVideoCard = async function () {
+  const videoData = await model.loadVideoData(0, 10);
+  videoCardView.appendCard(videoData);
+  loadNewCard();
+};
+initVideoCard();
 ////////////////////////////////
 // 不感兴趣
 ////////////////////////////////
@@ -608,13 +615,7 @@ const controlNoInterest = function () {
     noInterestCoverEl.classList.add('hidden');
   });
 };
-const initVideoCard = async function () {
-  const videoData = await model.loadVideoData(0, 10);
-  videoCardView.appendCard(videoData);
-  loadNewCard();
-  controlNoInterest();
-};
-initVideoCard();
+controlNoInterest();
 ////////////////////////////////
 // channel卡片
 ////////////////////////////////
