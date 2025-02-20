@@ -14,7 +14,7 @@ class ChannelStickyView extends View {
 
   _generateMarkup() {
     return `
-      <div class="channel-sticky">
+      <div class="channel-sticky hidden">
         <div class="channel-sticky-content">
           <div class="channel-sticky-left">
             <a href="#" class="sticky-left-link">
