@@ -286,7 +286,7 @@ export const getVideoRow = function () {
 export const increaseVideoRow = function (num) {
   videoRow += num;
 };
-export const resrtVideoRow = function () {
+export const resetVideoRow = function () {
   videoRow = 3;
 };
 /**

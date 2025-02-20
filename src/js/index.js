@@ -25,6 +25,7 @@ import homePopView from './view/homePopView.js';
 import channelStickyView from './view/channelStickyView.js';
 import eventBus from './helper/eventBus.js';
 import * as config from './helper/config.js';
+import asideView from './view/asideView.js';
 
 ////////////////////////////////
 // 顶部图片
@@ -595,6 +596,15 @@ const initChannelCard = async function () {
   model.increaseVideoRow(1);
 };
 initChannelCard();
+/**
+ * 刷新内容所需的回调函数
+ * 初始化卡片数据
+ */
+const initCard = function () {
+  model.resetVideoRow();
+  initVideoCard();
+  initChannelCard();
+};
 ////////////////////////////////
 // 换一换
 ////////////////////////////////
@@ -621,138 +631,9 @@ controlChange();
 ////////////////////////////////
 // aside
 ////////////////////////////////
-const asideEl = document.querySelector('.aside');
-const controlStorageBoxExpand = function () {
-  const storageBoxEl = document.querySelector('.storage-box');
-  let isHover = false;
-  storageBoxEl.addEventListener('mouseenter', function () {
-    if (!isHover) {
-      storageBoxEl.classList.add('hover');
-      isHover = true;
-    }
-  });
-  storageBoxEl.addEventListener('mouseleave', function () {
-    if (isHover) {
-      storageBoxEl.classList.remove('hover');
-      // 防止在元素边缘频繁触发
-      setTimeout(() => {
-        isHover = false;
-      }, 100);
-    }
-  });
+const initAside = function () {
+  asideView.render();
+  asideView.initControlDom();
+  asideView.refreshCardData(initCard);
 };
-controlStorageBoxExpand();
-const returnTop = function () {
-  const returnTopBtnEl = document.querySelector('.return-top-btn');
-  returnTopBtnEl.addEventListener('click', () => {
-    document.documentElement.scrollIntoView({
-      behavior: 'auto',
-      block: 'start',
-    });
-  });
-};
-returnTop();
-const updateAsidePosition = function () {
-  const mainContainerEl = document.querySelector('.main-container');
-  const mainContainerRight = mainContainerEl.getBoundingClientRect().right;
-  const viewportWidth = document.documentElement.clientWidth;
-  const restWidth = viewportWidth - mainContainerRight;
-  let asideElRight;
-  if (restWidth > 40) {
-    asideElRight = restWidth - 40;
-  } else if (restWidth <= 10) {
-    asideElRight = 10;
-  } else {
-    asideElRight = restWidth;
-  }
-  asideEl.style.right = `${asideElRight}px`;
-};
-const controlAsidePosition = function () {
-  updateAsidePosition();
-  window.addEventListener('resize', updateAsidePosition);
-};
-controlAsidePosition();
-const refreshCardData = function () {
-  const refreshBtn = document.querySelector('.refresh-btn');
-  refreshBtn.addEventListener('click', function (e) {
-    const videoCardArr = Array.from(document.querySelectorAll('.video-card'));
-    eventBus.emit(config.EVENT_DISCONNECT_CARD_OBSERVER);
-    eventBus.emit(config.EVENT_DISCONNECT_ASIDE_VISIBLE_OBSERVER);
-    videoCardArr.forEach(el => el.remove());
-    document.documentElement.scrollIntoView({
-      behavior: 'auto',
-      block: 'start',
-    });
-    model.resrtVideoRow();
-    initVideoCard();
-    initChannelCard();
-    controlAsideBtnVisible();
-  });
-};
-refreshCardData();
-
-const controlAsideBtnVisible = function () {
-  let target;
-  let visibleFlag = false;
-  const refreshBtnEl = document.querySelector('.refresh-btn');
-  const storageBoxEl = document.querySelector('.storage-box');
-  const returnTopBtnEl = document.querySelector('.return-top-btn');
-  const asideTargetObserver = new MutationObserver(mutationsList => {
-    const newChannelCards = [];
-    mutationsList.forEach(mutation => {
-      mutation.addedNodes.forEach(node => {
-        if (
-          node.nodeType === 1 &&
-          node.classList.contains('video-card') &&
-          !node.classList.contains('channel-card')
-        ) {
-          newChannelCards.push(node);
-        }
-      });
-    });
-    // 取第一次滚动加载的最后一个videoCard
-    if (newChannelCards.length === 12) {
-      target = newChannelCards.at(-1);
-      asideTargetObserver.disconnect();
-      const asideVisibleObserver = new IntersectionObserver(
-        entries => {
-          const [entry] = entries;
-          if (entry.isIntersecting && !visibleFlag) {
-            visibleFlag = true;
-            refreshBtnEl.classList.remove('hidden');
-            storageBoxEl.classList.remove('hidden');
-            returnTopBtnEl.classList.remove('hidden');
-          }
-          if (!entry.isIntersecting && visibleFlag) {
-            const rect = entry.boundingClientRect;
-            // 卡片从下方消失，说明在往上滚动
-            if (rect.top > 0) {
-              visibleFlag = false;
-              refreshBtnEl.classList.add('hidden');
-              storageBoxEl.classList.add('hidden');
-              returnTopBtnEl.classList.add('hidden');
-            }
-          }
-        },
-        {
-          root: null,
-          threshold: 1,
-        }
-      );
-      asideVisibleObserver.observe(target);
-      eventBus.on(config.EVENT_DISCONNECT_ASIDE_VISIBLE_OBSERVER, () => {
-        asideVisibleObserver.disconnect();
-        refreshBtnEl.classList.add('hidden');
-        storageBoxEl.classList.add('hidden');
-        returnTopBtnEl.classList.add('hidden');
-      });
-    }
-  });
-  const videoContainerEl = document.querySelector('.video-container');
-  // 监听 `videoContainerEl` 内的子元素变化
-  asideTargetObserver.observe(videoContainerEl, {
-    childList: true,
-    subtree: true,
-  });
-};
-controlAsideBtnVisible();
+initAside();

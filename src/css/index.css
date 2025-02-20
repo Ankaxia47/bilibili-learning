@@ -1090,6 +1090,7 @@ Medium: 11px
   flex-direction: column;
   align-items: flex-end;
   gap: 0.8rem;
+  z-index: 2;
 }
 .aside-btn {
   width: 4rem;
