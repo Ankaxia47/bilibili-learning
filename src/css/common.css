@@ -65,7 +65,7 @@ ul {
   /* 3) 从屏幕阅读器中隐藏 */
   visibility: hidden !important;
   /* 隐藏元素的时候先让透明度变成0，再hidden */
-  transition: opacity 0.5s ease, visibility 0s 0.5s !important;
+  transition: opacity 0.3s ease, visibility 0s 0.3s !important;
 }
 .visible {
   opacity: 1 !important;

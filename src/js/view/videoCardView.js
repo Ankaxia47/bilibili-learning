@@ -21,75 +21,89 @@ class VideoCardView extends View {
       <div class="video-card ${
         data.length === 10 && index < 6 ? 'margin-top-0' : ''
       }">
-        <a href="#" class="video-link">
-          <div class="video-img-box">
-            <picture>
-              <source
-                srcset="${item.img.avif}"
-                type="image/avif"
-              />
-              <source
-                srcset="${item.img.webp}"
-                type="image/webp"
-              />
-              <img
-                class="thumbnail"
-                src="${item.img.origin}"
-                alt="视频缩略图"
-              />
-            </picture>
-            <div class="thumbnail-cover"></div>
-            <div class="video-status">
-              <div class="video-status-left">
+        <div class="video-link-container">
+          <a href="#" class="video-link">
+            <div class="video-img-box">
+              <picture>
+                <source srcset="${item.img.avif}" type="image/avif" />
+                <source srcset="${item.img.webp}" type="image/webp" />
+                <img class="thumbnail" src="${
+                  item.img.origin
+                }" alt="视频缩略图" />
+              </picture>
+              <div class="thumbnail-cover"></div>
+              <div class="video-status">
+                <div class="video-status-left">
+                  ${
+                    item.type === 'video'
+                      ? `
+                  <div class="video-status-item">
+                    <svg class="icon">
+                      <use href="src/img/icons.svg#video-play-icon"></use>
+                    </svg>
+                    <span>${convertNumber(item.playCount)}</span>
+                  </div>
+                  <div class="video-status-item">
+                    <svg class="icon">
+                      <use href="src/img/icons.svg#video-danmaku-icon"></use>
+                    </svg>
+                    <span>${convertNumber(item.danmakuCont)}</span>
+                  </div>
+                  `
+                      : `
+                  <div class="video-status-item">
+                    <img src="src/img/icon/eye-icon.png" class="icon" alt="" />
+                    <span>${convertNumber(item.viewer)}</span>
+                  </div>
+                  `
+                  }
+                </div>
                 ${
                   item.type === 'video'
                     ? `
-                    <div class="video-status-item">
-                      <svg class="icon">
-                        <use href="src/img/icons.svg#video-play-icon"></use>
-                      </svg>
-                      <span>${convertNumber(item.playCount)}</span>
-                    </div>
-                    <div class="video-status-item">
-                      <svg class="icon">
-                        <use href="src/img/icons.svg#video-danmaku-icon"></use>
-                      </svg>
-                      <span>${convertNumber(item.danmakuCont)}</span>
-                    </div>
-                  `
+                <div class="video-status-duration">
+                  ${convertSecondToHHmmss(item.duration)}
+                </div>
+                `
                     : `
-                    <div class="video-status-item">
-                      <img src="src/img/icon/eye-icon.png" class="icon" alt="" />
-                      <span>${convertNumber(item.viewer)}</span>
-                    </div>
-                    `
+                <div class="live-type">${item.liveType}</div>
+                `
                 }
               </div>
               ${
                 item.type === 'video'
-                  ? `<div class="video-status-duration">${convertSecondToHHmmss(
-                      item.duration
-                    )}</div>`
-                  : `<div class="live-type">${item.liveType}</div>`
-              }
-              
-            </div>
-            ${
-              item.type === 'video'
-                ? `
-                <div class="watch-later-box">
-                  <div class="watch-later-icon-box">
-                    <svg class="watch-later-icon">
-                      <use href="src/img/icons.svg#watch-later-icon"></use>
-                    </svg>
-                  </div>
-                  <div class="watch-later-text">添加至稍后再看</div>
+                  ? `
+              <div class="watch-later-box">
+                <div class="watch-later-icon-box">
+                  <svg class="watch-later-icon">
+                    <use href="src/img/icons.svg#watch-later-icon"></use>
+                  </svg>
                 </div>
+                <div class="watch-later-text">添加至稍后再看</div>
+              </div>
               `
-                : ''
-            }
+                  : ''
+              }
+            </div>
+          </a>
+          <div class="no-interest-cover hidden">
+            <div class="no-interest-left">
+              <svg class="icon">
+                <use href="src/img/icons.svg#no-interest-icon"></use>
+              </svg>
+              <span class="no-interest-text">内容不感兴趣</span>
+              <span class="no-interest-desc">将减少此类内容推荐</span>
+            </div>
+            <div class="no-interest-right">
+              <button class="no-interest-revert-btn">
+                <svg class="icon">
+                  <use href="src/img/icons.svg#revert-icon"></use>
+                </svg>
+                <span class="revert-text">撤销</span>
+              </button>
+            </div>
           </div>
-        </a>
+        </div>
         <div class="video-info">
           <div class="video-title-box">
             <a

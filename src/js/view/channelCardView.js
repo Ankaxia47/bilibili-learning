@@ -47,79 +47,70 @@ class ChannelCardView extends View {
       <div class="video-card channel-card " data-row=${
         row + index
       } data-column="-1">
-        <a href="#" class="video-link">
-          <div class="video-img-box">
-            <div class="channel-tag">
-              <svg class="icon">
-                <use href="src/img/icons.svg#${item.tagIcon}"></use>
-              </svg>
+        <div class="video-link-container">
+          <a href="#" class="video-link">
+            <div class="video-img-box">
+              <div class="channel-tag">
+                <svg class="icon">
+                  <use href="src/img/icons.svg#${item.tagIcon}"></use>
+                </svg>
 
-              <span>${item.tagName}</span>
-            </div>
-            <picture>
-              <source
-                srcset="${item.img.avif}"
-                type="image/avif"
-              />
-              <source
-                srcset="${item.img.webp}"
-                type="image/webp"
-              />
-              <img
-                class="thumbnail"
-                src="${item.img.origin}"
-                alt="视频缩略图"
-              />
-            </picture>
-            <div class="thumbnail-cover"></div>
-            <div class="video-status">
-              <div class="video-status-left">
-                ${
-                  item.viewer
-                    ? `
+                <span>${item.tagName}</span>
+              </div>
+              <picture>
+                <source srcset="${item.img.avif}" type="image/avif" />
+                <source srcset="${item.img.webp}" type="image/webp" />
+                <img class="thumbnail" src="${
+                  item.img.origin
+                }" alt="视频缩略图" />
+              </picture>
+              <div class="thumbnail-cover"></div>
+              <div class="video-status">
+                <div class="video-status-left">
+                  ${
+                    item.viewer
+                      ? `
                   <div class="video-status-item">
                     <img src="src/img/icon/eye-icon.png" class="icon" alt="" />
                     <span>466</span>
                   </div>
                   `
-                    : ''
-                }
-                ${
-                  item.playCount
-                    ? `
-                    <div class="video-status-item">
-                      <svg class="icon">
-                        <use href="src/img/icons.svg#video-play-icon"></use>
-                      </svg>
-                      <span>${convertNumber(item.playCount)}</span>
-                    </div>
+                      : ''
+                  } ${
+          item.playCount
+            ? `
+                  <div class="video-status-item">
+                    <svg class="icon">
+                      <use href="src/img/icons.svg#video-play-icon"></use>
+                    </svg>
+                    <span>${convertNumber(item.playCount)}</span>
+                  </div>
                   `
-                    : ''
-                }
-                ${
-                  item.likeCount
-                    ? `
-                    <div class="video-status-item">
-                      <svg class="icon">
-                        <use href="src/img/icons.svg#heart-icon"></use>
-                      </svg>
-                      <span>${convertNumber(item.likeCount)}</span>
-                    </div>    
+            : ''
+        } ${
+          item.likeCount
+            ? `
+                  <div class="video-status-item">
+                    <svg class="icon">
+                      <use href="src/img/icons.svg#heart-icon"></use>
+                    </svg>
+                    <span>${convertNumber(item.likeCount)}</span>
+                  </div>
                   `
-                    : ''
-                }
-                
-              </div>
-              ${
-                item.liveType
-                  ? `
-                  <div class="live-type">萌宅领域</div>
+            : ''
+        }
+                </div>
+                ${
+                  item.liveType
+                    ? `
+                <div class="live-type">萌宅领域</div>
                 `
-                  : ''
-              }
+                    : ''
+                }
+              </div>
             </div>
-          </div>
-        </a>
+          </a>
+        </div>
         <div class="video-info">
           <div class="video-title-box">
             <a href="#" class="video-title" title="${item.title}">

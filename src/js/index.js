@@ -581,10 +581,38 @@ const loadNewCard = function () {
     observer.disconnect();
   });
 };
+////////////////////////////////
+// 不感兴趣
+////////////////////////////////
+const controlNoInterest = function () {
+  const videoContainerEl = document.querySelector('.video-container');
+  videoContainerEl.addEventListener('click', e => {
+    const noInterestItemEl = e.target.closest('.no-interest-item');
+    if (!noInterestItemEl) return;
+    const noInterestText = noInterestItemEl.textContent;
+    const videoCardEl = noInterestItemEl.closest('.video-card');
+    const videoInfoEl = videoCardEl.querySelector('.video-info');
+    videoInfoEl.classList.add('hidden');
+    const noInterestCoverEl = videoCardEl.querySelector('.no-interest-cover');
+    noInterestCoverEl.classList.remove('hidden');
+    const noInterestTextEl = videoCardEl.querySelector('.no-interest-text');
+    noInterestTextEl.textContent = noInterestText;
+  });
+  videoContainerEl.addEventListener('click', e => {
+    const revertBtnEl = e.target.closest('.no-interest-revert-btn');
+    if (!revertBtnEl) return;
+    const videoCardEl = revertBtnEl.closest('.video-card');
+    const videoInfoEl = videoCardEl.querySelector('.video-info');
+    videoInfoEl.classList.remove('hidden');
+    const noInterestCoverEl = videoCardEl.querySelector('.no-interest-cover');
+    noInterestCoverEl.classList.add('hidden');
+  });
+};
 const initVideoCard = async function () {
   const videoData = await model.loadVideoData(0, 10);
   videoCardView.appendCard(videoData);
   loadNewCard();
+  controlNoInterest();
 };
 initVideoCard();
 ////////////////////////////////
