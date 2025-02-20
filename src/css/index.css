@@ -1063,12 +1063,14 @@ Medium: 11px
   top: 0;
   border: 1px solid #e3e5e7;
   border-radius: 9px;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 .change-wrapper:hover {
   background-color: #e3e5e7;
 }
-
+.change-wrapper:active {
+  transform: scale(0.95);
+}
 .change-wrapper .icon {
   width: 1.6rem;
   height: 1.6rem;
@@ -1186,7 +1188,10 @@ Medium: 11px
 }
 .return-top-btn {
   height: 4.4rem;
-  transition: opacity 0.5s ease, background-color 0.3s ease;
+  transition: opacity 0.5s ease, background-color 0.3s ease, transform 0.3s ease;
+}
+.return-top-btn:active {
+  transform: scale(0.95);
 }
 .return-top-btn .icon {
   width: 1.2rem;
