@@ -1116,6 +1116,8 @@ Medium: 11px
   top: 0;
   border: 1px solid #e3e5e7;
   border-radius: 9px;
+  z-index: 1;
+  background-color: #fff;
   transition: background-color 0.3s ease, transform 0.3s ease;
 }
 .change-wrapper:hover {
