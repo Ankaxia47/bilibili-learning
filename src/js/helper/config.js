@@ -72,14 +72,6 @@ export const EVENT_ADD_SEARCH_HISTORY = 'addSearchHistory';
 export const EVENT_SEARCH_POP_VISIBLE = 'searchPopVisible';
 // 事件总线，隐藏搜索弹框
 export const EVENT_SEARCH_POP_HIDDEN = 'searchPopHidden';
-// 事件总线，取消监视VideoCard滚动加载的元素
-export const EVENT_UNOBSERVE_CARD_TARGET = 'unobserveVideoCardTarget';
-// 事件总线，监视VideoCard滚动加载的元素
-export const EVENT_OBSERVE_CARD_TARGET = 'observeVideoCardTarget';
-// 事件总线，重置加载卡片的offset
-export const EVENT_RESET_CARD_OFFSET = 'resetCardOffest';
-// 事件总线，删除滚动加载的监视器
-export const EVENT_DISCONNECT_CARD_OBSERVER = 'disconnectCardObserver';
 // 事件总线，删除aside显示的监视器
 export const EVENT_DISCONNECT_ASIDE_VISIBLE_OBSERVER =
   'disconnectAsideVisibleObserver';

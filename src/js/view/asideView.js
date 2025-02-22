@@ -179,7 +179,6 @@ class AsideView extends View {
     this._refreshBtnEl.addEventListener('click', () => {
       const videoCardArr = Array.from(document.querySelectorAll('.video-card'));
       // 删除card元素之前解除监视器
-      eventBus.emit(config.EVENT_DISCONNECT_CARD_OBSERVER);
       eventBus.emit(config.EVENT_DISCONNECT_ASIDE_VISIBLE_OBSERVER);
       videoCardArr.forEach(el => el.remove());
       document.documentElement.scrollIntoView({

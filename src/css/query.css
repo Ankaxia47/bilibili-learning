@@ -7,6 +7,10 @@
   .channel-sticky-content {
     max-width: 160rem;
   }
+  .margin-top-0-small-card,
+  .margin-top-0-card {
+    margin-top: 0;
+  }
 }
 @media (max-width: 2020px) {
   html {
@@ -62,9 +66,15 @@
   .container {
     grid-template-columns: repeat(4, 1fr);
   }
+  .hidden-card {
+    display: none;
+  }
   .main-container,
   .channel-sticky-content {
     max-width: 130rem;
+  }
+  .margin-top-0-card {
+    margin-top: 2.4rem;
   }
 }
 @media (max-width: 1350px) {
