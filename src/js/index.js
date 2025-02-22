@@ -486,7 +486,25 @@ initHeader();
 ////////////////////////////////
 const initChannelAndChannelSticky = async function () {
   const channelData = await model.loadChannelData();
+  const channelNameArr = channelData.channelCategories.map(
+    item => item.channelName
+  );
+  const newChannelNameArr = [];
+  const half = channelNameArr.length / 2;
+  for (let i = 0; i < half; i++) {
+    newChannelNameArr.push(channelNameArr[i]);
+    newChannelNameArr.push(channelNameArr[i + half]);
+  }
+  // 删除更多的item名
+  newChannelNameArr.splice(newChannelNameArr.length - 1, 1);
+  const moreItem = channelData.channelCategories.at(-1);
+  const originPop = moreItem.pop;
+  const newPop = [...newChannelNameArr, ...moreItem.pop];
+  // 处理channel的时候，pop放入所有item的名字，便于使用display:none处理响应式
+  moreItem.pop = newPop;
   initChannel(channelData);
+  // 处理channel sticky的时候，pop只存放原来的item的名字
+  moreItem.pop = originPop;
   initChannelSticky(channelData);
 };
 const initChannel = function (channelData) {
@@ -527,6 +545,27 @@ initCarousel();
 ////////////////////////////////
 // 视频卡片
 ////////////////////////////////
+// let increaseVideoRowStep;
+// let channelCardInitNum;
+// let channelCardOffset;
+// const mediaQuery1400 = window.matchMedia('(max-width: 1400px)');
+// const updateIncreaseVideoRowStep = function () {
+//   if (mediaQuery1400.matches) {
+//     increaseVideoRowStep = 4;
+//     channelCardInitNum = 2;
+//     if (!channelCardOffset) {
+//       channelCardOffset = 2;
+//     }
+//   } else {
+//     increaseVideoRowStep = 3;
+//     channelCardInitNum = 1;
+//     if (!channelCardOffset) {
+//       channelCardOffset = 1;
+//     }
+//   }
+// };
+// updateIncreaseVideoRowStep();
+// mediaQuery1400.addEventListener('change', updateIncreaseVideoRowStep);
 const loadNewCard = function () {
   let videoCardOffset = 10;
   const videoCardLimit = 12;
@@ -544,6 +583,12 @@ const loadNewCard = function () {
             model.loadChannelCardData(channelCardOffset, channelCardLimit),
             model.loadVideoData(videoCardOffset, videoCardLimit),
           ]);
+          // console.log(
+          //   'channelCardOffset',
+          //   channelCardOffset,
+          //   'channelCardLimit',
+          //   channelCardLimit
+          // );
           const [channelCardData, videoCardData] = result;
           channelCardView.appendCard(
             channelCardData.value,
@@ -563,6 +608,8 @@ const loadNewCard = function () {
     {
       root: null,
       threshold: 1.0,
+      // 水平方向给一个很大的值，防止页面缩小，水平方向的相交比例不足1.0不触发回调函数
+      rootMargin: '0px 100px 0px 100px',
     }
   );
   observer.observe(sentinel);

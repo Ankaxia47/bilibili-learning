@@ -76,6 +76,7 @@ class AsideView extends View {
       this._videoContainerEl = document.querySelector('.video-container');
     }
     this._controlAsidePosition();
+    this._controlAsideBtnTransparency();
     this._controlStorageBoxExpand();
     this._returnTop();
     this._controlAsideBtnVisible();
@@ -101,11 +102,43 @@ class AsideView extends View {
     this._asideEl.style.right = `${asideElRight}px`;
   };
   /**
+   * 更新aside的按钮透明度
+   */
+  _updateAsideBtnTransparency = function () {
+    // mainContainer 右侧的位置
+    let mainContainerRight =
+      this._mainContainerEl.getBoundingClientRect().right;
+    const paddingRight = parseInt(
+      window.getComputedStyle(this._mainContainerEl).paddingRight
+    );
+    mainContainerRight = mainContainerRight - paddingRight;
+    const asideLeft = this._asideEl.getBoundingClientRect().left;
+    if (asideLeft <= mainContainerRight) {
+      this._refreshBtnEl.style.opacity = '0.7';
+      this._storageBoxEl.style.opacity = '0.7';
+      this._returnTopBtnEl.style.opacity = '0.7';
+    } else {
+      this._refreshBtnEl.style.opacity = '1';
+      this._storageBoxEl.style.opacity = '1';
+      this._returnTopBtnEl.style.opacity = '1';
+    }
+  };
+  /**
    * 当屏幕大小变化的时候更新aside的位置
    */
   _controlAsidePosition() {
     this._updateAsidePosition();
     window.addEventListener('resize', this._updateAsidePosition.bind(this));
+  }
+  /**
+   * 当屏幕大小变化的时候更新aside按钮的透明度
+   */
+  _controlAsideBtnTransparency() {
+    this._updateAsideBtnTransparency();
+    window.addEventListener(
+      'resize',
+      this._updateAsideBtnTransparency.bind(this)
+    );
   }
   /**
    * 控制点点点按钮扩展
@@ -203,6 +236,8 @@ class AsideView extends View {
           {
             root: null,
             threshold: 1,
+            // 水平方向给一个很大的值，防止页面缩小，水平方向的相交比例不足1.0不触发回调函数
+            rootMargin: '0px 500px 0px 500px',
           }
         );
         asideVisibleObserver.observe(target);
