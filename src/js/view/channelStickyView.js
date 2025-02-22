@@ -117,20 +117,38 @@ class ChannelStickyView extends View {
     const contentEl = this._channelStickyEl.querySelector(
       '.channel-sticky-content'
     );
-    const paddingTop = parseInt(window.getComputedStyle(contentEl).paddingTop);
-    const itemHeight =
-      this._channelStickyEl.querySelector('.channel-category').offsetHeight;
-    const categoriesHeight = this._gridContainerEl.offsetHeight;
-    const notExpandHeight = `${paddingTop * 2 + itemHeight}px`;
-    const expandHeight = `${paddingTop * 2 + categoriesHeight}px`;
-    this._channelStickyEl.style.maxHeight = notExpandHeight;
+    const itemEl = this._channelStickyEl.querySelector('.channel-category');
+    let paddingTop;
+    let notExpandHeight;
+    let expandHeight;
     this._channelStickyEl.addEventListener('mouseenter', () => {
       this._channelStickyEl.style.maxHeight = expandHeight;
     });
     this._channelStickyEl.addEventListener('mouseleave', () => {
       this._channelStickyEl.style.maxHeight = notExpandHeight;
     });
+    // 监听元素高度变化，修改channel-sticky的高度
+    const resizeObserver = new ResizeObserver(entries => {
+      paddingTop = parseInt(window.getComputedStyle(contentEl).paddingTop);
+      entries.forEach(entry => {
+        if (entry.target.classList.contains('channel-category')) {
+          // 因为entry.contentRect里面的height只是内容的高度，不包含padding，所以这里要用offsetHeight
+          notExpandHeight = `${paddingTop * 2 + entry.target.offsetHeight}px`;
+          // 需要先更新一下未展开的高度
+          this._channelStickyEl.style.maxHeight = notExpandHeight;
+        }
+        if (entry.target.classList.contains('channel-sticky-categories')) {
+          const { height } = entry.contentRect;
+          // 因为channel-sticky-categories没设置padding，这边就直接用height了
+          expandHeight = `${paddingTop * 2 + height}px`;
+        }
+      });
+    });
+    // 监听元素高度变化
+    resizeObserver.observe(itemEl);
+    resizeObserver.observe(this._gridContainerEl);
   }
+
   /**
    * 控制channel grid的响应式行为
    */
