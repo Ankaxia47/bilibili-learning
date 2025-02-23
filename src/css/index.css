@@ -356,6 +356,9 @@ Medium: 11px
   min-width: 120rem;
   max-width: 140rem;
   margin-bottom: 10rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 /***************/
 /* channel */
@@ -364,6 +367,7 @@ Medium: 11px
   display: flex;
   align-items: center;
   height: 11rem;
+  width: 100%;
 }
 
 .channel-left {
@@ -817,7 +821,12 @@ Medium: 11px
 /***************/
 /* 视频卡片 */
 /***************/
-
+.load-card-target {
+  width: 100%;
+  height: 2rem;
+  visibility: hidden;
+  pointer-events: none;
+}
 .video-card {
   margin-top: 2.4rem;
   padding-bottom: 1.2rem;
@@ -1112,6 +1121,8 @@ Medium: 11px
   top: 0;
   border: 1px solid #e3e5e7;
   border-radius: 9px;
+  z-index: 1;
+  background-color: #fff;
   transition: background-color 0.3s ease, transform 0.3s ease;
 }
 .change-wrapper:hover {

@@ -486,7 +486,25 @@ initHeader();
 ////////////////////////////////
 const initChannelAndChannelSticky = async function () {
   const channelData = await model.loadChannelData();
+  const channelNameArr = channelData.channelCategories.map(
+    item => item.channelName
+  );
+  const newChannelNameArr = [];
+  const half = channelNameArr.length / 2;
+  for (let i = 0; i < half; i++) {
+    newChannelNameArr.push(channelNameArr[i]);
+    newChannelNameArr.push(channelNameArr[i + half]);
+  }
+  // 删除更多的item名
+  newChannelNameArr.splice(newChannelNameArr.length - 1, 1);
+  const moreItem = channelData.channelCategories.at(-1);
+  const originPop = moreItem.pop;
+  const newPop = [...newChannelNameArr, ...moreItem.pop];
+  // 处理channel的时候，pop放入所有item的名字，便于使用display:none处理响应式
+  moreItem.pop = newPop;
   initChannel(channelData);
+  // 处理channel sticky的时候，pop只存放原来的item的名字
+  moreItem.pop = originPop;
   initChannelSticky(channelData);
 };
 const initChannel = function (channelData) {
@@ -528,12 +546,8 @@ initCarousel();
 // 视频卡片
 ////////////////////////////////
 const loadNewCard = function () {
-  let videoCardOffset = 10;
-  const videoCardLimit = 12;
-  let channelCardOffset = 1;
-  const channelCardLimit = 3;
   // 监听目标元素
-  let sentinel = document.querySelector('.video-card:nth-last-child(2)');
+  let sentinel = document.querySelector('.load-card-target');
   const observer = new IntersectionObserver(
     entries => {
       entries.forEach(async entry => {
@@ -541,53 +555,45 @@ const loadNewCard = function () {
           // 停止观察元素，防止重复触发
           observer.unobserve(entry.target);
           const result = await Promise.allSettled([
-            model.loadChannelCardData(channelCardOffset, channelCardLimit),
-            model.loadVideoData(videoCardOffset, videoCardLimit),
+            model.loadChannelCardData(
+              model.getChannelCardOffset(),
+              model.getChannelCardLimit()
+            ),
+            model.loadVideoData(
+              model.getVideoCardOffset(),
+              model.getVideoCardLimit()
+            ),
           ]);
+
           const [channelCardData, videoCardData] = result;
           channelCardView.appendCard(
             channelCardData.value,
             model.getVideoRow()
           );
-          // 增加行数
-          model.increaseVideoRow(3);
           videoCardView.appendCard(videoCardData.value);
-          videoCardOffset += videoCardLimit;
-          channelCardOffset += channelCardLimit;
+          // 增加行数
+          model.increaseVideoRow(model.getChannelCardLimit());
+          model.increaseVideoCardOffset(model.getVideoCardLimit());
+          model.increaseChannelCardOffset(model.getChannelCardLimit());
           // 重新监听目标元素
-          sentinel = document.querySelector('.video-card:nth-last-child(2)');
           observer.observe(sentinel);
         }
       });
     },
     {
       root: null,
-      threshold: 1.0,
+      // 因为监听加载的目标一直在卡片的下面，所以遇到之前肯定已经滚动过卡片的位置了，所以相交的条件可以很小
+      threshold: 0.1,
     }
   );
   observer.observe(sentinel);
-  eventBus.on(config.EVENT_UNOBSERVE_CARD_TARGET, () => {
-    observer.unobserve(sentinel);
-  });
-  eventBus.on(config.EVENT_OBSERVE_CARD_TARGET, () => {
-    sentinel = document.querySelector('.video-card:nth-last-child(2)');
-    observer.observe(sentinel);
-  });
-  eventBus.on(config.EVENT_RESET_CARD_OFFSET, () => {
-    videoCardOffset = 10;
-    channelCardOffset = 1;
-  });
-  eventBus.on(config.EVENT_DISCONNECT_CARD_OBSERVER, () => {
-    observer.disconnect();
-  });
+};
+const initVideoCard = async function () {
+  const videoData = await model.loadVideoData(model.getVideoCardOffset(), 10);
+  model.increaseVideoCardOffset(10);
+  videoCardView.appendCard(videoData);
 };
 
-const initVideoCard = async function () {
-  const videoData = await model.loadVideoData(0, 10);
-  videoCardView.appendCard(videoData);
-  loadNewCard();
-};
-initVideoCard();
 ////////////////////////////////
 // 不感兴趣
 ////////////////////////////////
@@ -620,20 +626,31 @@ controlNoInterest();
 // channel卡片
 ////////////////////////////////
 const initChannelCard = async function () {
-  const channelCardData = await model.loadChannelCardData(0, 1);
+  const channelCardData = await model.loadChannelCardData(
+    model.getChannelCardOffset(),
+    1
+  );
   channelCardView.appendCard(channelCardData, model.getVideoRow());
+  model.increaseChannelCardOffset(1);
   model.increaseVideoRow(1);
 };
-initChannelCard();
+
 /**
  * 刷新内容所需的回调函数
  * 初始化卡片数据
  */
-const initCard = function () {
-  model.resetVideoRow();
-  initVideoCard();
-  initChannelCard();
+const initCard = async function () {
+  const targetEl = document.querySelector('.load-card-target');
+  // 初始化完成前，先让监视对象不显示，这样防止刷新之后由于监听器存在导致loadNewCard在initCard之前加载数据
+  targetEl.style.display = 'none';
+  model.resetLoadCardOffset();
+  await initVideoCard();
+  await initChannelCard();
+  targetEl.style.display = 'block';
 };
+await initCard();
+loadNewCard();
+
 ////////////////////////////////
 // 换一换
 ////////////////////////////////
@@ -642,8 +659,6 @@ const controlChange = function () {
   let deg = 0;
   let changeDataIndex = 0;
   changeWrapperEl.addEventListener('click', async () => {
-    // 停止监视，防止dom删除了内存泄漏
-    eventBus.emit(config.EVENT_UNOBSERVE_CARD_TARGET);
     const iconEl = changeWrapperEl.querySelector('.icon');
     deg += 360;
     iconEl.style.transform = `rotate(${deg}deg)`;
@@ -652,8 +667,6 @@ const controlChange = function () {
     const newVideoData = new Array(10).fill(videoData[realIndex]);
     videoCardView.updateCard(newVideoData);
     changeDataIndex++;
-    // 重新监视，重新可以滚动加载
-    eventBus.emit(config.EVENT_OBSERVE_CARD_TARGET);
   });
 };
 controlChange();

@@ -9,7 +9,7 @@ class ChannelStickyView extends View {
   _bottomCategoriesEl;
   _channelEl;
   _channelStickyEl;
-  _mediaQuery1400 = window.matchMedia('(max-width: 1400px)');
+  _mediaQuery1700 = window.matchMedia('(max-width: 1700px)');
   _mediaQuery1300 = window.matchMedia('(max-width: 1300px)');
 
   _generateMarkup() {
@@ -117,30 +117,48 @@ class ChannelStickyView extends View {
     const contentEl = this._channelStickyEl.querySelector(
       '.channel-sticky-content'
     );
-    const paddingTop = parseInt(window.getComputedStyle(contentEl).paddingTop);
-    const itemHeight =
-      this._channelStickyEl.querySelector('.channel-category').offsetHeight;
-    const categoriesHeight = this._gridContainerEl.offsetHeight;
-    const notExpandHeight = `${paddingTop * 2 + itemHeight}px`;
-    const expandHeight = `${paddingTop * 2 + categoriesHeight}px`;
-    this._channelStickyEl.style.maxHeight = notExpandHeight;
+    const itemEl = this._channelStickyEl.querySelector('.channel-category');
+    let paddingTop;
+    let notExpandHeight;
+    let expandHeight;
     this._channelStickyEl.addEventListener('mouseenter', () => {
       this._channelStickyEl.style.maxHeight = expandHeight;
     });
     this._channelStickyEl.addEventListener('mouseleave', () => {
       this._channelStickyEl.style.maxHeight = notExpandHeight;
     });
+    // 监听元素高度变化，修改channel-sticky的高度
+    const resizeObserver = new ResizeObserver(entries => {
+      paddingTop = parseInt(window.getComputedStyle(contentEl).paddingTop);
+      entries.forEach(entry => {
+        if (entry.target.classList.contains('channel-category')) {
+          // 因为entry.contentRect里面的height只是内容的高度，不包含padding，所以这里要用offsetHeight
+          notExpandHeight = `${paddingTop * 2 + entry.target.offsetHeight}px`;
+          // 需要先更新一下未展开的高度
+          this._channelStickyEl.style.maxHeight = notExpandHeight;
+        }
+        if (entry.target.classList.contains('channel-sticky-categories')) {
+          const { height } = entry.contentRect;
+          // 因为channel-sticky-categories没设置padding，这边就直接用height了
+          expandHeight = `${paddingTop * 2 + height}px`;
+        }
+      });
+    });
+    // 监听元素高度变化
+    resizeObserver.observe(itemEl);
+    resizeObserver.observe(this._gridContainerEl);
   }
+
   /**
    * 控制channel grid的响应式行为
    */
   _controlGridColumnResponsive() {
     // 先执行一次，因为有可能是小屏的时候刷新了页面，媒体查询需要页面大小变化才触发，直接刷新不会触发
-    this._changeColumn1400();
+    this._changeColumn1700();
     this._changeColumn1300();
-    this._mediaQuery1400.addEventListener(
+    this._mediaQuery1700.addEventListener(
       'change',
-      this._changeColumn1400.bind(this)
+      this._changeColumn1700.bind(this)
     );
     this._mediaQuery1300.addEventListener(
       'change',
@@ -168,18 +186,18 @@ class ChannelStickyView extends View {
     this._bottomCategoriesEl.style.gridTemplateColumns = 'repeat(12,1fr)';
     this._bottomCategoriesEl.style.gridColumn = 'span 12';
   }
-  _changeColumn1400() {
-    if (this._mediaQuery1400.matches) {
+  _changeColumn1700() {
+    if (this._mediaQuery1700.matches) {
       this._setGridColumn14();
       this._insertBottomWhenColumn14();
     } else {
       /*
       使用快捷键进行缩放以及点击浏览器的最大化按钮的时候如果同时满足条件
-      触发媒体查询的顺序是按照创建媒体查询的顺序，这里是先触发1400再触发1300
-      _mediaQuery1400 = window.matchMedia('(max-width: 1400px)');
+      触发媒体查询的顺序是按照创建媒体查询的顺序，这里是先触发1700再触发1300
+      _mediaQuery1700 = window.matchMedia('(max-width: 1700px)');
       _mediaQuery1300 = window.matchMedia('(max-width: 1300px)');
-      在缩小的时候是满足要求的，但是最大化的时候我需要先触发1300再触发1400
-      没有想到好的方法，这里在1400的逻辑中手动执行一次1300的逻辑
+      在缩小的时候是满足要求的，但是最大化的时候我需要先触发1300再触发1700
+      没有想到好的方法，这里在1700的逻辑中手动执行一次1300的逻辑
        */
       if (this._leftCategoriesEl.children.length < 22) {
         this._changeColumn1300();

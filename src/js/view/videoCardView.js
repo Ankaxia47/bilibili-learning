@@ -19,8 +19,12 @@ class VideoCardView extends View {
       .map(
         (item, index) => `
       <div class="video-card ${
-        data.length === 10 && index < 6 ? 'margin-top-0' : ''
-      }">
+        data.length === 10 && index < 4 ? 'margin-top-0-small-card' : ''
+      } ${
+          data.length === 10 && index < 6 && index >= 4
+            ? 'margin-top-0-card'
+            : ''
+        } ${data.length - index <= 3 ? 'hidden-card' : ''}">
         <div class="video-link-container">
           <a href="#" class="video-link">
             <div class="video-img-box">

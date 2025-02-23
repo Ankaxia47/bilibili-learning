@@ -6,8 +6,16 @@ import { fetchMockData } from './helper/AJAXHelper.js';
 ////////////////////////////////
 export let nav = {};
 export let topImg = {};
+// 请求video卡片数据的偏移量
+let videoCardOffset = 0;
+// 控制每次加载video卡片数据的数量
+const videoCardLimit = 12;
 // 控制channel卡片插入哪一行
 let videoRow = 3;
+// 请求channel卡片数据的偏移量
+let channelCardOffset = 0;
+// 控制每次加载channel卡片数据的数量
+const channelCardLimit = 3;
 /**
  * 加载顶部导航栏数据
  */
@@ -260,7 +268,6 @@ const pageCardData = function (data, offset, limit) {
   const result = [];
   const realStart = offset % data.length;
   const realEnd = realStart + limit;
-
   let loopCount = 0;
   let restDataLenght = 0;
   if (realEnd >= data.length) {
@@ -286,8 +293,38 @@ export const getVideoRow = function () {
 export const increaseVideoRow = function (num) {
   videoRow += num;
 };
+
+export const getVideoCardOffset = function () {
+  return videoCardOffset;
+};
+export const increaseVideoCardOffset = function (num = videoCardLimit) {
+  videoCardOffset += num;
+};
+export const getVideoCardLimit = function () {
+  return videoCardLimit;
+};
+export const getChannelCardOffset = function () {
+  return channelCardOffset;
+};
+export const increaseChannelCardOffset = function (num = channelCardLimit) {
+  channelCardOffset += num;
+};
+export const getChannelCardLimit = function () {
+  return channelCardLimit;
+};
 export const resetVideoRow = function () {
   videoRow = 3;
+};
+export const resetVideoCardOffest = function () {
+  videoCardOffset = 0;
+};
+export const resetChannelCardOffest = function () {
+  channelCardOffset = 0;
+};
+export const resetLoadCardOffset = function () {
+  resetVideoRow();
+  resetVideoCardOffest();
+  resetChannelCardOffest();
 };
 /**
  * 加载搜索历史数据

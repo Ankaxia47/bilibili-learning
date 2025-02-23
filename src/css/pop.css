@@ -1414,6 +1414,13 @@
 .channel-pop-container {
   padding: 1.6rem;
 }
+/* 更多里面的子元素控制最后5个显示 */
+.channel-more .sub-channel-list-item {
+  display: none;
+}
+.channel-more .sub-channel-list-item:nth-last-child(-n + 5) {
+  display: block;
+}
 .sub-channel-list {
   display: grid;
   grid-template-rows: repeat(4, 1fr);
