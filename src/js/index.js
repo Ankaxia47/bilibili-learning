@@ -552,7 +552,6 @@ const loadNewCard = function () {
     entries => {
       entries.forEach(async entry => {
         if (entry.isIntersecting) {
-          console.log('我要加载新卡片数据了');
           // 停止观察元素，防止重复触发
           observer.unobserve(entry.target);
           const result = await Promise.allSettled([
@@ -647,7 +646,6 @@ const initCard = async function () {
   model.resetLoadCardOffset();
   await initVideoCard();
   await initChannelCard();
-  console.log('我把卡片初始数据加载好了');
   targetEl.style.display = 'block';
 };
 await initCard();

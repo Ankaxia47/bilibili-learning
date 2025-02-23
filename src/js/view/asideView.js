@@ -196,34 +196,34 @@ class AsideView extends View {
     let target;
     let visibleFlag = false;
     const asideTargetObserver = new MutationObserver(mutationsList => {
-      const newVideoCards = [];
+      const newChannelCards = [];
       mutationsList.forEach(mutation => {
         mutation.addedNodes.forEach(node => {
-          if (
-            node.nodeType === 1 &&
-            node.classList.contains('video-card') &&
-            !node.classList.contains('channel-card')
-          ) {
-            newVideoCards.push(node);
+          // 监听channelCard元素，因为videoCard可能会display:none导致无法监听
+          if (node.nodeType === 1 && node.classList.contains('channel-card')) {
+            newChannelCards.push(node);
           }
         });
       });
-      // 取第一次滚动加载的最后一个videoCard
-      if (newVideoCards.length === 12) {
-        target = newVideoCards.at(-1);
+      // 取第一次滚动加载的最后一个channelCard
+      if (newChannelCards.length === 3) {
+        target = newChannelCards.at(-1);
+        // 监听到目标元素后，解除监听
         asideTargetObserver.disconnect();
         const asideVisibleObserver = new IntersectionObserver(
           entries => {
             const [entry] = entries;
+            // 满足相交条件并且按钮不可见，让按钮可见
             if (entry.isIntersecting && !visibleFlag) {
               visibleFlag = true;
               this._refreshBtnEl.classList.remove('hidden');
               this._storageBoxEl.classList.remove('hidden');
               this._returnTopBtnEl.classList.remove('hidden');
             }
+            // 不满足相交条件，并且按钮可见判断是否要隐藏按钮
             if (!entry.isIntersecting && visibleFlag) {
               const rect = entry.boundingClientRect;
-              // 卡片从下方消失，说明在往上滚动
+              // 卡片从下方消失，说明在往上滚动，需要隐藏按钮
               if (rect.top > 0) {
                 visibleFlag = false;
                 this._refreshBtnEl.classList.add('hidden');
@@ -236,7 +236,7 @@ class AsideView extends View {
             root: null,
             threshold: 1,
             // 水平方向给一个很大的值，防止页面缩小，水平方向的相交比例不足1.0不触发回调函数
-            rootMargin: '0px 500px 0px 500px',
+            rootMargin: '0px 2000px 0px 100px',
           }
         );
         asideVisibleObserver.observe(target);

@@ -55,9 +55,6 @@
   .channel-sticky-left {
     gap: 1.2rem;
   }
-  .hot-search-list {
-    grid-template-columns: 1fr;
-  }
 }
 @media (max-width: 1400px) {
   html {
@@ -94,6 +91,9 @@
   .left-nav-link:visited {
     display: block;
     padding: 1.2rem 0.8rem 1.2rem 0;
+  }
+  .hot-search-list {
+    grid-template-columns: 1fr;
   }
 }
 @media (max-width: 1300px) {
